@@ -5,12 +5,12 @@
   ~
   ~ Last modified by "IDMarinas" on 30/12/2024, 18:26
   ~
-  ~ @project IDMarinas Template Bundle
-  ~ @see https://github.com/idmarinas/idm-template-bundle
+  ~ @project IDMarinas Seo Bundle
+  ~ @see https://github.com/idmarinas/seo-bundle
   ~
   ~ @file phpunit.xml.dist
-  ~ @date 20/12/2024
-  ~ @time 18:48
+  ~ @date 19/03/2025
+  ~ @time 17:06
   ~
   ~ @author Iván Diaz Marinas (IDMarinas)
   ~ @license BSD 3-Clause License
@@ -39,7 +39,7 @@
 	</php>
 
 	<testsuites>
-		<testsuite name="IDMarinas Template Bundle Test Suite">
+		<testsuite name="IDMarinas Seo Bundle Test Suite">
 			<directory>tests</directory>
 		</testsuite>
 	</testsuites>

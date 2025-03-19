@@ -4,12 +4,12 @@
  *
  * Last modified by "IDMarinas" on 13/03/2025, 22:13
  *
- * @project IDMarinas Template Bundle
- * @see     https://github.com/idmarinas/idm-template-bundle
+ * @project IDMarinas Seo Bundle
+ * @see     https://github.com/idmarinas/seo-bundle
  *
  * @file    BundleRoutingTest.php
- * @date    03/01/2025
- * @time    20:37
+ * @date    19/03/2025
+ * @time    17:06
  *
  * @author  Iván Diaz Marinas (IDMarinas)
  * @license BSD 3-Clause License
@@ -17,7 +17,7 @@
  * @since   1.0.0
  */
 
-namespace Idm\Bundle\Template\Tests;
+namespace Idm\Bundle\Seo\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Routing\RouterInterface;

@@ -4,12 +4,12 @@
  *
  * Last modified by "IDMarinas" on 13/03/2025, 22:19
  *
- * @project IDMarinas Template Bundle
- * @see     https://github.com/idmarinas/idm-template-bundle
+ * @project IDMarinas Seo Bundle
+ * @see     https://github.com/idmarinas/seo-bundle
  *
  * @file    bundles.php
- * @date    30/12/2024
- * @time    17:53
+ * @date    19/03/2025
+ * @time    17:06
  *
  * @author  Iván Diaz Marinas (IDMarinas)
  * @license BSD 3-Clause License
@@ -20,7 +20,7 @@
 use DAMA\DoctrineTestBundle\DAMADoctrineTestBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle;
-use Idm\Bundle\Template\IdmTemplateBundle;
+use Idm\Bundle\Seo\IdmSeoBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\MakerBundle\MakerBundle;
 use Zenstruck\Foundry\ZenstruckFoundryBundle;
@@ -36,5 +36,5 @@ return [
 	ZenstruckFoundryBundle::class => ['all' => true],
 
 	// This Bundle
-	IdmTemplateBundle::class      => ['all' => true],
+	IdmSeoBundle::class      => ['all' => true],
 ];

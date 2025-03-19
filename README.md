@@ -1,10 +1,10 @@
 <!--suppress HtmlDeprecatedAttribute -->
 <div align="center">
 
-# IDMarinas Template Bundle
+# IDMarinas Seo Bundle
 
-![GitHub release](https://img.shields.io/github/release/idmarinas/REPOSITORY_NAME_CHANGE_ME.svg?style=for-the-badge)
-![GitHub Release Date](https://img.shields.io/github/release-date/idmarinas/REPOSITORY_NAME_CHANGE_ME.svg?style=for-the-badge)
+![GitHub release](https://img.shields.io/github/release/idmarinas/seo-bundle.svg?style=for-the-badge)
+![GitHub Release Date](https://img.shields.io/github/release-date/idmarinas/seo-bundle.svg?style=for-the-badge)
 
 </div>
 
@@ -14,26 +14,26 @@
 
 <div align="center">
 
-[![Test Suite](https://img.shields.io/github/actions/workflow/status/idmarinas/template-bundle/php.yml?branch=master&style=for-the-badge&logo=github&logoColor=white&label=Lotgd%20Test%20Suite)][test-suit]
-[![Quality Gate Status](https://img.shields.io/sonar/quality_gate/SONAR_PROJECT_NAME_CHANGE_ME/BRANCH_MASTER?server=https%3A%2F%2Fsonarcloud.io&style=for-the-badge&logo=sonarcloud&logoColor=white)](https://sonarcloud.io/summary/new_code?id=SONAR_PROJECT_NAME_CHANGE_ME)
-[![Coverage](https://img.shields.io/sonar/coverage/SONAR_PROJECT_NAME_CHANGE_ME/BRANCH_MASTER?server=https%3A%2F%2Fsonarcloud.io&style=for-the-badge&logo=sonarcloud&logoColor=white)][sonarcloud]
-[![Technical Debt](https://img.shields.io/sonar/tech_debt/SONAR_PROJECT_NAME_CHANGE_ME/BRANCH_MASTER?server=https%3A%2F%2Fsonarcloud.io&style=for-the-badge&logo=sonarcloud&logoColor=white)][sonarcloud]
+[![Test Suite](https://img.shields.io/github/actions/workflow/status/idmarinas/seo-bundle/php.yml?branch=1.x&style=for-the-badge&logo=github&logoColor=white&label=Lotgd%20Test%20Suite)][test-suit]
+[![Quality Gate Status](https://img.shields.io/sonar/quality_gate/idmarinas_seo-bundle/1.x?server=https%3A%2F%2Fsonarcloud.io&style=for-the-badge&logo=sonarcloud&logoColor=white)](https://sonarcloud.io/summary/new_code?id=idmarinas_seo-bundle)
+[![Coverage](https://img.shields.io/sonar/coverage/idmarinas_seo-bundle/1.x?server=https%3A%2F%2Fsonarcloud.io&style=for-the-badge&logo=sonarcloud&logoColor=white)][sonarcloud]
+[![Technical Debt](https://img.shields.io/sonar/tech_debt/idmarinas_seo-bundle/1.x?server=https%3A%2F%2Fsonarcloud.io&style=for-the-badge&logo=sonarcloud&logoColor=white)][sonarcloud]
 
 <br />
 
-![Github commits (since latest release)](https://img.shields.io/github/commits-since/idmarinas/template-bundle/latest/master?style=for-the-badge)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/w/idmarinas/template-bundle/master?style=for-the-badge)
-![GitHub last commit](https://img.shields.io/github/last-commit/idmarinas/template-bundle/master?style=for-the-badge)
+![Github commits (since latest release)](https://img.shields.io/github/commits-since/idmarinas/seo-bundle/latest/1.x?style=for-the-badge)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/idmarinas/seo-bundle/1.x?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/idmarinas/seo-bundle/1.x?style=for-the-badge)
 
 #### Code analysis
 
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=SONAR_PROJECT_NAME_CHANGE_ME&branch=BRANCH_MASTER&metric=reliability_rating)][sonarcloud]
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=SONAR_PROJECT_NAME_CHANGE_ME&branch=BRANCH_MASTER&metric=bugs)][sonarcloud]
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=SONAR_PROJECT_NAME_CHANGE_ME&branch=BRANCH_MASTER&metric=security_rating)][sonarcloud]
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=SONAR_PROJECT_NAME_CHANGE_ME&branch=BRANCH_MASTER&metric=vulnerabilities)][sonarcloud]
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=SONAR_PROJECT_NAME_CHANGE_ME&branch=BRANCH_MASTER&metric=sqale_rating)][sonarcloud]
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=SONAR_PROJECT_NAME_CHANGE_ME&branch=BRANCH_MASTER&metric=code_smells)][sonarcloud]
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=SONAR_PROJECT_NAME_CHANGE_ME&branch=BRANCH_MASTER&metric=duplicated_lines_density)][sonarcloud]
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=idmarinas_seo-bundle&branch=1.x&metric=reliability_rating)][sonarcloud]
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=idmarinas_seo-bundle&branch=1.x&metric=bugs)][sonarcloud]
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=idmarinas_seo-bundle&branch=1.x&metric=security_rating)][sonarcloud]
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=idmarinas_seo-bundle&branch=1.x&metric=vulnerabilities)][sonarcloud]
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=idmarinas_seo-bundle&branch=1.x&metric=sqale_rating)][sonarcloud]
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=idmarinas_seo-bundle&branch=1.x&metric=code_smells)][sonarcloud]
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=idmarinas_seo-bundle&branch=1.x&metric=duplicated_lines_density)][sonarcloud]
 
 </div>
 
@@ -48,37 +48,49 @@
 
 <br />
 
-<!-- readme-template -->
+# 💾 Installation
 
-## Install this template
+Make sure Composer is installed globally, as explained in the
+[installation chapter](https://getcomposer.org/doc/00-intro.md)
+of the Composer documentation.
 
-#### Option 1
+## 💪 Applications that use Symfony Flex
 
-> Clone repository
+Open a command console, enter your project directory and execute:
 
-````shell
-  git clone https://github.com/idmarinas/template-bundle.git
-````
+```console
+$ composer require idmarinas/seo-bundle
+```
 
-#### Option 2
+## 🚫 Applications that don't use Symfony Flex
 
-> Visit https://github.com/idmarinas/template-bundle and click in button **Use this template**
+### Step 1️⃣: Download the Bundle
 
-## Customize template
+Open a command console, enter your project directory and execute the
+following command to download the latest stable version of this bundle:
 
-> For customize this template with your Name and Namespace use
+```console
+$ composer require idmarinas/seo-bundle
+```
 
-````shell
-  composer install
-  composer idm:customize:bundle
-````
+### Step 2️⃣: Enable the Bundle
 
-> Now only need to answer the questions
-<!-- readme-template -->
+Then, enable the bundle by adding it to the list of registered bundles
+in the `config/bundles.php` file of your project:
+
+```php
+// config/bundles.php
+
+return [
+    // ...
+    Idm\Bundle\Seo\IdmSeoBundle::class => ['all' => true],
+];
+```
+
 
 ## 🖱️ Tech used in code
 
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/idmarinas/template-bundle.svg?style=for-the-badge)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/idmarinas/seo-bundle.svg?style=for-the-badge)
 [![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net)
 [![Symfony](https://img.shields.io/badge/symfony-black.svg?style=for-the-badge&logo=symfony&logoColor=white)](https://www.symfony.com)
 
@@ -95,5 +107,5 @@
 [![Discord](https://img.shields.io/badge/Discord-IDMarinas-blue?logo=discord&style=for-the-badge&logoColor=white)](https://discord.gg/FXEZqpF)
 
 [//]: # (@formatter:off)
-[sonarcloud]: https://sonarcloud.io/dashboard?id=SONAR_PROJECT_NAME_CHANGE_ME
-[test-suit]: https://github.com/idmarinas/template-bundle/actions/workflows/php.yml
+[sonarcloud]: https://sonarcloud.io/dashboard?id=idmarinas_seo-bundle
+[test-suit]: https://github.com/idmarinas/seo-bundle/actions/workflows/php.yml

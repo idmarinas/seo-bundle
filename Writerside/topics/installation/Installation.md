@@ -37,6 +37,6 @@ in the `config/bundles.php` file of your project:
 
 return [
     // ...
-    Idm\Bundle\Template\IdmTemplateBundle::class => ['all' => true],
+    Idm\Bundle\Seo\IdmSeoBundle::class => ['all' => true],
 ];
 ```

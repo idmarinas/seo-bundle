@@ -4,12 +4,12 @@
  *
  * Last modified by "IDMarinas" on 16/03/2025, 19:56
  *
- * @project IDMarinas Template Bundle
- * @see     https://github.com/idmarinas/idm-template-bundle
+ * @project IDMarinas Seo Bundle
+ * @see     https://github.com/idmarinas/seo-bundle
  *
  * @file    doctrine.php
- * @date    30/12/2024
- * @time    17:53
+ * @date    19/03/2025
+ * @time    17:06
  *
  * @author  Iván Diaz Marinas (IDMarinas)
  * @license BSD 3-Clause License
@@ -19,7 +19,7 @@
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use Idm\Bundle\Template\IdmTemplateBundle;
+use Idm\Bundle\Seo\IdmSeoBundle;
 use ReflectionClass;
 use Symfony\Component\Filesystem\Filesystem;
 use function Symfony\Component\String\u;
@@ -37,7 +37,7 @@ return static function (ContainerConfigurator $container) {
 		return $dir;
 	};
 
-	$dbName = (new ReflectionClass(IdmTemplateBundle::class))->getShortName();
+	$dbName = (new ReflectionClass(IdmSeoBundle::class))->getShortName();
 	$dbName = u($dbName)->snake()->toString();
 
 	$container->extension('doctrine', [

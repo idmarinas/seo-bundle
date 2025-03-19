@@ -2,8 +2,8 @@
 <!DOCTYPE instance-profile
 	SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
 
-<instance-profile id="itb"
-                  name="IDMarinas Template Bundle"
+<instance-profile id="isb"
+                  name="IDMarinas Seo Bundle"
                   start-page="Index.md">
 
 	<toc-element topic="Index.md" />

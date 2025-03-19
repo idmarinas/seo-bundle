@@ -4,12 +4,12 @@
  *
  * Last modified by "IDMarinas" on 14/03/2025, 23:08
  *
- * @project IDMarinas Template Bundle
- * @see     https://github.com/idmarinas/idm-template-bundle
+ * @project IDMarinas Seo Bundle
+ * @see     https://github.com/idmarinas/seo-bundle
  *
  * @file    rector.php
- * @date    02/01/2025
- * @time    22:23
+ * @date    19/03/2025
+ * @time    17:06
  *
  * @author  Iván Diaz Marinas (IDMarinas)
  * @license BSD 3-Clause License

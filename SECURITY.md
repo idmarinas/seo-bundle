@@ -22,4 +22,4 @@ below.
 
 [security]: https://symfony.com/security
 
-[advisories]: https://github.com/idmarinas/template-bundle/security/advisories
+[advisories]: https://github.com/idmarinas/seo-bundle/security/advisories

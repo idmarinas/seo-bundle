@@ -4,12 +4,12 @@
  *
  * Last modified by "IDMarinas" on 12/02/2025, 13:16
  *
- * @project IDMarinas Template Bundle
- * @see     https://github.com/idmarinas/idm-template-bundle
+ * @project IDMarinas Seo Bundle
+ * @see     https://github.com/idmarinas/seo-bundle
  *
  * @file    routes.php
- * @date    20/12/2024
- * @time    17:48
+ * @date    19/03/2025
+ * @time    17:06
  *
  * @author  Iván Diaz Marinas (IDMarinas)
  * @license BSD 3-Clause License

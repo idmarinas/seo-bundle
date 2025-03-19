@@ -1,13 +1,10 @@
 {
-	"name": "idmarinas/template-bundle",
+	"name": "idmarinas/seo-bundle",
 	"description": "Template for create a custom Symfony ^6.4 and ^7.0 Bundle",
-	"type": "template",
+	"type": "symfony-bundle",
 	"license": "BSD-3-Clause",
-	"keywords": [
-		"template",
-		"symfony-bundle"
-	],
-	"homepage": "https://github.com/idmarinas/idm-template-bundle",
+	"keywords": ["symfony-bundle"],
+	"homepage": "https://github.com/idmarinas/seo-bundle",
 	"authors": [
 		{
 			"name": "Iván Diaz Marinas (IDMarinas)",
@@ -16,7 +13,7 @@
 		}
 	],
 	"support": {
-		"issues": "https://github.com/idmarinas/idm-template-bundle/issues"
+		"issues": "https://github.com/idmarinas/seo-bundle/issues"
 	},
 	"minimum-stability": "stable",
 	"prefer-stable": true,
@@ -42,13 +39,13 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Idm\\Bundle\\Template\\": "src/"
+			"Idm\\Bundle\\Seo\\": "src/"
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
 			"App\\": "app/src/",
-			"Idm\\Bundle\\Template\\Tests\\": "tests/",
+			"Idm\\Bundle\\Seo\\Tests\\": "tests/",
 			"DataFixtures\\": "fixtures/",
 			"Factory\\": "factories/"
 		}
@@ -68,7 +65,7 @@
 	"config": {
 		"allow-plugins": {
 			"composer/package-versions-deprecated": true,
-			"idmarinas/composer-plugin": true,
+			"idmarinas/composer-plugin": false,
 			"symfony/flex": true,
 			"symfony/runtime": true
 		},

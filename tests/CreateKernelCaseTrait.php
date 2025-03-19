@@ -4,12 +4,12 @@
  *
  * Last modified by "IDMarinas" on 14/03/2025, 23:20
  *
- * @project IDMarinas Template Bundle
- * @see     https://github.com/idmarinas/idm-template-bundle
+ * @project IDMarinas Seo Bundle
+ * @see     https://github.com/idmarinas/seo-bundle
  *
  * @file    CreateKernelCaseTrait.php
- * @date    13/03/2025
- * @time    19:40
+ * @date    19/03/2025
+ * @time    17:06
  *
  * @author  Iván Diaz Marinas (IDMarinas)
  * @license BSD 3-Clause License
@@ -17,7 +17,7 @@
  * @since   2.0.0
  */
 
-namespace Idm\Bundle\Template\Tests;
+namespace Idm\Bundle\Seo\Tests;
 
 use App\Kernel;
 use Symfony\Component\HttpKernel\KernelInterface;

@@ -84,5 +84,11 @@
 			"type": "github-sponsors",
 			"url": "https://github.com/sponsors/idmarinas"
 		}
-	]
+	],
+	"extra": {
+		"thanks": {
+			"name": "idmarinas/seo-bundle",
+			"url": "https://github.com/idmarinas/seo-bundle"
+		}
+	}
 }

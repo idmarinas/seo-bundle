@@ -3,7 +3,9 @@
 	"description": "Template for create a custom Symfony ^6.4 and ^7.0 Bundle",
 	"type": "symfony-bundle",
 	"license": "BSD-3-Clause",
-	"keywords": ["symfony-bundle"],
+	"keywords": [
+		"symfony-bundle"
+	],
 	"homepage": "https://github.com/idmarinas/seo-bundle",
 	"authors": [
 		{
@@ -19,6 +21,7 @@
 	"prefer-stable": true,
 	"require": {
 		"php": "^8.3",
+		"ext-dom": "*",
 		"symfony/dependency-injection": "^6.4 | ^7.1",
 		"symfony/framework-bundle": "^6.4 | ^7.1"
 	},

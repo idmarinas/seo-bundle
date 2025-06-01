@@ -16,19 +16,6 @@ ij_visual_guides            = 80, 120
 ij_smart_tabs               = true
 ij_wrap_on_typing           = true
 
-# Specific configuration for PHP (following Symfony standards)
-[*.php]
-ij_php_align_assignments                   = false
-ij_php_align_key_value_pairs               = false
-ij_php_blank_lines_after_imports           = 1
-ij_php_blank_lines_after_opening_tag       = 0
-ij_php_blank_lines_before_return_statement = 1
-ij_php_comma_after_last_array_element      = true
-ij_php_force_short_declaration_array_style = true
-ij_php_phpdoc_blank_line_before_tags       = true
-ij_php_phpdoc_keep_blank_lines             = true
-ij_php_spaces_around_pipe_in_union_type    = true
-
 # Configuration for YAML files (common in Symfony projects)
 [{compose*.{yml,yaml},.github/workflows/*.{yml,yaml}}]
 indent_size = 2

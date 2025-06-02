@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 02/01/2025, 23:32
+ * Last modified by "IDMarinas" on 02/06/2025, 13:44
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -28,5 +28,10 @@ final class IdmSeoBundle extends AbstractBundle
 	public function loadExtension (array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
 	{
 		$container->import(dirname(__DIR__) . '/config/services.php');
+	}
+
+	public function prependExtension (ContainerConfigurator $container, ContainerBuilder $builder): void
+	{
+		$container->import(dirname(__DIR__) . '/config/cache.php');
 	}
 }

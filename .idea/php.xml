@@ -33,6 +33,11 @@
     </phpcs_settings>
   </component>
   <component name="PhpIncludePathManager">
+    <exclude_path>
+      <path value="$PROJECT_DIR$/vendor/rector/rector/stubs-rector" />
+      <path value="$PROJECT_DIR$/vendor/symfony/maker-bundle/src/Resources/bin" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php83/Resources/stubs" />
+    </exclude_path>
     <include_path>
       <path value="$PROJECT_DIR$/var/cache/dev/Symfony/Config" />
       <path value="$PROJECT_DIR$/vendor/phar-io/version" />
@@ -71,8 +76,6 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-grapheme" />
       <path value="$PROJECT_DIR$/vendor/symfony/property-access" />
       <path value="$PROJECT_DIR$/vendor/symfony/process" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php83" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php81" />
       <path value="$PROJECT_DIR$/vendor/symfony/http-foundation" />
       <path value="$PROJECT_DIR$/vendor/symfony/framework-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/finder" />
@@ -132,6 +135,8 @@
       <path value="$PROJECT_DIR$/vendor/php-mock/php-mock-phpunit" />
       <path value="$PROJECT_DIR$/vendor/php-mock/php-mock" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php84" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php81" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php83" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 29/05/2025, 19:55
+ * Last modified by "IDMarinas" on 03/06/2025, 20:29
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -22,6 +22,7 @@ namespace Idm\Bundle\Seo\Sitemap;
 use DateMalformedStringException;
 use DateTime;
 use DateTimeInterface;
+use DOMDocument;
 use DOMElement;
 use DOMException;
 use InvalidArgumentException;
@@ -151,22 +152,22 @@ final class Url
 	/**
 	 * @throws DOMException
 	 */
-	public function getNode (): DOMElement
+	public function getNode (DOMDocument $document): DOMElement
 	{
-		$node = new DOMElement('url');
+		$node = $document->createElement('url');
 
-		$node->appendChild(new DOMElement('loc', $this->getLoc()));
+		$node->appendChild($document->createElement('loc', $this->getLoc()));
 
 		if (null !== $this->getLastmod()) {
-			$node->appendChild(new DOMElement('lastmod', $this->getLastmod()));
+			$node->appendChild($document->createElement('lastmod', $this->getLastmod()));
 		}
 
 		if (null !== $this->getChangefreq()) {
-			$node->appendChild(new DOMElement('changefreq', $this->getChangefreq()));
+			$node->appendChild($document->createElement('changefreq', $this->getChangefreq()));
 		}
 
 		if (null !== $this->getPriority()) {
-			$node->appendChild(new DOMElement('priority', $this->getPriority()));
+			$node->appendChild($document->createElement('priority', $this->getPriority()));
 		}
 
 		return $node;

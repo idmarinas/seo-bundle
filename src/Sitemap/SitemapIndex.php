@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 02/06/2025, 17:45
+ * Last modified by "IDMarinas" on 02/06/2025, 22:35
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -19,12 +19,8 @@
 
 namespace Idm\Bundle\Seo\Sitemap;
 
-use DateTimeInterface;
-use DOMElement;
 use DOMException;
-use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\InvalidArgumentException;
-use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 final class SitemapIndex extends AbstractSitemap
 {
@@ -32,30 +28,12 @@ final class SitemapIndex extends AbstractSitemap
 	 * @throws DOMException
 	 * @throws InvalidArgumentException
 	 */
-	public function __construct (private readonly CacheItemPoolInterface&TagAwareCacheInterface $cache)
+	public function __construct ()
 	{
-		parent::__construct('index', cache: $this->cache, index: true);
+		parent::__construct('index');
 
 		$element = $this->getSitemap()->createElementNS('http://www.sitemaps.org/schemas/sitemap/0.9', 'sitemapindex');
 
 		$this->getSitemap()->append($element);
-	}
-
-	/**
-	 * @param string                 $loc     URL location of the getSitemap file
-	 * @param null|DateTimeInterface $lastmod Last modification date of the getSitemap
-	 *
-	 * @throws DOMException
-	 */
-	public function addSitemapNode (string $loc, ?DateTimeInterface $lastmod = null): void
-	{
-		$sitemap = $this->getSitemap()->createElement('sitemap');
-
-		$sitemap->appendChild(new DOMElement('loc', $loc));
-		if (null !== $lastmod) {
-			$sitemap->appendChild(new DOMElement('lastmod', $lastmod->format(DateTimeInterface::W3C)));
-		}
-
-		$this->getSitemap()->appendChild($sitemap);
 	}
 }

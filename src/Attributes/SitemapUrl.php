@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 01/06/2025, 20:07
+ * Last modified by "IDMarinas" on 02/06/2025, 21:21
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -27,14 +27,6 @@ use Idm\Bundle\Seo\Sitemap\Url;
 #[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_FUNCTION)]
 final class SitemapUrl implements SitemapInterface
 {
-	public const CHANGEFREQ_ALWAYS  = 'always';
-	public const CHANGEFREQ_HOURLY  = 'hourly';
-	public const CHANGEFREQ_DAILY   = 'daily';
-	public const CHANGEFREQ_WEEKLY  = 'weekly';
-	public const CHANGEFREQ_MONTHLY = 'monthly';
-	public const CHANGEFREQ_YEARLY  = 'yearly';
-	public const CHANGEFREQ_NEVER   = 'never';
-
 	public function __construct (
 		public readonly string                        $priority = '0.5',
 		public readonly string                        $changefreq = self::CHANGEFREQ_WEEKLY,

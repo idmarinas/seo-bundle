@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 05/06/2025, 19:20
+ * Last modified by "IDMarinas" on 05/06/2025, 19:28
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -63,8 +63,6 @@ final class SitemapInfo
 
 	public function __serialize (): array
 	{
-		dump(__FUNCTION__);
-
 		return [
 			'updated_at' => $this->updatedAt,
 			'sitemap'    => $this->document->getDocument()->saveXML(),
@@ -79,7 +77,6 @@ final class SitemapInfo
 	 */
 	public function __unserialize (array $data): void
 	{
-		dump(__FUNCTION__);
 		$this->updatedAt = $data['updated_at'];
 		$this->name = $data['name'];
 		$this->index = $data['index'];

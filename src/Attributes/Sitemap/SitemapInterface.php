@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 02/06/2025, 21:21
+ * Last modified by "IDMarinas" on 04/06/2025, 21:32
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -17,7 +17,9 @@
  * @since   1.0.0
  */
 
-namespace Idm\Bundle\Seo\Attributes;
+namespace Idm\Bundle\Seo\Attributes\Sitemap;
+
+use Idm\Bundle\Seo\Sitemap\Node\Url;
 
 interface SitemapInterface
 {
@@ -28,4 +30,17 @@ interface SitemapInterface
 	public const CHANGEFREQ_MONTHLY = 'monthly';
 	public const CHANGEFREQ_YEARLY  = 'yearly';
 	public const CHANGEFREQ_NEVER   = 'never';
+
+	public const CHANGEFREQ_VALUES = [
+		self::CHANGEFREQ_ALWAYS,
+		self::CHANGEFREQ_HOURLY,
+		self::CHANGEFREQ_DAILY,
+		self::CHANGEFREQ_WEEKLY,
+		self::CHANGEFREQ_MONTHLY,
+		self::CHANGEFREQ_YEARLY,
+		self::CHANGEFREQ_NEVER,
+		null,
+	];
+
+	public function getUrl (string $loc): Url;
 }

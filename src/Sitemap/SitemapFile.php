@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 02/06/2025, 18:36
+ * Last modified by "IDMarinas" on 05/06/2025, 14:51
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -19,21 +19,299 @@
 
 namespace Idm\Bundle\Seo\Sitemap;
 
+use Countable;
+use DOMDocument;
+use DOMElement;
 use DOMException;
-use Psr\Cache\InvalidArgumentException;
+use DOMNode;
+use DOMXPath;
+use Exception;
+use Idm\Bundle\Seo\Sitemap\Node\AbstractNode;
+use Idm\Bundle\Seo\Sitemap\Node\Sitemap;
+use Idm\Bundle\Seo\Sitemap\Node\Url;
+use InvalidArgumentException;
+use LogicException;
 
-final class SitemapFile extends AbstractSitemap
+/**
+ * Allows generating both standard sitemaps and sitemap indexes
+ */
+final class SitemapFile implements Countable
 {
+	protected readonly DOMDocument $document;
+	protected ?DOMElement          $rootElement = null;
+
 	/**
-	 * @throws DOMException
-	 * @throws InvalidArgumentException
+	 * Creates a new sitemap instance
+	 *
+	 * @param string $name  The name of the sitemap file
+	 * @param bool   $index Whether this is an index sitemap (true) or a normal sitemap (false)
+	 *
+	 * @throws DOMException If there's an error creating the DOM structure
 	 */
-	public function __construct (private readonly string $name)
+	public function __construct (protected readonly string $name, protected readonly bool $index = false)
 	{
-		parent::__construct(name: $this->name);
+		$this->document = new DOMDocument('1.0', 'UTF-8');
+		$this->document->formatOutput = true;
 
-		$element = $this->getSitemap()->createElementNS('http://www.sitemaps.org/schemas/sitemap/0.9', 'urlset');
+		// Initialize the root element according to the sitemap type
+		$this->initRootElement($this->index ? 'sitemapindex' : 'urlset');
+	}
 
-		$this->getSitemap()->append($element);
+	/**
+	 * Adds a URL node to the sitemap
+	 *
+	 * @param Url $url The URL node to add
+	 *
+	 * @throws LogicException If this is an index sitemap
+	 * @throws Exception If there's an error adding the node
+	 */
+	public function addUrl (Url $url): self
+	{
+		if ($this->index) {
+			throw new LogicException('Cannot add URL node to index sitemap. Use addSitemap() instead.');
+		}
+
+		return $this->addNode($url);
+	}
+
+	/**
+	 * Adds a Sitemap node to the sitemap index
+	 *
+	 * @param Sitemap $sitemap The Sitemap node to add
+	 *
+	 * @throws LogicException If this is not an index sitemap
+	 * @throws Exception If there's an error adding the node
+	 */
+	public function addSitemap (Sitemap $sitemap): self
+	{
+		if (!$this->index) {
+			throw new LogicException('Cannot add sitemap node to non-index sitemap. Use addUrl() instead.');
+		}
+
+		return $this->addNode($sitemap);
+	}
+
+	/**
+	 * Returns the number of URL or Sitemap nodes in the sitemap
+	 */
+	public function count (): int
+	{
+		if ($this->rootElement === null) {
+			return 0;
+		}
+
+		return $this->document->getElementsByTagName($this->index ? 'sitemap' : 'url')->count();
+	}
+
+	/**
+	 * Returns the underlying DOMDocument
+	 */
+	public function getDocument (): DOMDocument
+	{
+		return $this->document;
+	}
+
+	/**
+	 * Returns the sitemap XML as a string
+	 */
+	public function toString (): string
+	{
+		return $this->document->saveXML();
+	}
+
+	/**
+	 * Loads an XML into the sitemap
+	 *
+	 * @param string $xml The XML to load
+	 *
+	 * @throws InvalidArgumentException If the XML is invalid
+	 */
+	public function load (string $xml): void
+	{
+		try {
+			$result = $this->document->loadXML($xml);
+
+			if ($result === false) {
+				throw new InvalidArgumentException('Failed to load XML: Invalid XML format');
+			}
+
+			$this->document->encoding = 'UTF-8';
+			$this->document->formatOutput = true;
+
+			// Update the root element reference
+			$rootTagName = $this->index ? 'sitemapindex' : 'urlset';
+			$elements = $this->document->getElementsByTagName($rootTagName);
+
+			if ($elements->length > 0) {
+				$this->rootElement = $elements->item(0);
+			} else {
+				// If the root element is not found, initialize it
+				$this->initRootElement($rootTagName);
+			}
+		} catch (Exception $e) {
+			throw new InvalidArgumentException('Failed to load XML: ' . $e->getMessage(), 0, $e);
+		}
+	}
+
+	/**
+	 * Validates that the sitemap complies with specifications
+	 *
+	 * @throws LogicException If the sitemap is not valid
+	 */
+	public function validate (): void
+	{
+		// Check that the root element exists
+		if ($this->rootElement === null) {
+			throw new LogicException('Root element not initialized.');
+		}
+
+		// Check that it does not exceed the maximum number of URLs
+		$count = $this->count();
+		if ($count > 50000) {
+			throw new LogicException(
+				sprintf(
+					'A sitemap cannot contain more than 50,000 %s. Current count: %d.',
+					$this->index ? 'sitemaps' : 'URLs',
+					$count
+				)
+			);
+		}
+
+		// Check that the XML size does not exceed 50 MB
+		$xmlSize = strlen($this->toString());
+		if ($xmlSize > 52428800) { // 50MB in bytes
+			throw new LogicException(
+				sprintf(
+					'A sitemap cannot be larger than 50MB (52,428,800 bytes). Current size: %s bytes.',
+					$xmlSize
+				)
+			);
+		}
+	}
+
+	/**
+	 * Method for compatibility with related classes' code
+	 */
+	public function isIndex (): bool
+	{
+		return $this->index;
+	}
+
+	/**
+	 * Method for compatibility with related classes' code
+	 */
+	public function getName (): string
+	{
+		return $this->name;
+	}
+
+	/**
+	 * Checks if a sitemap is empty
+	 */
+	public function isEmpty (): bool
+	{
+		return $this->count() === 0;
+	}
+
+	/**
+	 * Initializes the root element of the sitemap
+	 *
+	 * @param string $rootElementName Root element name ('urlset' or 'sitemapindex')
+	 *
+	 * @throws DOMException If there's an error creating the element
+	 */
+	protected function initRootElement (string $rootElementName): void
+	{
+		if (null !== $this->rootElement) {
+			return;
+		}
+
+		$this->rootElement = $this->document->createElementNS(
+			'https://www.sitemaps.org/schemas/sitemap/0.9',
+			$rootElementName
+		);
+		$this->document->appendChild($this->rootElement);
+	}
+
+	/**
+	 * Adds a node to the sitemap (URL or Sitemap)
+	 *
+	 * @param AbstractNode $node The node to add
+	 *
+	 * @throws LogicException If the root element is not initialized
+	 * @throws Exception If there's an error creating the node
+	 */
+	private function addNode (AbstractNode $node): self
+	{
+		if ($this->rootElement === null) {
+			throw new LogicException('Root element not initialized. This is an internal error that should not happen.');
+		}
+
+		try {
+			$loc = $node->getLoc();
+
+			// Check if a node with this URL already exists
+			$existingNode = $this->findUrlByLocation($loc);
+
+			$newNode = $node->getNode($this->document);
+
+			if ($existingNode !== null) {
+				// If it exists, replace the existing node with the new one
+				$this->rootElement->replaceChild($newNode, $existingNode);
+			} else {
+				// If it doesn't exist, add the new node
+				$this->rootElement->appendChild($newNode);
+			}
+
+			return $this;
+		} catch (Exception $e) {
+			throw new Exception(
+				sprintf('Error adding node with location "%s": %s', $node->getLoc(), $e->getMessage()),
+				$e->getCode(),
+				$e
+			);
+		}
+	}
+
+	/**
+	 * Finds a URL node by its location safely
+	 *
+	 * @param string $location The URL to search for
+	 */
+	private function findUrlByLocation (string $location): ?DOMNode
+	{
+		if ($this->rootElement === null) {
+			return null;
+		}
+
+		$xpath = new DOMXPath($this->document);
+
+		// Use a safer approach to avoid XPath injection
+		$tag = $this->index ? 'sitemap' : 'url';
+		$query = sprintf("//%s/loc[text()='%s']", $tag, htmlspecialchars($location, ENT_QUOTES));
+
+		// Try to use a more specific XPath query first
+		$nodes = $xpath->query($query);
+
+		if ($nodes !== false && $nodes->length > 0) {
+			return $nodes->item(0)->parentNode;
+		}
+
+		// Fallback to the previous method if the specific query doesn't work
+		$query = "//$tag/loc";
+		$nodes = $xpath->query($query);
+
+		if ($nodes === false) {
+			return null;
+		}
+
+		for ($i = 0; $i < $nodes->length; $i++) {
+			$node = $nodes->item($i);
+			if ($node && $location === $node->textContent) {
+				return $node->parentNode;
+			}
+		}
+
+		return null;
 	}
 }

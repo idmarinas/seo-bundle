@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 05/06/2025, 19:06
+ * Last modified by "IDMarinas" on 05/06/2025, 19:25
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -17,7 +17,7 @@
  * @since   1.0.0
  */
 
-namespace Idm\Bundle\Seo\Traits\Service\SitemapGenerator;
+namespace Idm\Bundle\Seo\Traits\Service;
 
 use DateTime;
 use Idm\Bundle\Seo\Cache\SitemapInfo;

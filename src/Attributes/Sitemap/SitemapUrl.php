@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 02/06/2025, 21:21
+ * Last modified by "IDMarinas" on 04/06/2025, 21:32
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -17,27 +17,26 @@
  * @since   1.0.0
  */
 
-namespace Idm\Bundle\Seo\Attributes;
+namespace Idm\Bundle\Seo\Attributes\Sitemap;
 
 use Attribute;
 use DateMalformedStringException;
-use DateTimeInterface;
-use Idm\Bundle\Seo\Sitemap\Url;
+use Idm\Bundle\Seo\Sitemap\Node\Url;
 
 #[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_FUNCTION)]
-final class SitemapUrl implements SitemapInterface
+final readonly class SitemapUrl implements SitemapInterface
 {
 	public function __construct (
-		public readonly string                        $priority = '0.5',
-		public readonly string                        $changefreq = self::CHANGEFREQ_WEEKLY,
-		public readonly null|string|DateTimeInterface $lastmod = null,
+		public string $priority = '0.5',
+		public string $changefreq = self::CHANGEFREQ_WEEKLY,
 	) {}
 
 	/**
+	 * @inheritdoc
 	 * @throws DateMalformedStringException
 	 */
 	public function getUrl (string $loc): Url
 	{
-		return new Url($loc, $this->lastmod, $this->changefreq, $this->priority);
+		return new Url($loc, null, $this->changefreq, $this->priority);
 	}
 }

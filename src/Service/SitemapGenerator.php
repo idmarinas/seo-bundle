@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 05/06/2025, 19:16
+ * Last modified by "IDMarinas" on 05/06/2025, 19:25
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -30,8 +30,8 @@ use Idm\Bundle\Seo\Attributes\Sitemap\SitemapInterface;
 use Idm\Bundle\Seo\Attributes\Sitemap\SitemapUrl;
 use Idm\Bundle\Seo\Sitemap\Node\Sitemap;
 use Idm\Bundle\Seo\Sitemap\SitemapFile;
+use Idm\Bundle\Seo\Traits\Service\SaveLoadTrait;
 use Idm\Bundle\Seo\Traits\Service\SitemapGenerator\GenerateDynamicSitemapTrait;
-use Idm\Bundle\Seo\Traits\Service\SitemapGenerator\SaveLoadTrait;
 use Psr\Cache\CacheException;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\InvalidArgumentException;

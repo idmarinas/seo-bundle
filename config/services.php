@@ -1,13 +1,13 @@
 <?php
 /**
- * Copyright 2024 (C) IDMarinas - All Rights Reserved
+ * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 16/12/2024, 19:06
+ * Last modified by "IDMarinas" on 05/06/2025, 18:21
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
  *
- * @file    service.php
+ * @file    services.php
  * @date    19/03/2025
  * @time    17:06
  *
@@ -19,10 +19,35 @@
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
+use Idm\Bundle\Seo\Cache\Warmer\GenerateSitemap;
+use Idm\Bundle\Seo\Controller\SitemapController;
+use Idm\Bundle\Seo\Service\SitemapGenerator;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+
 return function (ContainerConfigurator $container) {
 	// @formatter:off
 	$container->services()
+		->set('idm_seo.service.cache_adapter', FilesystemAdapter::class)
+			->private()
+			->args(['', '0', '%kernel.cache_dir%/pools/seo', service('cache.default_marshaller')])
 
+		->set('idm_seo.service.sitemap_generator', SitemapGenerator::class)
+			->private()
+			->args([
+				'$router' => service('router.default'),
+				'$eventDispatcher' => service('event_dispatcher'),
+				'$cache' => service('idm_seo.cache'),
+				'$entityManager' => service('doctrine.orm.entity_manager')
+			])
+
+		->set('idm_seo.cache.warmer', GenerateSitemap::class)
+			->private()
+			->args(['$generator' => service('idm_seo.service.sitemap_generator')])
+			->tag('kernel.cache_warmer')
+
+		->set('idm_seo.controller.sitemap', SitemapController::class)
+			->private()
+			->tag('controller.service_arguments')
 	;
 	// @formatter::on
 };

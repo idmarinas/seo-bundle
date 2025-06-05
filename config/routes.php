@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 12/02/2025, 13:16
+ * Last modified by "IDMarinas" on 05/06/2025, 19:17
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -17,10 +17,11 @@
  * @since   1.0.0
  */
 
+use Idm\Bundle\Seo\Controller\SitemapController;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 return function (RoutingConfigurator $routes) {
 	// @formatter:off
-
+		$routes->import(SitemapController::class, 'attribute');
 	// @formatter:on
 };

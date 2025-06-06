@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/06/2025, 16:46
+ * Last modified by "IDMarinas" on 06/06/2025, 17:16
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -34,7 +34,7 @@ final class SitemapController extends AbstractController
 	/**
 	 * @throws InvalidArgumentException
 	 */
-	#[Route('/sitemap.{_format}',
+	#[Route('/sitemap.{!_format}',
 		name        : 'idm_seo_sitemap_index',
 		requirements: ['_format' => 'xml'],
 		defaults    : ['_format' => 'xml'],
@@ -52,7 +52,7 @@ final class SitemapController extends AbstractController
 	/**
 	 * @throws InvalidArgumentException
 	 */
-	#[Route('/sitemap/{name}.{_format}',
+	#[Route('/sitemap/{name}.{!_format}',
 		name        : 'idm_seo_sitemap_file',
 		requirements: [
 			'name'    => '[a-zA-Z]+',
@@ -70,7 +70,7 @@ final class SitemapController extends AbstractController
 		return new Response($sitemap->getDocument()->toString());
 	}
 
-	#[Route('/sitemap/{name}.{id}.{_format}',
+	#[Route('/sitemap/{name}.{!id}.{!_format}',
 		name        : 'idm_seo_sitemap_file_page',
 		requirements: [
 			'name'    => '[a-zA-Z]+',
@@ -84,8 +84,8 @@ final class SitemapController extends AbstractController
 	#[Cache(maxage: 3600, public: true)]
 	public function sitemapPage (string $name, int $id): Response
 	{
-		$xml = '';
+		$sitemap = $this->handler->getSitemapPage($name, $id);
 
-		return new Response($xml);
+		return new Response($sitemap->getDocument()->toString());
 	}
 }

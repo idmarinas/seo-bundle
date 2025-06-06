@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 05/06/2025, 19:58
+ * Last modified by "IDMarinas" on 06/06/2025, 18:38
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -43,10 +43,10 @@ final readonly class GenerateSitemap implements CacheWarmerInterface
 	 */
 	public function warmUp (string $cacheDir, ?string $buildDir = null): array
 	{
-		// Genera el sitemap
+		// Generate the sitemap
 		$this->generator->generate();
 
-		// Devuelve las clases que han sido cargadas/precalentadas
+		// Return the classes that have been loaded/prewarmed
 		return [];
 	}
 }

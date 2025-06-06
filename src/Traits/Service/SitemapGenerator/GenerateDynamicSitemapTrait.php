@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 05/06/2025, 18:59
+ * Last modified by "IDMarinas" on 06/06/2025, 17:44
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -22,12 +22,13 @@ namespace Idm\Bundle\Seo\Traits\Service\SitemapGenerator;
 use DateTime;
 use Exception;
 use Idm\Bundle\Seo\Attributes\Sitemap\SitemapDynamic;
+use Idm\Bundle\Seo\Cache\SitemapInfo;
 use Psr\Cache\InvalidArgumentException;
 
 trait GenerateDynamicSitemapTrait
 {
 
-	private function generateSitemapDynamic (SitemapDynamic $sitemap, string $name): void
+	private function generateSitemapDynamic (SitemapDynamic $sitemap, string $routeName): ?SitemapInfo
 	{
 		try {
 			$repository = $this->entityManager->getRepository($sitemap->entity);
@@ -38,7 +39,7 @@ trait GenerateDynamicSitemapTrait
 				$results = $repository->matching($sitemap->criteria);
 			}
 
-			$sitemapFile = $this->getCachedSitemap($name);
+			$sitemapFile = $this->getCachedSitemap($sitemap->name);
 			$sitemapFile->setUpdatedAt(new DateTime());
 
 			$parameters = function (array $params, array|object $result, bool $isObject) use ($sitemap): array {
@@ -60,13 +61,18 @@ trait GenerateDynamicSitemapTrait
 
 			foreach ($results as $result) {
 				$isObject = $result instanceof $sitemap->entity;
-				$url = $sitemap->getUrl($this->generateUrl($name, $parameters($sitemap->urlParameters, $result, $isObject)));
+				$params = $parameters($sitemap->urlParameters, $result, $isObject);
+				$url = $sitemap->getUrl($this->generateUrl($routeName, $params));
 				$url->setLastMod($getLastMod($isObject, $result));
 
 				$sitemapFile->getDocument()->addUrl($url);
 			}
+
+			return $sitemapFile;
 		} catch (Exception|InvalidArgumentException) {
 		}
+
+		return null;
 	}
 
 }

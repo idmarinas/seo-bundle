@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/06/2025, 16:49
+ * Last modified by "IDMarinas" on 06/06/2025, 17:45
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -84,19 +84,21 @@ final class SitemapGenerator
 		$url = $this->generateUrl('idm_seo_sitemap_file', ['name' => 'default']);
 		$sitemapIndex->getDocument()->addSitemap(new Sitemap($url, new DateTime()));
 
-		foreach ($routers as $name => $route) {
+		foreach ($routers as $routeName => $route) {
 			if (null === $sitemap = $this->getSitemapFromRoute($route)) {
 				continue;
 			}
 
 			if ($sitemap instanceof SitemapUrl) {
 				// Add URL to Default Sitemap
-				$sitemapDefault->getDocument()->addUrl($sitemap->getUrl($this->generateUrl($name)));
+				$sitemapDefault->getDocument()->addUrl($sitemap->getUrl($this->generateUrl($routeName)));
 			} elseif ($sitemap instanceof SitemapDynamic) {
 				// Add URL to NAMED Sitemap
-				$url = $this->generateUrl('idm_seo_sitemap_file', ['name' => $name]);
+				$url = $this->generateUrl('idm_seo_sitemap_file', ['name' => $sitemap->name]);
 				$sitemapIndex->getDocument()->addSitemap(new Sitemap($url, new DateTime()));
-				$this->generateSitemapDynamic($sitemap, $name);
+				if (!$sitemapFile = $this->generateSitemapDynamic($sitemap, $routeName)) {
+					$this->save($sitemap->name, $sitemapFile);
+				}
 			}
 		}
 

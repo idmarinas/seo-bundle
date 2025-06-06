@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 05/06/2025, 19:28
+ * Last modified by "IDMarinas" on 06/06/2025, 16:12
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -37,8 +37,9 @@ final class SitemapController extends AbstractController
 	#[Route('/sitemap.{_format}',
 		name        : 'idm_seo_sitemap_index',
 		requirements: ['_format' => 'xml'],
+		defaults    : ['_format' => 'xml'],
 		methods     : ['GET'],
-		format      : 'xml',
+		format      : 'xml'
 	)]
 	#[Cache(maxage: 3600, public: true)]
 	public function index (): Response
@@ -54,6 +55,7 @@ final class SitemapController extends AbstractController
 			'name'    => '[a-zA-Z]+',
 			'_format' => 'xml',
 		],
+		defaults    : ['_format' => 'xml'],
 		methods     : ['GET'],
 		format      : 'xml'
 	)]
@@ -72,7 +74,7 @@ final class SitemapController extends AbstractController
 			'id'      => Requirement::DIGITS,
 			'_format' => 'xml',
 		],
-		defaults    : ['id' => 0],
+		defaults    : ['id' => 0, '_format' => 'xml'],
 		methods     : ['GET'],
 		format      : 'xml'
 	)]

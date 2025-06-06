@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 05/06/2025, 19:29
+ * Last modified by "IDMarinas" on 05/06/2025, 21:03
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -21,11 +21,15 @@ namespace Idm\Bundle\Seo\Service;
 
 use Idm\Bundle\Seo\Cache\SitemapInfo;
 use Idm\Bundle\Seo\Traits\Service\SaveLoadTrait;
+use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\InvalidArgumentException;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 final class SitemapHandler
 {
 	use SaveLoadTrait;
+
+	public function __construct (private readonly CacheItemPoolInterface&TagAwareCacheInterface $cache) {}
 
 	/**
 	 * @throws InvalidArgumentException

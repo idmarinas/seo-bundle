@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 05/06/2025, 18:21
+ * Last modified by "IDMarinas" on 06/06/2025, 16:10
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -22,7 +22,9 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 use Idm\Bundle\Seo\Cache\Warmer\GenerateSitemap;
 use Idm\Bundle\Seo\Controller\SitemapController;
 use Idm\Bundle\Seo\Service\SitemapGenerator;
+use Idm\Bundle\Seo\Service\SitemapHandler;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
 return function (ContainerConfigurator $container) {
 	// @formatter:off
@@ -45,9 +47,17 @@ return function (ContainerConfigurator $container) {
 			->args(['$generator' => service('idm_seo.service.sitemap_generator')])
 			->tag('kernel.cache_warmer')
 
-		->set('idm_seo.controller.sitemap', SitemapController::class)
+		->set(SitemapController::class, SitemapController::class)
 			->private()
+			->args(['$handler' => service('idm_seo.services.sitemap_handler')])
+			->call('setContainer', [service_locator([
+				'parameter_bag' => service(ContainerBagInterface::class),
+			])])
 			->tag('controller.service_arguments')
+
+		->set('idm_seo.services.sitemap_handler', SitemapHandler::class)
+			->private()
+			->args(['$cache' => service('idm_seo.cache')])
 	;
 	// @formatter::on
 };

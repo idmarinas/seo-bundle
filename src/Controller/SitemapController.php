@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/06/2025, 16:12
+ * Last modified by "IDMarinas" on 06/06/2025, 16:46
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -49,6 +49,9 @@ final class SitemapController extends AbstractController
 		return new Response($sitemap->getDocument()->toString());
 	}
 
+	/**
+	 * @throws InvalidArgumentException
+	 */
 	#[Route('/sitemap/{name}.{_format}',
 		name        : 'idm_seo_sitemap_file',
 		requirements: [
@@ -62,9 +65,9 @@ final class SitemapController extends AbstractController
 	#[Cache(maxage: 3600, public: true)]
 	public function sitemap (string $name): Response
 	{
-		$xml = '';
+		$sitemap = $this->handler->getSitemap($name);
 
-		return new Response($xml);
+		return new Response($sitemap->getDocument()->toString());
 	}
 
 	#[Route('/sitemap/{name}.{id}.{_format}',

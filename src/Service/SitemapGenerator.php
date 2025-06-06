@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 05/06/2025, 19:25
+ * Last modified by "IDMarinas" on 06/06/2025, 16:49
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -38,7 +38,6 @@ use Psr\Cache\InvalidArgumentException;
 use ReflectionAttribute;
 use ReflectionException;
 use ReflectionMethod;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouterInterface;
@@ -55,7 +54,6 @@ final class SitemapGenerator
 
 	public function __construct (
 		private readonly RouterInterface                               $router,
-		private readonly EventDispatcher                               $eventDispatcher,
 		private readonly CacheItemPoolInterface&TagAwareCacheInterface $cache,
 		private readonly EntityManagerInterface                        $entityManager,
 	) {

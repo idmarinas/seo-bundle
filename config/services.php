@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/06/2025, 16:10
+ * Last modified by "IDMarinas" on 06/06/2025, 16:49
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -37,7 +37,7 @@ return function (ContainerConfigurator $container) {
 			->private()
 			->args([
 				'$router' => service('router.default'),
-				'$eventDispatcher' => service('event_dispatcher'),
+//				'$eventDispatcher' => service('event_dispatcher'),
 				'$cache' => service('idm_seo.cache'),
 				'$entityManager' => service('doctrine.orm.entity_manager')
 			])

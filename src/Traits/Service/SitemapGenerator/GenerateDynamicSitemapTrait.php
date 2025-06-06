@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/06/2025, 17:44
+ * Last modified by "IDMarinas" on 06/06/2025, 18:30
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -27,6 +27,35 @@ use Psr\Cache\InvalidArgumentException;
 
 trait GenerateDynamicSitemapTrait
 {
+	protected static function processUrlParameters (
+		array          $params,
+		array|object   $result,
+		SitemapDynamic $sitemap,
+		bool           $isObject
+	): array {
+		$params = array_filter($params, function ($v) use ($isObject, $sitemap) {
+			$method = 'get' . ucfirst($v);
+
+			return $isObject ? method_exists($sitemap->entity, $method) : isset($result[$v]);
+		});
+		array_walk($params, function (&$item, $key) use ($isObject, $result) {
+			$method = 'get' . ucfirst($key);
+			$item = $isObject ? $result->{$method}() : $result[$key];
+		});
+
+		return $params;
+	}
+
+	protected static function processLastUpdated (bool $isObject, array|object $result, SitemapDynamic $sitemap): mixed
+	{
+		if ($isObject) {
+			$method = 'get' . ucfirst($sitemap->updatedAtField);
+
+			return method_exists($sitemap->entity, $method) ? $result->{$method}() : null;
+		}
+
+		return $result[$sitemap->updatedAtField] ?? null;
+	}
 
 	private function generateSitemapDynamic (SitemapDynamic $sitemap, string $routeName): ?SitemapInfo
 	{
@@ -42,28 +71,11 @@ trait GenerateDynamicSitemapTrait
 			$sitemapFile = $this->getCachedSitemap($sitemap->name);
 			$sitemapFile->setUpdatedAt(new DateTime());
 
-			$parameters = function (array $params, array|object $result, bool $isObject) use ($sitemap): array {
-				$params = array_filter($params, fn($v) => $isObject ? method_exists($sitemap->entity, $v) : isset($result[$v]));
-				array_walk($params, function (&$item, $key) {});
-
-				return $params;
-			};
-
-			$getLastMod = function (bool $isObject, array|object $result) use ($sitemap): mixed {
-				if ($isObject) {
-					$method = 'get' . ucfirst($sitemap->updatedAtField);
-
-					return method_exists($sitemap->entity, $method) ? $result->{$method}() : null;
-				}
-
-				return $result[$sitemap->updatedAtField] ?? null;
-			};
-
 			foreach ($results as $result) {
 				$isObject = $result instanceof $sitemap->entity;
-				$params = $parameters($sitemap->urlParameters, $result, $isObject);
+				$params = self::processUrlParameters($sitemap->urlParameters, $result, $sitemap, $isObject);
 				$url = $sitemap->getUrl($this->generateUrl($routeName, $params));
-				$url->setLastMod($getLastMod($isObject, $result));
+				$url->setLastMod(self::processLastUpdated($isObject, $result, $sitemap));
 
 				$sitemapFile->getDocument()->addUrl($url);
 			}
@@ -74,5 +86,4 @@ trait GenerateDynamicSitemapTrait
 
 		return null;
 	}
-
 }

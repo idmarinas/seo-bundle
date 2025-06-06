@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 05/06/2025, 19:25
+ * Last modified by "IDMarinas" on 06/06/2025, 16:11
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -21,6 +21,7 @@ namespace Idm\Bundle\Seo\Traits\Service;
 
 use DateTime;
 use Idm\Bundle\Seo\Cache\SitemapInfo;
+use Idm\Bundle\Seo\Service\SitemapGenerator;
 use Idm\Bundle\Seo\Sitemap\SitemapFile;
 use Psr\Cache\CacheException;
 use Psr\Cache\InvalidArgumentException;
@@ -34,8 +35,8 @@ trait SaveLoadTrait
 	 */
 	private function getCachedSitemap (string $name, bool $index = false): SitemapInfo
 	{
-		return $this->cache->get(self::getCacheKey($name), function (ItemInterface $item) use ($name, $index) {
-			$item->tag(self::getCacheKey($name));
+		return $this->cache->get(SitemapGenerator::getCacheKey($name), function (ItemInterface $item) use ($name, $index) {
+			$item->tag(SitemapGenerator::getCacheKey($name));
 
 			return (new SitemapInfo(new DateTime(), new SitemapFile($name, $index)));
 		});
@@ -47,11 +48,11 @@ trait SaveLoadTrait
 	 */
 	private function save (string $name, SitemapInfo $sitemap): void
 	{
-		$item = $this->cache->getItem(self::getCacheKey($name));
+		$item = $this->cache->getItem(SitemapGenerator::getCacheKey($name));
 		$sitemap->setUpdatedAt(new DateTime());
 
 		$item
-			->tag(self::getCacheKey($name))
+			->tag(SitemapGenerator::getCacheKey($name))
 			->set($sitemap)
 		;
 

@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/06/2025, 16:40
+ * Last modified by "IDMarinas" on 06/06/2025, 17:16
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -47,6 +47,16 @@ final class SitemapHandler
 	public function getIndexSitemap (string $name): SitemapInfo
 	{
 		$sitemap = $this->getCachedSitemap($name, true);
+
+		return $sitemap;
+	}
+
+	/**
+	 * @throws InvalidArgumentException
+	 */
+	public function getSitemapPage (string $name, int $id): SitemapInfo
+	{
+		$sitemap = $this->getCachedSitemap($name . '.' . $id);
 
 		return $sitemap;
 	}

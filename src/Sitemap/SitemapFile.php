@@ -158,7 +158,7 @@ final class SitemapFile implements Countable
 	 *
 	 * @throws LogicException If the sitemap is not valid
 	 */
-	public function validate (): void
+	public function validate (): bool
 	{
 		// Check that the root element exists
 		if ($this->rootElement === null) {
@@ -166,27 +166,16 @@ final class SitemapFile implements Countable
 		}
 
 		// Check that it does not exceed the maximum number of URLs
-		$count = $this->count();
-		if ($count > 50000) {
-			throw new LogicException(
-				sprintf(
-					'A sitemap cannot contain more than 50,000 %s. Current count: %d.',
-					$this->index ? 'sitemaps' : 'URLs',
-					$count
-				)
-			);
+		if ($this->count() > 50_000) {
+			return false;
 		}
 
 		// Check that the XML size does not exceed 50 MB
-		$xmlSize = strlen($this->toString());
-		if ($xmlSize > 52428800) { // 50MB in bytes
-			throw new LogicException(
-				sprintf(
-					'A sitemap cannot be larger than 50MB (52,428,800 bytes). Current size: %s bytes.',
-					$xmlSize
-				)
-			);
+		if (strlen($this->toString()) > 52_428_800) { // 50MB in bytes
+			return false;
 		}
+
+		return true;
 	}
 
 	/**

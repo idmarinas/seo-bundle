@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 08/06/2025, 20:37
+ * Last modified by "IDMarinas" on 08/06/2025, 22:59
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -26,16 +26,16 @@ use Psr\Cache\InvalidArgumentException;
 
 final class SitemapInfo
 {
-	public const int LIMIT_ITEMS = 50_000;
-	public const int LIMIT_BYTES = 52_428_800; // 50MB
-
 	private string $name;
 	private bool   $index;
 
 	public function __construct (
 		private DateTimeInterface $updatedAt,
 		private SitemapFile       $document,
-	) {}
+	) {
+		$this->name = $document->getName();
+		$this->index = $document->isIndex();
+	}
 
 	public function isIndex (): bool
 	{

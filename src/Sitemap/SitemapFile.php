@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 05/06/2025, 14:51
+ * Last modified by "IDMarinas" on 08/06/2025, 21:46
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -29,6 +29,7 @@ use Exception;
 use Idm\Bundle\Seo\Sitemap\Node\AbstractNode;
 use Idm\Bundle\Seo\Sitemap\Node\Sitemap;
 use Idm\Bundle\Seo\Sitemap\Node\Url;
+use Idm\Bundle\Seo\Traits\Sitemap\SitemapFile\OptimizeTrait;
 use InvalidArgumentException;
 use LogicException;
 
@@ -37,6 +38,11 @@ use LogicException;
  */
 final class SitemapFile implements Countable
 {
+	use OptimizeTrait;
+
+	public const int LIMIT_ITEMS = 50_000;
+	public const int LIMIT_BYTES = 52_428_800; // 50MB
+
 	protected readonly DOMDocument $document;
 	protected ?DOMElement          $rootElement = null;
 

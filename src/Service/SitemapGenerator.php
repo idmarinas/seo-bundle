@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 08/06/2025, 20:46
+ * Last modified by "IDMarinas" on 08/06/2025, 23:04
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -90,13 +90,13 @@ final class SitemapGenerator
 				$url = $this->generateUrl('idm_seo_sitemap_file', ['name' => $sitemap->name]);
 				$sitemapIndex->getDocument()->addSitemap(new Sitemap($url, new DateTime()));
 				if (null !== $sitemapFile = $this->generateSitemapDynamic($sitemap, $routeName)) {
-					$this->save($sitemap->name, $sitemapFile);
+					$this->prepareToSave($sitemap->name, $sitemapFile);
 				}
 			}
 		}
 
 		$this->save('index', $sitemapIndex);
-		$this->save('default', $sitemapDefault);
+		$this->prepareToSave('default', $sitemapDefault);
 	}
 
 	private function getSitemapFromRoute (Route $route): ?SitemapInterface

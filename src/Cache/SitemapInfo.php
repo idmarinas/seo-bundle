@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 05/06/2025, 19:28
+ * Last modified by "IDMarinas" on 08/06/2025, 20:37
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -36,6 +36,16 @@ final class SitemapInfo
 		private DateTimeInterface $updatedAt,
 		private SitemapFile       $document,
 	) {}
+
+	public function isIndex (): bool
+	{
+		return $this->index;
+	}
+
+	public function getName (): string
+	{
+		return $this->name;
+	}
 
 	public function getDocument (): SitemapFile
 	{

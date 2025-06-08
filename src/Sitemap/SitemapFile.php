@@ -156,9 +156,9 @@ final class SitemapFile implements Countable
 	/**
 	 * Validates that the sitemap complies with specifications
 	 *
-	 * @throws LogicException If the sitemap is not valid
+	 * @throws LogicException
 	 */
-	public function validate (): bool
+	public function isValid (): bool
 	{
 		// Check that the root element exists
 		if ($this->rootElement === null) {

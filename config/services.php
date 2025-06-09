@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 09/06/2025, 18:32
+ * Last modified by "IDMarinas" on 09/06/2025, 19:11
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -20,6 +20,7 @@
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use Idm\Bundle\Seo\Cache\Warmer\GenerateSitemap;
+use Idm\Bundle\Seo\Command\SeoSitemapGenerateCommand;
 use Idm\Bundle\Seo\Controller\SitemapController;
 use Idm\Bundle\Seo\Service\SitemapGenerator;
 use Idm\Bundle\Seo\Service\SitemapHandler;
@@ -59,6 +60,11 @@ return function (ContainerConfigurator $container) {
 		->set('idm_seo.services.sitemap_handler', SitemapHandler::class)
 			->private()
 			->args(['$cache' => service('idm_seo.cache')])
+
+		->set('idm_seo.command.generate_sitemap', SeoSitemapGenerateCommand::class)
+			->private()
+			->args(['$generator' => service('idm_seo.service.sitemap_generator')])
+			->tag('console.command')
 	;
 	// @formatter::on
 };

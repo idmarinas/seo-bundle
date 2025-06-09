@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/06/2025, 16:49
+ * Last modified by "IDMarinas" on 09/06/2025, 18:32
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -39,7 +39,8 @@ return function (ContainerConfigurator $container) {
 				'$router' => service('router.default'),
 //				'$eventDispatcher' => service('event_dispatcher'),
 				'$cache' => service('idm_seo.cache'),
-				'$entityManager' => service('doctrine.orm.entity_manager')
+				'$entityManager' => service('doctrine.orm.entity_manager'),
+				'$defaultScheme' => param('idm_seo.parameter.sitemap.default_scheme'),
 			])
 
 		->set('idm_seo.cache.warmer', GenerateSitemap::class)

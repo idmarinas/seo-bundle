@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 08/06/2025, 21:46
+ * Last modified by "IDMarinas" on 09/06/2025, 21:42
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -281,28 +281,22 @@ final class SitemapFile implements Countable
 
 		$xpath = new DOMXPath($this->document);
 
-		// Use a safer approach to avoid XPath injection
+		// Register the namespace
+		$xpath->registerNamespace('s', 'https://www.sitemaps.org/schemas/sitemap/0.9');
+
 		$tag = $this->index ? 'sitemap' : 'url';
-		$query = sprintf("//%s/loc[text()='%s']", $tag, htmlspecialchars($location, ENT_QUOTES));
-
-		// Try to use a more specific XPath query first
+		// Simplify the query to avoid the predicate that causes problems
+		$query = sprintf("//s:%s/s:loc[text()='%s']", $tag, $location);
 		$nodes = $xpath->query($query);
 
-		if ($nodes !== false && $nodes->length > 0) {
-			return $nodes->item(0)->parentNode;
-		}
-
-		// Fallback to the previous method if the specific query doesn't work
-		$query = "//$tag/loc";
-		$nodes = $xpath->query($query);
-
-		if ($nodes === false) {
+		if ($nodes === false || $nodes->length === 0) {
 			return null;
 		}
 
+		// Manual comparison of text content
 		for ($i = 0; $i < $nodes->length; $i++) {
 			$node = $nodes->item($i);
-			if ($node && $location === $node->textContent) {
+			if ($node && trim($node->textContent) === trim($location)) {
 				return $node->parentNode;
 			}
 		}

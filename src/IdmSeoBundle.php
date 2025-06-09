@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/06/2025, 16:26
+ * Last modified by "IDMarinas" on 09/06/2025, 18:31
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -28,6 +28,8 @@ final class IdmSeoBundle extends AbstractBundle
 {
 	public function loadExtension (array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
 	{
+		$container->parameters()->set('idm_seo.parameter.sitemap.default_scheme', $config['default_scheme']);
+
 		$container->import(dirname(__DIR__) . '/config/services.php');
 	}
 

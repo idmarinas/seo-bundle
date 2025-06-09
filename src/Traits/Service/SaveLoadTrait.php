@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 08/06/2025, 23:05
+ * Last modified by "IDMarinas" on 09/06/2025, 21:29
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -33,13 +33,13 @@ trait SaveLoadTrait
 	/**
 	 * @throws InvalidArgumentException
 	 */
-	private function getCachedSitemap (string $name, bool $index = false): SitemapInfo
+	private function getCachedSitemap (string $name, bool $index = false, bool $invalidate = false): SitemapInfo
 	{
 		return $this->cache->get(CacheKeyEnum::SITEMAP->suffix($name), function (ItemInterface $item) use ($name, $index) {
 			$item->tag($this->tagCacheItem($name, $index));
 
 			return (new SitemapInfo(new DateTime(), new SitemapFile($name, $index)));
-		});
+		}, $invalidate ? INF : null);
 	}
 
 	/**

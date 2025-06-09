@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/06/2025, 18:30
+ * Last modified by "IDMarinas" on 09/06/2025, 21:39
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -57,7 +57,7 @@ trait GenerateDynamicSitemapTrait
 		return $result[$sitemap->updatedAtField] ?? null;
 	}
 
-	private function generateSitemapDynamic (SitemapDynamic $sitemap, string $routeName): ?SitemapInfo
+	private function generateSitemapDynamic (SitemapDynamic $sitemap, string $routeName, bool $invalidate): ?SitemapInfo
 	{
 		try {
 			$repository = $this->entityManager->getRepository($sitemap->entity);
@@ -68,7 +68,7 @@ trait GenerateDynamicSitemapTrait
 				$results = $repository->matching($sitemap->criteria);
 			}
 
-			$sitemapFile = $this->getCachedSitemap($sitemap->name);
+			$sitemapFile = $this->getCachedSitemap($sitemap->name, invalidate: $invalidate);
 			$sitemapFile->setUpdatedAt(new DateTime());
 
 			foreach ($results as $result) {

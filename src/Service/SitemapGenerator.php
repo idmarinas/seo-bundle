@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 09/06/2025, 18:25
+ * Last modified by "IDMarinas" on 09/06/2025, 21:39
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -63,14 +63,14 @@ final class SitemapGenerator
 	 * @throws CacheException
 	 * @throws Exception
 	 */
-	public function generate (): void
+	public function generate (bool $invalidate = false): void
 	{
 		$ignore = ['_preview_error', '_profiler', '_wdt', '_debug'];
 		$collection = $this->router->getRouteCollection()->all();
 		$routers = array_filter($collection, fn(string $r) => !u($r)->startsWith($ignore), ARRAY_FILTER_USE_KEY);
 
-		$sitemapIndex = $this->getCachedSitemap('index', true);
-		$sitemapDefault = $this->getCachedSitemap('default');
+		$sitemapIndex = $this->getCachedSitemap('index', true, $invalidate);
+		$sitemapDefault = $this->getCachedSitemap('default', invalidate: $invalidate);
 
 		$url = $this->generateUrl('idm_seo_sitemap_file', ['name' => 'default']);
 		$sitemapIndex->getDocument()->addSitemap(new Sitemap($url, new DateTime()));
@@ -87,7 +87,7 @@ final class SitemapGenerator
 				// Add URL to NAMED Sitemap
 				$url = $this->generateUrl('idm_seo_sitemap_file', ['name' => $sitemap->name]);
 				$sitemapIndex->getDocument()->addSitemap(new Sitemap($url, new DateTime()));
-				if (null !== $sitemapFile = $this->generateSitemapDynamic($sitemap, $routeName)) {
+				if (null !== $sitemapFile = $this->generateSitemapDynamic($sitemap, $routeName, $invalidate)) {
 					$this->prepareToSave($sitemap->name, $sitemapFile);
 				}
 			}

@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 13/03/2025, 22:13
+ * Last modified by "IDMarinas" on 09/06/2025, 21:46
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -39,7 +39,7 @@ class BundleRoutingTest extends KernelTestCase
 		$routeCollection = $router->getRouteCollection();
 		$routes = $routeCollection->all();
 
-		$this->assertCount(1, $routes);
+		$this->assertCount(4, $routes);
 		$this->assertNotNull($routeCollection->get('app_home'));
 	}
 }

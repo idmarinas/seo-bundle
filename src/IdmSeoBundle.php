@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 09/06/2025, 18:31
+ * Last modified by "IDMarinas" on 09/06/2025, 19:10
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -20,6 +20,7 @@
 namespace Idm\Bundle\Seo;
 
 use Idm\Bundle\Seo\DependencyInjection\Compiler\CheckAttributesValidityPass;
+use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
@@ -41,5 +42,12 @@ final class IdmSeoBundle extends AbstractBundle
 	public function build (ContainerBuilder $container): void
 	{
 		$container->addCompilerPass(new CheckAttributesValidityPass());
+	}
+
+	public function configure (DefinitionConfigurator $definition): void
+	{
+		$definition->import(dirname(__DIR__) . '/config/definitions.php');
+
+		parent::configure($definition);
 	}
 }

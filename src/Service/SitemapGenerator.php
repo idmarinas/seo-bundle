@@ -56,11 +56,6 @@ final class SitemapGenerator
 		$this->router->getContext()->setScheme($this->defaultScheme);
 	}
 
-	public static function getCacheKey (string $name): string
-	{
-		return 'idm_seo_sitemap_' . $name;
-	}
-
 	/**
 	 * @throws DOMException
 	 * @throws DateMalformedStringException

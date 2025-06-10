@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 09/06/2025, 21:39
+ * Last modified by "IDMarinas" on 10/06/2025, 19:14
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -33,7 +33,7 @@ trait GenerateDynamicSitemapTrait
 		SitemapDynamic $sitemap,
 		bool           $isObject
 	): array {
-		$params = array_filter($params, function ($v) use ($isObject, $sitemap) {
+		$params = array_filter($params, function ($v) use ($isObject, $sitemap, $result) {
 			$method = 'get' . ucfirst($v);
 
 			return $isObject ? method_exists($sitemap->entity, $method) : isset($result[$v]);

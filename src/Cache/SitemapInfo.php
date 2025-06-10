@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 08/06/2025, 22:59
+ * Last modified by "IDMarinas" on 10/06/2025, 16:01
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -22,7 +22,6 @@ namespace Idm\Bundle\Seo\Cache;
 use DateTimeInterface;
 use DOMException;
 use Idm\Bundle\Seo\Sitemap\SitemapFile;
-use Psr\Cache\InvalidArgumentException;
 
 final class SitemapInfo
 {
@@ -83,7 +82,6 @@ final class SitemapInfo
 
 	/**
 	 * @throws DOMException
-	 * @throws InvalidArgumentException
 	 */
 	public function __unserialize (array $data): void
 	{

@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/06/2025, 18:38
+ * Last modified by "IDMarinas" on 10/06/2025, 16:52
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -21,7 +21,7 @@ namespace Idm\Bundle\Seo\Cache\Warmer;
 
 use DateMalformedStringException;
 use DOMException;
-use Idm\Bundle\Seo\Service\SitemapGenerator;
+use Idm\Bundle\Seo\Service\Sitemap\SitemapGenerator;
 use Psr\Cache\CacheException;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;

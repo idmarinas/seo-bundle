@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 09/06/2025, 21:36
+ * Last modified by "IDMarinas" on 10/06/2025, 16:52
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -20,7 +20,7 @@
 namespace Idm\Bundle\Seo\Command;
 
 use Exception;
-use Idm\Bundle\Seo\Service\SitemapGenerator;
+use Idm\Bundle\Seo\Service\Sitemap\SitemapGenerator;
 use Psr\Cache\CacheException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

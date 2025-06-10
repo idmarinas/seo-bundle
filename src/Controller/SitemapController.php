@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/06/2025, 17:18
+ * Last modified by "IDMarinas" on 10/06/2025, 16:52
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -19,7 +19,7 @@
 
 namespace Idm\Bundle\Seo\Controller;
 
-use Idm\Bundle\Seo\Service\SitemapHandler;
+use Idm\Bundle\Seo\Service\Sitemap\SitemapHandler;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

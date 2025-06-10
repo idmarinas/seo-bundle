@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 09/06/2025, 19:11
+ * Last modified by "IDMarinas" on 10/06/2025, 16:52
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -22,8 +22,8 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 use Idm\Bundle\Seo\Cache\Warmer\GenerateSitemap;
 use Idm\Bundle\Seo\Command\SeoSitemapGenerateCommand;
 use Idm\Bundle\Seo\Controller\SitemapController;
-use Idm\Bundle\Seo\Service\SitemapGenerator;
-use Idm\Bundle\Seo\Service\SitemapHandler;
+use Idm\Bundle\Seo\Service\Sitemap\SitemapGenerator;
+use Idm\Bundle\Seo\Service\Sitemap\SitemapHandler;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 

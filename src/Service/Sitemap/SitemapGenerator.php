@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 09/06/2025, 21:39
+ * Last modified by "IDMarinas" on 10/06/2025, 16:52
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -17,7 +17,7 @@
  * @since   1.0.0
  */
 
-namespace Idm\Bundle\Seo\Service;
+namespace Idm\Bundle\Seo\Service\Sitemap;
 
 use DateMalformedStringException;
 use DateTime;

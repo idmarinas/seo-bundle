@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 10/06/2025, 16:52
+ * Last modified by "IDMarinas" on 11/06/2025, 14:30
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -67,6 +67,10 @@ final class SitemapController extends AbstractController
 	{
 		$sitemap = $this->handler->getSitemap($name);
 
+		if ($sitemap->getDocument()->isEmpty()) {
+			$this->createNotFoundException(sprintf('Sitemap "%s.xml" not found.', $name));
+		}
+
 		return new Response($sitemap->getDocument()->toString());
 	}
 
@@ -88,6 +92,10 @@ final class SitemapController extends AbstractController
 	public function sitemapPage (string $name, int $id): Response
 	{
 		$sitemap = $this->handler->getSitemapPage($name, $id);
+
+		if ($sitemap->getDocument()->isEmpty()) {
+			$this->createNotFoundException(sprintf('Sitemap "%s.%d.xml" not found.', $name, $id));
+		}
 
 		return new Response($sitemap->getDocument()->toString());
 	}

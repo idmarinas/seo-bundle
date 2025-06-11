@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 09/06/2025, 21:42
+ * Last modified by "IDMarinas" on 11/06/2025, 14:45
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -172,12 +172,12 @@ final class SitemapFile implements Countable
 		}
 
 		// Check that it does not exceed the maximum number of URLs
-		if ($this->count() > 50_000) {
+		if ($this->count() > self::LIMIT_ITEMS) {
 			return false;
 		}
 
 		// Check that the XML size does not exceed 50 MB
-		if (strlen($this->toString()) > 52_428_800) { // 50MB in bytes
+		if (strlen($this->toString()) > self::LIMIT_BYTES) { // 50MB in bytes
 			return false;
 		}
 

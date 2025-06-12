@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 10/06/2025, 16:52
+ * Last modified by "IDMarinas" on 12/06/2025, 16:24
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -22,7 +22,6 @@ namespace Idm\Bundle\Seo\Service\Sitemap;
 use DateMalformedStringException;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use DOMException;
 use Exception;
 use Idm\Bundle\Seo\Attributes\Sitemap\SitemapDynamic;
 use Idm\Bundle\Seo\Attributes\Sitemap\SitemapInterface;
@@ -57,7 +56,6 @@ final class SitemapGenerator
 	}
 
 	/**
-	 * @throws DOMException
 	 * @throws DateMalformedStringException
 	 * @throws InvalidArgumentException
 	 * @throws CacheException
@@ -69,11 +67,11 @@ final class SitemapGenerator
 		$collection = $this->router->getRouteCollection()->all();
 		$routers = array_filter($collection, fn(string $r) => !u($r)->startsWith($ignore), ARRAY_FILTER_USE_KEY);
 
-		$sitemapIndex = $this->getCachedSitemap('index', true, $invalidate);
-		$sitemapDefault = $this->getCachedSitemap('default', invalidate: $invalidate);
+		$sitemapIndex = $this->getCachedSitemap('index', $invalidate);
+		$sitemapDefault = $this->getCachedSitemap('default', $invalidate);
 
 		$url = $this->generateUrl('idm_seo_sitemap_file', ['name' => 'default']);
-		$sitemapIndex->getDocument()->addSitemap(new Sitemap($url, new DateTime()));
+		$sitemapIndex->addSitemap(new Sitemap($url, new DateTime()));
 
 		foreach ($routers as $routeName => $route) {
 			if (null === $sitemap = $this->getSitemapFromRoute($route)) {
@@ -82,11 +80,11 @@ final class SitemapGenerator
 
 			if ($sitemap instanceof SitemapUrl) {
 				// Add URL to Default Sitemap
-				$sitemapDefault->getDocument()->addUrl($sitemap->getUrl($this->generateUrl($routeName)));
+				$sitemapDefault->addUrl($sitemap->getUrl($this->generateUrl($routeName)));
 			} elseif ($sitemap instanceof SitemapDynamic) {
 				// Add URL to NAMED Sitemap
 				$url = $this->generateUrl('idm_seo_sitemap_file', ['name' => $sitemap->name]);
-				$sitemapIndex->getDocument()->addSitemap(new Sitemap($url, new DateTime()));
+				$sitemapIndex->addSitemap(new Sitemap($url, new DateTime()));
 				if (null !== $sitemapFile = $this->generateSitemapDynamic($sitemap, $routeName, $invalidate)) {
 					$this->prepareToSave($sitemap->name, $sitemapFile);
 				}

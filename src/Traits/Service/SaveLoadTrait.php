@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 12/06/2025, 15:52
+ * Last modified by "idmarinas" on 12/06/2025, 19:24
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -25,18 +25,20 @@ use Idm\Bundle\Seo\Sitemap\SitemapFile;
 use Psr\Cache\CacheException;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Contracts\Cache\ItemInterface;
+use function Symfony\Component\String\u;
 
 trait SaveLoadTrait
 {
 	/**
 	 * @throws InvalidArgumentException
 	 */
-	private function getCachedSitemap (string $name, bool $invalidate = false): ?SitemapFile
+	private function getCachedSitemap (string $name, bool $invalidate = false): SitemapFile
 	{
-		return $this->cache->get(CacheKeyEnum::SITEMAP->suffix($name), function (ItemInterface $item) {
-			$item->expiresAfter(0);
+		return $this->cache->get(CacheKeyEnum::SITEMAP->suffix($name), function (ItemInterface $item) use ($name) {
+			$index = u($name)->endsWith('index');
+			$item->tag($this->tagCacheItem($name, $index));
 
-			return null;
+			return (new SitemapFile($name, $index));
 		}, $invalidate ? INF : null);
 	}
 

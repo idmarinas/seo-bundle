@@ -215,7 +215,7 @@ final class SitemapFile implements Countable
 	 *
 	 * @throws DOMException If there's an error creating the element
 	 */
-	protected function initRootElement (string $rootElementName): void
+	private function initRootElement (string $rootElementName): void
 	{
 		if (null !== $this->rootElement) {
 			return;

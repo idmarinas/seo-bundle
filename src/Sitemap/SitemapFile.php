@@ -130,40 +130,6 @@ final class SitemapFile implements Countable
 	}
 
 	/**
-	 * Loads an XML into the sitemap
-	 *
-	 * @param string $xml The XML to load
-	 *
-	 * @throws InvalidArgumentException If the XML is invalid
-	 */
-	public function load (string $xml): void
-	{
-		try {
-			$result = $this->document->loadXML($xml);
-
-			if ($result === false) {
-				throw new InvalidArgumentException('Failed to load XML: Invalid XML format');
-			}
-
-			$this->document->encoding = 'UTF-8';
-			$this->document->formatOutput = true;
-
-			// Update the root element reference
-			$rootTagName = $this->index ? 'sitemapindex' : 'urlset';
-			$elements = $this->document->getElementsByTagName($rootTagName);
-
-			if ($elements->length > 0) {
-				$this->rootElement = $elements->item(0);
-			} else {
-				// If the root element is not found, initialize it
-				$this->initRootElement($rootTagName);
-			}
-		} catch (Exception $e) {
-			throw new InvalidArgumentException('Failed to load XML: ' . $e->getMessage(), 0, $e);
-		}
-	}
-
-	/**
 	 * Validates that the sitemap complies with specifications
 	 *
 	 * @throws LogicException
@@ -216,6 +182,41 @@ final class SitemapFile implements Countable
 	{
 		return $this->updatedAt;
 	}
+
+	/**
+	 * Loads an XML into the sitemap
+	 *
+	 * @param string $xml The XML to load
+	 *
+	 * @throws InvalidArgumentException If the XML is invalid
+	 */
+	public function load (string $xml): void
+	{
+		try {
+			$result = $this->document->loadXML($xml);
+
+			if ($result === false) {
+				throw new InvalidArgumentException('Failed to load XML: Invalid XML format');
+			}
+
+			$this->document->encoding = 'UTF-8';
+			$this->document->formatOutput = true;
+
+			// Update the root element reference
+			$rootTagName = $this->index ? 'sitemapindex' : 'urlset';
+			$elements = $this->document->getElementsByTagName($rootTagName);
+
+			if ($elements->length > 0) {
+				$this->rootElement = $elements->item(0);
+			} else {
+				// If the root element is not found, initialize it
+				$this->initRootElement($rootTagName);
+			}
+		} catch (Exception $e) {
+			throw new InvalidArgumentException('Failed to load XML: ' . $e->getMessage(), 0, $e);
+		}
+	}
+
 
 	/**
 	 * Initializes the root element of the sitemap

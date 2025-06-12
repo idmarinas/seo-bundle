@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 11/06/2025, 14:45
+ * Last modified by "IDMarinas" on 12/06/2025, 15:19
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -45,8 +45,8 @@ final class SitemapFile implements Countable
 	public const int LIMIT_ITEMS = 50_000;
 	public const int LIMIT_BYTES = 52_428_800; // 50MB
 
-	protected readonly DOMDocument $document;
-	protected ?DOMElement          $rootElement = null;
+	protected DOMDocument     $document;
+	protected ?DOMElement     $rootElement = null;
 	private DateTimeInterface $updatedAt;
 
 	/**
@@ -217,6 +217,25 @@ final class SitemapFile implements Countable
 		}
 	}
 
+	public function __serialize (): array
+	{
+		return [
+			'updated_at' => $this->getUpdatedAt(),
+			'sitemap'    => $this->toString(),
+			'name'       => $this->getName(),
+			'index'      => $this->isIndex(),
+		];
+	}
+
+	public function __unserialize (array $data): void
+	{
+		$this->updatedAt = $data['updated_at'];
+		$this->name = $data['name'];
+		$this->index = $data['index'];
+
+		$this->document = new DOMDocument('1.0', 'UTF-8');
+		$this->load($data['sitemap']);
+	}
 
 	/**
 	 * Initializes the root element of the sitemap

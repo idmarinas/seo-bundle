@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 09/06/2025, 21:29
+ * Last modified by "idmarinas" on 12/06/2025, 15:52
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -19,10 +19,8 @@
 
 namespace Idm\Bundle\Seo\Traits\Service;
 
-use DateTime;
 use Idm\Bundle\Seo\Cache\CacheKeyEnum;
 use Idm\Bundle\Seo\Cache\CacheTagEnum;
-use Idm\Bundle\Seo\Cache\SitemapInfo;
 use Idm\Bundle\Seo\Sitemap\SitemapFile;
 use Psr\Cache\CacheException;
 use Psr\Cache\InvalidArgumentException;
@@ -33,12 +31,12 @@ trait SaveLoadTrait
 	/**
 	 * @throws InvalidArgumentException
 	 */
-	private function getCachedSitemap (string $name, bool $index = false, bool $invalidate = false): SitemapInfo
+	private function getCachedSitemap (string $name, bool $invalidate = false): ?SitemapFile
 	{
-		return $this->cache->get(CacheKeyEnum::SITEMAP->suffix($name), function (ItemInterface $item) use ($name, $index) {
-			$item->tag($this->tagCacheItem($name, $index));
+		return $this->cache->get(CacheKeyEnum::SITEMAP->suffix($name), function (ItemInterface $item) {
+			$item->expiresAfter(0);
 
-			return (new SitemapInfo(new DateTime(), new SitemapFile($name, $index)));
+			return null;
 		}, $invalidate ? INF : null);
 	}
 
@@ -46,12 +44,14 @@ trait SaveLoadTrait
 	 * @throws CacheException
 	 * @throws InvalidArgumentException
 	 */
-	private function save (string $name, SitemapInfo $sitemap): void
+	private function save (string $name, SitemapFile $sitemap): void
 	{
 		$item = $this->cache->getItem(CacheKeyEnum::SITEMAP->suffix($name));
-		$sitemap->setUpdatedAt(new DateTime());
 
-		$item->set($sitemap);
+		$item
+			->tag($this->tagCacheItem($name, $sitemap->isIndex()))
+			->set($sitemap)
+		;
 
 		$this->cache->save($item);
 	}
@@ -60,21 +60,17 @@ trait SaveLoadTrait
 	 * @throws CacheException
 	 * @throws InvalidArgumentException
 	 */
-	private function prepareToSave (string $name, SitemapInfo $sitemap): void
+	private function prepareToSave (string $name, SitemapFile $sitemap): void
 	{
-		$document = $sitemap->getDocument();
-
-		if ($document->isValid()) {
+		if ($sitemap->isValid()) {
 			$this->save($name, $sitemap);
 
 			return;
 		}
 
-		$newDocuments = $document->optimize('generateUrl');
-		foreach ($newDocuments as $fileName => $partDocument) {
-			$sitemapInfo = new SitemapInfo(new DateTime(), $partDocument);
-
-			$this->save($fileName, $sitemapInfo);
+		$newDocuments = $sitemap->optimize('generateUrl');
+		foreach ($newDocuments as $fileName => $document) {
+			$this->save($fileName, $document);
 		}
 	}
 

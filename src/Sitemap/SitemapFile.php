@@ -54,7 +54,7 @@ final class SitemapFile implements Countable
 	 *
 	 * @throws DOMException If there's an error creating the DOM structure
 	 */
-	public function __construct (protected readonly string $name, protected readonly bool $index = false)
+	public function __construct (protected string $name, protected bool $index = false)
 	{
 		$this->document = new DOMDocument('1.0', 'UTF-8');
 		$this->document->formatOutput = true;

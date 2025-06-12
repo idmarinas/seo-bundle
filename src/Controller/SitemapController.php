@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 12/06/2025, 19:34
+ * Last modified by "idmarinas" on 12/06/2025, 21:30
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -19,20 +19,29 @@
 
 namespace Idm\Bundle\Seo\Controller;
 
-use Idm\Bundle\Seo\Service\Sitemap\SitemapHandler;
-use Psr\Cache\InvalidArgumentException;
+use Idm\Bundle\Seo\Cache\CacheKeyEnum;
+use Idm\Bundle\Seo\Cache\CacheTagEnum;
+use Idm\Bundle\Seo\Sitemap\SitemapFile;
+use LogicException;
+use Psr\Container\ContainerExceptionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\Cache;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
+use Symfony\Contracts\Cache\ItemInterface;
 
 final class SitemapController extends AbstractController
 {
-	public function __construct (private readonly SitemapHandler $handler) {}
+	public static function getSubscribedServices (): array
+	{
+		return [
+			'cache' => '?idm_seo.cache',
+		];
+	}
 
 	/**
-	 * @throws InvalidArgumentException
+	 * @throws ContainerExceptionInterface
 	 */
 	#[Route('/sitemap.{!_format}',
 		name        : 'idm_seo_sitemap_index',
@@ -44,13 +53,13 @@ final class SitemapController extends AbstractController
 	#[Cache(maxage: 3600, public: true)]
 	public function index (): Response
 	{
-		$sitemap = $this->handler->getSitemap('index');
+		$sitemap = $this->cache('index');
 
 		return new Response($sitemap->toString());
 	}
 
 	/**
-	 * @throws InvalidArgumentException
+	 * @throws ContainerExceptionInterface
 	 */
 	#[Route('/sitemap/{name}.{!_format}',
 		name        : 'idm_seo_sitemap_file',
@@ -65,7 +74,7 @@ final class SitemapController extends AbstractController
 	#[Cache(maxage: 3600, public: true)]
 	public function sitemap (string $name): Response
 	{
-		$sitemap = $this->handler->getSitemap($name);
+		$sitemap = $this->cache($name);
 
 		if ($sitemap->isEmpty()) {
 			throw $this->createNotFoundException(sprintf('Sitemap "%s.xml" not found.', $name));
@@ -75,7 +84,7 @@ final class SitemapController extends AbstractController
 	}
 
 	/**
-	 * @throws InvalidArgumentException
+	 * @throws ContainerExceptionInterface
 	 */
 	#[Route('/sitemap/{name}.{!id}.{!_format}',
 		name        : 'idm_seo_sitemap_file_page',
@@ -91,12 +100,31 @@ final class SitemapController extends AbstractController
 	#[Cache(maxage: 3600, public: true)]
 	public function sitemapPage (string $name, int $id): Response
 	{
-		$sitemap = $this->handler->getSitemap($name . '.' . $id);
+		$sitemap = $this->cache($name . '.' . $id);
 
 		if ($sitemap->isEmpty()) {
 			throw $this->createNotFoundException(sprintf('Sitemap "%s.%d.xml" not found.', $name, $id));
 		}
 
 		return new Response($sitemap->toString());
+	}
+
+	/**
+	 * @throws ContainerExceptionInterface
+	 */
+	protected function cache (string $name): SitemapFile
+	{
+		if (!$this->container->has('idm_seo.cache')) {
+			throw new LogicException(sprintf('You cannot use the "%s" method if the Cache is not available.', __METHOD__));
+		}
+
+		$name = 'root' !== $name ?: 'index';
+		$key = CacheKeyEnum::SITEMAP->suffix($name);
+
+		return $this->container->get('idm_seo.cache')->get($key, function (ItemInterface $item) use ($name) {
+			$item->tag(CacheTagEnum::SITEMAP->value);
+
+			return (new SitemapFile($name));
+		});
 	}
 }

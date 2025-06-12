@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 10/06/2025, 19:14
+ * Last modified by "IDMarinas" on 12/06/2025, 16:22
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -22,7 +22,7 @@ namespace Idm\Bundle\Seo\Traits\Service\SitemapGenerator;
 use DateTime;
 use Exception;
 use Idm\Bundle\Seo\Attributes\Sitemap\SitemapDynamic;
-use Idm\Bundle\Seo\Cache\SitemapInfo;
+use Idm\Bundle\Seo\Sitemap\SitemapFile;
 use Psr\Cache\InvalidArgumentException;
 
 trait GenerateDynamicSitemapTrait
@@ -57,7 +57,7 @@ trait GenerateDynamicSitemapTrait
 		return $result[$sitemap->updatedAtField] ?? null;
 	}
 
-	private function generateSitemapDynamic (SitemapDynamic $sitemap, string $routeName, bool $invalidate): ?SitemapInfo
+	private function generateSitemapDynamic (SitemapDynamic $sitemap, string $routeName, bool $invalidate): ?SitemapFile
 	{
 		try {
 			$repository = $this->entityManager->getRepository($sitemap->entity);
@@ -77,7 +77,7 @@ trait GenerateDynamicSitemapTrait
 				$url = $sitemap->getUrl($this->generateUrl($routeName, $params));
 				$url->setLastMod(self::processLastUpdated($isObject, $result, $sitemap));
 
-				$sitemapFile->getDocument()->addUrl($url);
+				$sitemapFile->addUrl($url);
 			}
 
 			return $sitemapFile;

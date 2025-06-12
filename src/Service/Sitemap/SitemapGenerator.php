@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 12/06/2025, 16:24
+ * Last modified by "idmarinas" on 12/06/2025, 21:09
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -27,7 +27,7 @@ use Idm\Bundle\Seo\Attributes\Sitemap\SitemapDynamic;
 use Idm\Bundle\Seo\Attributes\Sitemap\SitemapInterface;
 use Idm\Bundle\Seo\Attributes\Sitemap\SitemapUrl;
 use Idm\Bundle\Seo\Sitemap\Node\Sitemap;
-use Idm\Bundle\Seo\Traits\Service\SaveLoadTrait;
+use Idm\Bundle\Seo\Traits\Service\CacheSaveAndLoadTrait;
 use Idm\Bundle\Seo\Traits\Service\SitemapGenerator\GenerateDynamicSitemapTrait;
 use Psr\Cache\CacheException;
 use Psr\Cache\CacheItemPoolInterface;
@@ -44,7 +44,7 @@ use function Symfony\Component\String\u;
 final class SitemapGenerator
 {
 	use GenerateDynamicSitemapTrait;
-	use SaveLoadTrait;
+	use CacheSaveAndLoadTrait;
 
 	public function __construct (
 		private readonly RouterInterface                               $router,

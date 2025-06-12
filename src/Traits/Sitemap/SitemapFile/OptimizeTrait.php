@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 08/06/2025, 23:01
+ * Last modified by "IDMarinas" on 12/06/2025, 15:50
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -80,7 +80,7 @@ trait OptimizeTrait
 
 		// Prepare the result
 		$result = [];
-		$result[$this->getName()] = $indexSitemap;
+		$result[$this->getName() . '.index'] = $indexSitemap;
 
 		// Get all URL nodes from the current sitemap
 		$urls = [];

@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 11/06/2025, 14:30
+ * Last modified by "idmarinas" on 12/06/2025, 19:34
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -44,9 +44,9 @@ final class SitemapController extends AbstractController
 	#[Cache(maxage: 3600, public: true)]
 	public function index (): Response
 	{
-		$sitemap = $this->handler->getRootSitemap();
+		$sitemap = $this->handler->getSitemap('index');
 
-		return new Response($sitemap->getDocument()->toString());
+		return new Response($sitemap->toString());
 	}
 
 	/**
@@ -67,11 +67,11 @@ final class SitemapController extends AbstractController
 	{
 		$sitemap = $this->handler->getSitemap($name);
 
-		if ($sitemap->getDocument()->isEmpty()) {
-			$this->createNotFoundException(sprintf('Sitemap "%s.xml" not found.', $name));
+		if ($sitemap->isEmpty()) {
+			throw $this->createNotFoundException(sprintf('Sitemap "%s.xml" not found.', $name));
 		}
 
-		return new Response($sitemap->getDocument()->toString());
+		return new Response($sitemap->toString());
 	}
 
 	/**
@@ -91,12 +91,12 @@ final class SitemapController extends AbstractController
 	#[Cache(maxage: 3600, public: true)]
 	public function sitemapPage (string $name, int $id): Response
 	{
-		$sitemap = $this->handler->getSitemapPage($name, $id);
+		$sitemap = $this->handler->getSitemap($name . '.' . $id);
 
-		if ($sitemap->getDocument()->isEmpty()) {
-			$this->createNotFoundException(sprintf('Sitemap "%s.%d.xml" not found.', $name, $id));
+		if ($sitemap->isEmpty()) {
+			throw $this->createNotFoundException(sprintf('Sitemap "%s.%d.xml" not found.', $name, $id));
 		}
 
-		return new Response($sitemap->getDocument()->toString());
+		return new Response($sitemap->toString());
 	}
 }

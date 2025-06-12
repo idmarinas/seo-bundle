@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 12/06/2025, 19:11
+ * Last modified by "idmarinas" on 12/06/2025, 19:31
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -24,7 +24,6 @@ use Idm\Bundle\Seo\Traits\Service\SaveLoadTrait;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
-use function Symfony\Component\String\u;
 
 final class SitemapHandler
 {
@@ -35,13 +34,12 @@ final class SitemapHandler
 	/**
 	 * @throws InvalidArgumentException
 	 */
-	public function getSitemap (string $name, ?int $id = null): SitemapFile
+	public function getSitemap (string $name): SitemapFile
 	{
 		return match (true) {
 			// Index sitemap.xml
-			'index' === $name || 'root' === $name => $this->getCachedSitemap('index'),
-			u($name)->endsWith('.index')          => $this->getCachedSitemap($name),
-			null !== $id                          => $this->getCachedSitemap($name . '.' . $id),
+			'root' === $name => $this->getCachedSitemap('index'),
+			default          => $this->getCachedSitemap($name),
 		};
 	}
 }

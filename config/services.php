@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 10/06/2025, 16:52
+ * Last modified by "idmarinas" on 12/06/2025, 21:30
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -23,9 +23,7 @@ use Idm\Bundle\Seo\Cache\Warmer\GenerateSitemap;
 use Idm\Bundle\Seo\Command\SeoSitemapGenerateCommand;
 use Idm\Bundle\Seo\Controller\SitemapController;
 use Idm\Bundle\Seo\Service\Sitemap\SitemapGenerator;
-use Idm\Bundle\Seo\Service\Sitemap\SitemapHandler;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
 return function (ContainerConfigurator $container) {
 	// @formatter:off
@@ -51,15 +49,10 @@ return function (ContainerConfigurator $container) {
 
 		->set(SitemapController::class, SitemapController::class)
 			->private()
-			->args(['$handler' => service('idm_seo.services.sitemap_handler')])
 			->call('setContainer', [service_locator([
-				'parameter_bag' => service(ContainerBagInterface::class),
+				'idm_seo.cache' => service('idm_seo.cache'),
 			])])
 			->tag('controller.service_arguments')
-
-		->set('idm_seo.services.sitemap_handler', SitemapHandler::class)
-			->private()
-			->args(['$cache' => service('idm_seo.cache')])
 
 		->set('idm_seo.command.generate_sitemap', SeoSitemapGenerateCommand::class)
 			->private()

@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 10/06/2025, 16:52
+ * Last modified by "idmarinas" on 12/06/2025, 19:11
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -19,11 +19,12 @@
 
 namespace Idm\Bundle\Seo\Service\Sitemap;
 
-use Idm\Bundle\Seo\Cache\SitemapInfo;
+use Idm\Bundle\Seo\Sitemap\SitemapFile;
 use Idm\Bundle\Seo\Traits\Service\SaveLoadTrait;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
+use function Symfony\Component\String\u;
 
 final class SitemapHandler
 {
@@ -34,40 +35,13 @@ final class SitemapHandler
 	/**
 	 * @throws InvalidArgumentException
 	 */
-	public function getRootSitemap (): SitemapInfo
+	public function getSitemap (string $name, ?int $id = null): SitemapFile
 	{
-		$sitemap = $this->getCachedSitemap('index', true);
-
-		return $sitemap;
-	}
-
-	/**
-	 * @throws InvalidArgumentException
-	 */
-	public function getIndexSitemap (string $name): SitemapInfo
-	{
-		$sitemap = $this->getCachedSitemap($name, true);
-
-		return $sitemap;
-	}
-
-	/**
-	 * @throws InvalidArgumentException
-	 */
-	public function getSitemapPage (string $name, int $id): SitemapInfo
-	{
-		$sitemap = $this->getCachedSitemap($name . '.' . $id);
-
-		return $sitemap;
-	}
-
-	/**
-	 * @throws InvalidArgumentException
-	 */
-	public function getSitemap (string $name): SitemapInfo
-	{
-		$sitemap = $this->getCachedSitemap($name);
-
-		return $sitemap;
+		return match (true) {
+			// Index sitemap.xml
+			'index' === $name || 'root' === $name => $this->getCachedSitemap('index'),
+			u($name)->endsWith('.index')          => $this->getCachedSitemap($name),
+			null !== $id                          => $this->getCachedSitemap($name . '.' . $id),
+		};
 	}
 }

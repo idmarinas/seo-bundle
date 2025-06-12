@@ -20,6 +20,8 @@
 namespace Idm\Bundle\Seo\Sitemap;
 
 use Countable;
+use DateTime;
+use DateTimeInterface;
 use DOMDocument;
 use DOMElement;
 use DOMException;
@@ -45,6 +47,7 @@ final class SitemapFile implements Countable
 
 	protected readonly DOMDocument $document;
 	protected ?DOMElement          $rootElement = null;
+	private DateTimeInterface $updatedAt;
 
 	/**
 	 * Creates a new sitemap instance
@@ -56,6 +59,7 @@ final class SitemapFile implements Countable
 	 */
 	public function __construct (protected string $name, protected bool $index = false)
 	{
+		$this->updatedAt = new DateTime();
 		$this->document = new DOMDocument('1.0', 'UTF-8');
 		$this->document->formatOutput = true;
 
@@ -206,6 +210,11 @@ final class SitemapFile implements Countable
 	public function isEmpty (): bool
 	{
 		return $this->count() === 0;
+	}
+
+	public function getUpdatedAt (): DateTimeInterface
+	{
+		return $this->updatedAt;
 	}
 
 	/**

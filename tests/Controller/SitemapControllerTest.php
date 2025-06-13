@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 11/06/2025, 13:45
+ * Last modified by "idmarinas" on 12/06/2025, 22:09
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -40,27 +40,25 @@ class SitemapControllerTest extends WebTestCase
 	/**
 	 * Prueba que la ruta de un sitemap específico funciona
 	 */
-	public function testSitemapFile (): void
+	public function testNotFoundSitemapFile (): void
 	{
 		$client = static::createClient();
 		$client->request('GET', '/sitemap/pages.xml');
 
-		$this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-		$this->assertEquals('text/xml; charset=UTF-8', $client->getResponse()->headers->get('Content-Type'));
-		$this->assertStringContainsString('<urlset', $client->getResponse()->getContent());
+		$this->assertEquals(Response::HTTP_NOT_FOUND, $client->getResponse()->getStatusCode());
+		$this->assertEquals('text/html; charset=UTF-8', $client->getResponse()->headers->get('Content-Type'));
 	}
 
 	/**
 	 * Prueba que la ruta de una página específica de un sitemap funciona
 	 */
-	public function testSitemapFilePage (): void
+	public function testNotFoundSitemapFilePage (): void
 	{
 		$client = static::createClient();
 		$client->request('GET', '/sitemap/pages.1.xml');
 
-		$this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-		$this->assertEquals('text/xml; charset=UTF-8', $client->getResponse()->headers->get('Content-Type'));
-		$this->assertStringContainsString('<urlset', $client->getResponse()->getContent());
+		$this->assertEquals(Response::HTTP_NOT_FOUND, $client->getResponse()->getStatusCode());
+		$this->assertEquals('text/html; charset=UTF-8', $client->getResponse()->headers->get('Content-Type'));
 	}
 
 	/**

@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 12/06/2025, 22:09
+ * Last modified by "idmarinas" on 13/06/2025, 17:36
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -46,7 +46,7 @@ class SitemapControllerTest extends WebTestCase
 		$client->request('GET', '/sitemap/pages.xml');
 
 		$this->assertEquals(Response::HTTP_NOT_FOUND, $client->getResponse()->getStatusCode());
-		$this->assertEquals('text/html; charset=UTF-8', $client->getResponse()->headers->get('Content-Type'));
+		$this->assertPageTitleContains('Sitemap "pages.xml" not found.');
 	}
 
 	/**
@@ -58,7 +58,7 @@ class SitemapControllerTest extends WebTestCase
 		$client->request('GET', '/sitemap/pages.1.xml');
 
 		$this->assertEquals(Response::HTTP_NOT_FOUND, $client->getResponse()->getStatusCode());
-		$this->assertEquals('text/html; charset=UTF-8', $client->getResponse()->headers->get('Content-Type'));
+		$this->assertPageTitleContains('Sitemap "pages.1.xml" not found.');
 	}
 
 	/**
@@ -70,6 +70,7 @@ class SitemapControllerTest extends WebTestCase
 		$client->request('GET', '/sitemap.html');
 
 		$this->assertNotEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+		$this->assertPageTitleContains('No route found for "GET http://localhost/sitemap.html"');
 	}
 
 	/**
@@ -81,5 +82,6 @@ class SitemapControllerTest extends WebTestCase
 		$client->request('GET', '/sitemap/123.xml');
 
 		$this->assertNotEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+		$this->assertPageTitleContains('No route found for "GET http://localhost/sitemap/123.xml"');
 	}
 }

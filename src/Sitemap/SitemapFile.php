@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 13/06/2025, 17:47
+ * Last modified by "idmarinas" on 13/06/2025, 18:00
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -185,9 +185,9 @@ final class SitemapFile implements Countable
 		return $this->updatedAt;
 	}
 
-	public function setUpdatedAt (DateTimeInterface $updatedAt): self
+	public function updateAtField (): self
 	{
-		$this->updatedAt = $updatedAt;
+		$this->updatedAt = new DateTime();
 
 		return $this;
 	}

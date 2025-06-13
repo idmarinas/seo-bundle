@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 13/06/2025, 18:00
+ * Last modified by "idmarinas" on 13/06/2025, 18:01
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -64,6 +64,8 @@ final class SitemapFile implements Countable
 		$this->updatedAt = new DateTime();
 		$this->document = new DOMDocument('1.0', 'UTF-8');
 		$this->document->formatOutput = true;
+
+		$this->updateAtField();
 
 		// Initialize the root element according to the sitemap type
 		$this->initRootElement($this->index ? 'sitemapindex' : 'urlset');

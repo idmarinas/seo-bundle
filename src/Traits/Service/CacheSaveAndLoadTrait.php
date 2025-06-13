@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 12/06/2025, 21:09
+ * Last modified by "idmarinas" on 13/06/2025, 16:58
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -36,7 +36,7 @@ trait CacheSaveAndLoadTrait
 		return $this->cache->get(CacheKeyEnum::SITEMAP->suffix($name), function (ItemInterface $item) use ($name) {
 			$item->tag(CacheTagEnum::SITEMAP->value);
 
-			return (new SitemapFile($name));
+			return new SitemapFile($name);
 		}, $invalidate ? INF : null);
 	}
 

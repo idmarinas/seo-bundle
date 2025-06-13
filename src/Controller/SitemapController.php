@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 12/06/2025, 21:45
+ * Last modified by "idmarinas" on 13/06/2025, 16:58
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -124,7 +124,7 @@ final class SitemapController extends AbstractController
 		return $this->container->get('idm_seo.cache')->get($key, function (ItemInterface $item) use ($name) {
 			$item->tag(CacheTagEnum::SITEMAP->value);
 
-			return (new SitemapFile($name));
+			return new SitemapFile($name);
 		});
 	}
 }

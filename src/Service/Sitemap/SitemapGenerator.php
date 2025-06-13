@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 12/06/2025, 21:09
+ * Last modified by "idmarinas" on 13/06/2025, 17:10
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -21,7 +21,6 @@ namespace Idm\Bundle\Seo\Service\Sitemap;
 
 use DateMalformedStringException;
 use DateTime;
-use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Idm\Bundle\Seo\Attributes\Sitemap\SitemapDynamic;
 use Idm\Bundle\Seo\Attributes\Sitemap\SitemapInterface;
@@ -48,8 +47,8 @@ final class SitemapGenerator
 
 	public function __construct (
 		private readonly RouterInterface                               $router,
+		/** @SuppressWarnings(php:S1068) */ // Suppress 'unused private field' - used in CacheSaveAndLoadTrait
 		private readonly CacheItemPoolInterface&TagAwareCacheInterface $cache,
-		private readonly EntityManagerInterface                        $entityManager,
 		private readonly string                                        $defaultScheme,
 	) {
 		$this->router->getContext()->setScheme($this->defaultScheme);

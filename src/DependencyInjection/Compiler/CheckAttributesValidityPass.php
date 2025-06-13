@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/06/2025, 16:24
+ * Last modified by "idmarinas" on 13/06/2025, 17:00
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -29,6 +29,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class CheckAttributesValidityPass implements CompilerPassInterface
 {
+	/**
+	 * @throws ReflectionException
+	 */
 	public function process (ContainerBuilder $container): void
 	{
 		$services = $container->findTaggedServiceIds('controller.service_arguments', true);
@@ -39,24 +42,21 @@ class CheckAttributesValidityPass implements CompilerPassInterface
 				continue;
 			}
 
-			try {
-				$reflection = new ReflectionClass($definition->getClass());
+			$reflection = new ReflectionClass($definition->getClass());
 
-				foreach ($reflection->getMethods() as $method) {
-					$hasSitemapUrl = !empty($method->getAttributes(SitemapUrl::class));
-					$hasSitemapDynamic = !empty($method->getAttributes(SitemapDynamic::class));
+			foreach ($reflection->getMethods() as $method) {
+				$hasSitemapUrl = !empty($method->getAttributes(SitemapUrl::class));
+				$hasSitemapDynamic = !empty($method->getAttributes(SitemapDynamic::class));
 
-					if ($hasSitemapUrl && $hasSitemapDynamic) {
-						throw new LogicException(
-							sprintf(
-								'The method %s::%s has incompatible attributes: SitemapUrl and SitemapDynamic cannot be used together.',
-								$reflection->getName(),
-								$method->getName()
-							)
-						);
-					}
+				if ($hasSitemapUrl && $hasSitemapDynamic) {
+					throw new LogicException(
+						sprintf(
+							'The method %s::%s has incompatible attributes: SitemapUrl and SitemapDynamic cannot be used together.',
+							$reflection->getName(),
+							$method->getName()
+						)
+					);
 				}
-			} catch (ReflectionException) {
 			}
 		}
 	}

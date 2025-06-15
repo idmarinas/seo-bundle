@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 15/06/2025, 22:06
+ * Last modified by "idmarinas" on 15/06/2025, 22:07
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -61,7 +61,6 @@ final class SitemapFile implements Countable
 	public function __construct (private string $name, private ?bool $index = null)
 	{
 		$this->index = $index ?? ('index' === $this->name || u($name)->endsWith('.index'));
-		$this->updatedAt = new DateTime();
 		$this->document = new DOMDocument('1.0', 'UTF-8');
 		$this->document->formatOutput = true;
 

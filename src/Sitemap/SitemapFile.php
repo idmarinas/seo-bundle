@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 15/06/2025, 21:29
+ * Last modified by "idmarinas" on 15/06/2025, 21:56
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -322,7 +322,6 @@ final class SitemapFile implements Countable
 		$xpath = new DOMXPath($this->document);
 
 		$tag = $this->index ? 'sitemap' : 'url';
-		// Simplify the query to avoid the predicate that causes problems
 		$query = sprintf("//%s/loc[text()='%s']", $tag, $location);
 		$nodes = $xpath->query($query);
 
@@ -330,14 +329,6 @@ final class SitemapFile implements Countable
 			return null;
 		}
 
-		// Manual comparison of text content
-		for ($i = 0; $i < $nodes->length; $i++) {
-			$node = $nodes->item($i);
-			if ($node && trim($node->textContent) === trim($location)) {
-				return $node->parentNode;
-			}
-		}
-
-		return null;
+		return $nodes->item(0)->parentNode;
 	}
 }

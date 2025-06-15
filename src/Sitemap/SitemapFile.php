@@ -110,10 +110,6 @@ final class SitemapFile implements Countable
 	 */
 	public function count (): int
 	{
-		if ($this->rootElement === null) {
-			return 0;
-		}
-
 		return $this->document->getElementsByTagName($this->index ? 'sitemap' : 'url')->count();
 	}
 

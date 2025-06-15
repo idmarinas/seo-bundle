@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 15/06/2025, 21:57
+ * Last modified by "idmarinas" on 15/06/2025, 22:05
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -46,8 +46,8 @@ final class SitemapFile implements Countable
 	public const int LIMIT_ITEMS = 50_000;
 	public const int LIMIT_BYTES = 52_428_800; // 50MB
 
-	protected DOMDocument     $document;
-	protected ?DOMElement     $rootElement = null;
+	private DOMDocument       $document;
+	private ?DOMElement       $rootElement = null;
 	private DateTimeInterface $updatedAt;
 
 	/**

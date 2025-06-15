@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 15/06/2025, 22:56
+ * Last modified by "idmarinas" on 15/06/2025, 23:08
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -127,11 +127,6 @@ final class SitemapFile implements Countable
 	 */
 	public function isValid (): bool
 	{
-		// Check that the root element exists
-		if ($this->rootElement === null) {
-			throw new LogicException('Root element not initialized.');
-		}
-
 		// Check that it does not exceed the maximum number of URLs
 		if ($this->count() > self::LIMIT_ITEMS) {
 			return false;
@@ -282,10 +277,6 @@ final class SitemapFile implements Countable
 	 */
 	private function addNode (AbstractNode $node): self
 	{
-		if ($this->rootElement === null) {
-			throw new LogicException('Root element not initialized. This is an internal error that should not happen.');
-		}
-
 		try {
 			$loc = $node->getLoc();
 
@@ -319,10 +310,6 @@ final class SitemapFile implements Countable
 	 */
 	private function findUrlByLocation (string $location): ?DOMNode
 	{
-		if ($this->rootElement === null) {
-			return null;
-		}
-
 		$xpath = new DOMXPath($this->document);
 
 		$tag = $this->index ? 'sitemap' : 'url';

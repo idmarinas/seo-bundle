@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 15/06/2025, 22:40
+ * Last modified by "idmarinas" on 15/06/2025, 22:43
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -217,6 +217,8 @@ final class SitemapFile implements Countable
 
 	public function __serialize (): array
 	{
+		$this->updateAtField();
+
 		return [
 			'updated_at' => $this->getUpdatedAt(),
 			'sitemap'    => $this->toString(),

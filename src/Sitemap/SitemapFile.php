@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 15/06/2025, 22:54
+ * Last modified by "idmarinas" on 15/06/2025, 22:56
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -326,7 +326,7 @@ final class SitemapFile implements Countable
 		$xpath = new DOMXPath($this->document);
 
 		$tag = $this->index ? 'sitemap' : 'url';
-		$query = sprintf("//%s/loc[text()='%s']", $tag, $location);
+		$query = sprintf("//%s/loc[text()='%s']", $tag, str_replace(["'", '"'], ["''", '""'], $location));
 		$nodes = $xpath->query($query);
 
 		if ($nodes === false || $nodes->length === 0) {

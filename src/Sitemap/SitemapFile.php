@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 15/06/2025, 22:05
+ * Last modified by "idmarinas" on 15/06/2025, 22:06
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -58,7 +58,7 @@ final class SitemapFile implements Countable
 	 *
 	 * @throws DOMException If there's an error creating the DOM structure
 	 */
-	public function __construct (protected string $name, protected ?bool $index = null)
+	public function __construct (private string $name, private ?bool $index = null)
 	{
 		$this->index = $index ?? ('index' === $this->name || u($name)->endsWith('.index'));
 		$this->updatedAt = new DateTime();

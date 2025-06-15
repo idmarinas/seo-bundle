@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 15/06/2025, 22:43
+ * Last modified by "idmarinas" on 15/06/2025, 22:54
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -53,8 +53,8 @@ final class SitemapFile implements Countable
 	/**
 	 * Creates a new sitemap instance
 	 *
-	 * @param string $name  The name of the sitemap file
-	 * @param bool   $index Whether this is an index sitemap (true) or a normal sitemap (false)
+	 * @param string    $name  The name of the sitemap file
+	 * @param null|bool $index Whether this is an index sitemap (true) or a normal sitemap (false)
 	 *
 	 * @throws DOMException If there's an error creating the DOM structure
 	 */
@@ -200,16 +200,31 @@ final class SitemapFile implements Countable
 			$this->document->encoding = 'UTF-8';
 			$this->document->formatOutput = true;
 
+			// Validar que el XML tenga la estructura correcta
+			$hasIndex = $this->document->getElementsByTagName('sitemapindex')->length > 0;
+			$hasUrlset = $this->document->getElementsByTagName('urlset')->length > 0;
+
+			if ($hasIndex && $hasUrlset) {
+				throw new InvalidArgumentException('XML contains both sitemapindex and urlset elements');
+			}
+
+			if (!$hasIndex && !$hasUrlset) {
+				throw new InvalidArgumentException('XML does not contain valid sitemap structure');
+			}
+
+			if ($hasIndex !== $this->index) {
+				throw new InvalidArgumentException(
+					sprintf(
+						'XML type mismatch: expected %s but got %s',
+						$this->index ? 'sitemapindex' : 'urlset',
+						$hasIndex ? 'sitemapindex' : 'urlset'
+					)
+				);
+			}
+
 			// Update the root element reference
 			$rootTagName = $this->index ? 'sitemapindex' : 'urlset';
-			$elements = $this->document->getElementsByTagName($rootTagName);
-
-			if ($elements->length > 0) {
-				$this->rootElement = $elements->item(0);
-			} else {
-				// If the root element is not found, initialize it
-				$this->initRootElement($rootTagName);
-			}
+			$this->rootElement = $this->document->getElementsByTagName($rootTagName)->item(0);
 		} catch (Exception $e) {
 			throw new InvalidArgumentException('Failed to load XML: ' . $e->getMessage(), 0, $e);
 		}

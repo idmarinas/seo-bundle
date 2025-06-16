@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 15/06/2025, 23:08
+ * Last modified by "idmarinas" on 16/06/2025, 15:57
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -256,10 +256,6 @@ final class SitemapFile implements Countable
 	 */
 	private function initRootElement (string $rootElementName): void
 	{
-		if (null !== $this->rootElement) {
-			return;
-		}
-
 		$this->rootElement = $this->document->createElementNS(
 			'https://www.sitemaps.org/schemas/sitemap/0.9',
 			$rootElementName

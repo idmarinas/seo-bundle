@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 13/06/2025, 18:00
+ * Last modified by "idmarinas" on 16/06/2025, 17:50
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -82,8 +82,7 @@ trait GenerateDynamicSitemapTrait
 
 			return $sitemapFile;
 		} catch (Exception|InvalidArgumentException) {
+			return null;
 		}
-
-		return null;
 	}
 }

@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 16/06/2025, 15:16
+ * Last modified by "idmarinas" on 16/06/2025, 15:21
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -31,10 +31,10 @@ use PHPUnit\Framework\TestCase;
 class SitemapFileTest extends TestCase
 {
 	/**
-	 * @dataProvider initializationDataProvider
+	 * @dataProvider initializationAutodetectIndexDataProvider
 	 * @throws DOMException
 	 */
-	public function testSitemapInitialization (
+	public function testSitemapAutodetectIndexInitialization (
 		string $name,
 		string $node,
 		bool   $index,
@@ -59,7 +59,7 @@ class SitemapFileTest extends TestCase
 		);
 	}
 
-	public function initializationDataProvider (): iterable
+	public function initializationAutodetectIndexDataProvider (): iterable
 	{
 		yield 'test page urlset' => ['test', 'urlset', false, true, true];
 		yield 'test index sitemap' => ['test.index', 'sitemapindex', true, true, true];
@@ -129,5 +129,44 @@ class SitemapFileTest extends TestCase
 		$sitemap->addSitemap(new Sitemap('https://www.example.com', new DateTime()));
 
 		$this->assertCount(2, $sitemap);
+	}
+
+	/**
+	 * @dataProvider initializationDataProvider
+	 * @throws DOMException
+	 */
+	public function testSitemapInitialization (
+		string $name,
+		string $node,
+		bool   $index,
+		bool   $empty,
+		bool   $valid
+	): void {
+		$sitemap = new SitemapFile($name, $index);
+
+		$this->assertEquals($name, $sitemap->getName());
+
+		$this->assertEquals($index, $sitemap->isIndex());
+
+		$this->assertEquals($empty, $sitemap->isEmpty());
+
+		$this->assertEquals($valid, $sitemap->isValid());
+
+		$xml = $sitemap->toString();
+		$this->assertStringContainsString('<?xml version="1.0" encoding="UTF-8"?>', $xml);
+		$this->assertStringContainsString(
+			sprintf('<%s xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"/>', $node),
+			$xml
+		);
+	}
+
+	public function initializationDataProvider (): iterable
+	{
+		yield 'test force index' => ['test', 'sitemapindex', true, true, true];
+		yield 'test index change to false' => ['test.index', 'urlset', false, true, true];
+		yield 'page number 0 force to index' => ['test.0', 'sitemapindex', true, true, true];
+		yield 'page number 23 force to index' => ['test.23', 'sitemapindex', true, true, true];
+		yield 'index sitemap change to false' => ['index', 'urlset', false, true, true];
+		yield 'page index sitemap change to false' => ['page.index', 'urlset', false, true, true];
 	}
 }

@@ -61,9 +61,12 @@ class SitemapFileTest extends TestCase
 
 	public function initializationDataProvider (): iterable
 	{
-		yield ['test', 'urlset', false, true, true];
-		yield ['index', 'sitemapindex', true, true, true];
-		yield ['page.index', 'sitemapindex', true, true, true];
+		yield 'test page urlset' => ['test', 'urlset', false, true, true];
+		yield 'test index sitemap' => ['test.index', 'sitemapindex', true, true, true];
+		yield 'page number 0' => ['test.0', 'urlset', false, true, true];
+		yield 'page number 23' => ['test.23', 'urlset', false, true, true];
+		yield 'index sitemap' => ['index', 'sitemapindex', true, true, true];
+		yield 'page index sitemap' => ['page.index', 'sitemapindex', true, true, true];
 	}
 
 	/**

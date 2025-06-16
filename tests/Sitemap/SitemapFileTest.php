@@ -34,7 +34,7 @@ class SitemapFileTest extends TestCase
 	 * @dataProvider initializationDataProvider
 	 * @throws DOMException
 	 */
-	public function testPageIndexSitemapInitialization (
+	public function testSitemapInitialization (
 		string $name,
 		string $node,
 		bool   $index,

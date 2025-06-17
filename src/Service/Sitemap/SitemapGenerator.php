@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 13/06/2025, 17:15
+ * Last modified by "idmarinas" on 17/06/2025, 14:25
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -48,11 +48,10 @@ final class SitemapGenerator
 
 	public function __construct (
 		private readonly RouterInterface                               $router,
-		/** @SuppressWarnings(php:S1068) */ // Suppress 'unused private field' - used in CacheSaveAndLoadTrait
 		private readonly CacheItemPoolInterface&TagAwareCacheInterface $cache,
-		/** @SuppressWarnings(php:S1068) */ // Suppress 'unused private field' - used in GenerateDynamicSitemapTrait
 		private readonly EntityManagerInterface                        $entityManager,
 		private readonly string                                        $defaultScheme,
+		private readonly string                                        $excludedRoutes,
 	) {
 		$this->router->getContext()->setScheme($this->defaultScheme);
 	}
@@ -65,9 +64,8 @@ final class SitemapGenerator
 	 */
 	public function generate (bool $invalidate = false): void
 	{
-		$ignore = ['_preview_error', '_profiler', '_wdt', '_debug'];
-		$collection = $this->router->getRouteCollection()->all();
-		$routers = array_filter($collection, fn(string $r) => !u($r)->startsWith($ignore), ARRAY_FILTER_USE_KEY);
+		$all = $this->router->getRouteCollection()->all();
+		$routers = array_filter($all, fn(string $r) => !u($r)->startsWith($this->excludedRoutes), ARRAY_FILTER_USE_KEY);
 
 		$sitemapIndex = $this->getCachedSitemap('index', $invalidate);
 		$sitemapDefault = $this->getCachedSitemap('default', $invalidate);
@@ -87,6 +85,7 @@ final class SitemapGenerator
 				// Add URL to NAMED Sitemap
 				$url = $this->generateUrl('idm_seo_sitemap_file', ['name' => $sitemap->name]);
 				$sitemapIndex->addSitemap(new Sitemap($url, new DateTime()));
+
 				if (null !== $sitemapFile = $this->generateSitemapDynamic($sitemap, $routeName, $invalidate)) {
 					$this->prepareToSave($sitemap->name, $sitemapFile);
 				}

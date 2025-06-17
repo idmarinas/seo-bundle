@@ -1,13 +1,13 @@
 <?php
 /**
- * Copyright 2024 (C) IDMarinas - All Rights Reserved
+ * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 30/12/2024, 17:53
+ * Last modified by "idmarinas" on 19/03/2025, 18:06
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
  *
- * @file    messenger.php
+ * @file    router.php
  * @date    19/03/2025
  * @time    17:06
  *
@@ -21,13 +21,8 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 return static function (ContainerConfigurator $container) {
 	$container->extension('framework', [
-		'messenger' => [
-			'transports' => [
-				'sync' => 'in-memory://',
-			],
-			'routing'    => [
-				'Symfony\\Component\\Mailer\\Messenger\\SendEmailMessage' => 'sync',
-			],
+		'router' => [
+			'utf8' => true,
 		],
 	]);
 };

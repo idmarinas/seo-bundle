@@ -2,12 +2,12 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 03/01/2025, 19:48
+ * Last modified by "idmarinas" on 19/03/2025, 18:06
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
  *
- * @file    services.php
+ * @file    framework.php
  * @date    19/03/2025
  * @time    17:06
  *
@@ -19,10 +19,16 @@
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-return static function (ContainerConfigurator $container) {
-	// @formatter:off
-	$container
-		->services()
+use Symfony\Config\FrameworkConfig;
+
+return static function (FrameworkConfig $config) {
+	$config
+		->secret('test')
+		->test(true)
+		->httpMethodOverride(false)
+		->handleAllThrowables(true)
 	;
-	// @formatter:on
+	$config->form()->enabled(false);
+	$config->propertyAccess()->enabled(true);
+	$config->phpErrors()->log(true);
 };

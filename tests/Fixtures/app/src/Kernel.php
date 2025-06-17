@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 13/03/2025, 22:23
+ * Last modified by "idmarinas" on 17/06/2025, 16:12
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -233,7 +233,7 @@ final class Kernel extends BaseKernel
 
 	private function getTestConfigDir (): string
 	{
-		return $this->getProjectDir() . '/app/config';
+		return $this->getProjectDir() . '/tests/Fixtures/app/config';
 	}
 
 	private function getTestPackagesConfigDir (): string

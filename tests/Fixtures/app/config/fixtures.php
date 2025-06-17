@@ -2,12 +2,12 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 31/01/2025, 19:08
+ * Last modified by "idmarinas" on 17/06/2025, 17:25
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
  *
- * @file    factories.php
+ * @file    fixtures.php
  * @date    19/03/2025
  * @time    17:06
  *
@@ -17,13 +17,14 @@
  * @since   1.0.0
  */
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $container) {
+return static function (ContainerConfigurator $container, ContainerBuilder $builder) {
 	// @formatter:off
 	$container
 		->services()
-			->load('Factory\\', dirname(__DIR__, 2) . '/factories')
+			->load('DataFixtures\\', $builder->getParameter('kernel.project_dir') . '/fixtures')
 			->public()
 			->autowire()
 			->autoconfigure()

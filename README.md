@@ -8,7 +8,7 @@
 
 </div>
 
-> Short description for Bundle
+> Provides tools for SEO optimization in Symfony applications and sitemap generation and management.
 
 <br />
 
@@ -86,7 +86,6 @@ return [
     Idm\Bundle\Seo\IdmSeoBundle::class => ['all' => true],
 ];
 ```
-
 
 ## 🖱️ Tech used in code
 

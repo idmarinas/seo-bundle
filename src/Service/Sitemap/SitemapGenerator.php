@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 17/06/2025, 14:25
+ * Last modified by "idmarinas" on 17/06/2025, 14:27
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -51,7 +51,7 @@ final class SitemapGenerator
 		private readonly CacheItemPoolInterface&TagAwareCacheInterface $cache,
 		private readonly EntityManagerInterface                        $entityManager,
 		private readonly string                                        $defaultScheme,
-		private readonly string                                        $excludedRoutes,
+		private readonly array                                         $excludedRoutes,
 	) {
 		$this->router->getContext()->setScheme($this->defaultScheme);
 	}

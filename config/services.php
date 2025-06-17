@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 12/06/2025, 21:30
+ * Last modified by "idmarinas" on 17/06/2025, 14:25
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -36,10 +36,10 @@ return function (ContainerConfigurator $container) {
 			->private()
 			->args([
 				'$router' => service('router.default'),
-//				'$eventDispatcher' => service('event_dispatcher'),
 				'$cache' => service('idm_seo.cache'),
 				'$entityManager' => service('doctrine.orm.entity_manager'),
 				'$defaultScheme' => param('idm_seo.parameter.sitemap.default_scheme'),
+				'$excludedRoutes' => param('idm_seo.parameter.sitemap.excluded_routes'),
 			])
 
 		->set('idm_seo.cache.warmer', GenerateSitemap::class)

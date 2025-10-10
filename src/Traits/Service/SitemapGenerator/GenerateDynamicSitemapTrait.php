@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 16/06/2025, 17:50
+ * Last modified by "IDMarinas" on 10/10/2025, 16:32
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -37,9 +37,9 @@ trait GenerateDynamicSitemapTrait
 
 			return $isObject ? method_exists($sitemap->entity, $method) : isset($result[$v]);
 		});
-		array_walk($params, function (&$item, $key) use ($isObject, $result) {
-			$method = 'get' . ucfirst($key);
-			$item = $isObject ? $result->{$method}() : $result[$key];
+		array_walk($params, function (&$item) use ($isObject, $result) {
+			$method = 'get' . ucfirst($item);
+			$item = $isObject ? $result->{$method}() : $result[$item];
 		});
 
 		return $params;

@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 16/06/2025, 15:57
+ * Last modified by "IDMarinas" on 10/10/2025, 17:07
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -25,7 +25,6 @@ use DateTimeInterface;
 use DOMDocument;
 use DOMElement;
 use DOMException;
-use DOMNode;
 use DOMXPath;
 use Exception;
 use Idm\Bundle\Seo\Sitemap\Node\AbstractNode;
@@ -274,20 +273,11 @@ final class SitemapFile implements Countable
 	private function addNode (AbstractNode $node): self
 	{
 		try {
-			$loc = $node->getLoc();
-
-			// Check if a node with this URL already exists
-			$existingNode = $this->findUrlByLocation($loc);
-
 			$newNode = $node->getNode($this->document);
+			// Search and remove all duplicates URL already
+			$this->removeUrlsByLocation($node->getLoc());
 
-			if ($existingNode !== null) {
-				// If it exists, replace the existing node with the new one
-				$this->rootElement->replaceChild($newNode, $existingNode);
-			} else {
-				// If it doesn't exist, add the new node
-				$this->rootElement->appendChild($newNode);
-			}
+			$this->rootElement->appendChild($newNode);
 
 			return $this;
 		} catch (Exception $e) {
@@ -300,22 +290,29 @@ final class SitemapFile implements Countable
 	}
 
 	/**
-	 * Finds a URL node by its location safely
+	 * Remove all duplicate URLs
 	 *
 	 * @param string $location The URL to search for
 	 */
-	private function findUrlByLocation (string $location): ?DOMNode
+	private function removeUrlsByLocation (string $location): void
 	{
 		$xpath = new DOMXPath($this->document);
 
+		// Registrar el namespace del sitemap
+		$xpath->registerNamespace('sm', 'https://www.sitemaps.org/schemas/sitemap/0.9');
+
 		$tag = $this->index ? 'sitemap' : 'url';
-		$query = sprintf("//%s/loc[text()='%s']", $tag, str_replace(["'", '"'], ["''", '""'], $location));
+		$query = sprintf("//sm:%s[sm:loc/text()='%s']", $tag, str_replace(["'", '"'], ["''", '""'], $location));
+
 		$nodes = $xpath->query($query);
 
 		if ($nodes === false || $nodes->length === 0) {
-			return null;
+			return;
 		}
 
-		return $nodes->item(0)->parentNode;
+		// Eliminar todos los nodos encontrados
+		foreach ($nodes as $node) {
+			$node->parentNode->removeChild($node);
+		}
 	}
 }

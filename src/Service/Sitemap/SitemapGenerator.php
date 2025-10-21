@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 17/06/2025, 14:27
+ * Last modified by "IDMarinas" on 21/10/2025, 19:33
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -98,18 +98,23 @@ final class SitemapGenerator
 
 	private function getSitemapFromRoute (Route $route): ?SitemapInterface
 	{
-		$controller = u((string)$route->getDefault('_controller'))->trim();
+		$controller = $route->getDefault('_controller');
+		$controller = is_string($controller) ? $controller : $controller[0];
+		$controller = u($controller)->trim();
 
 		if ($controller->isEmpty()) {
 			return null;
 		}
 
-		$template = 'Symfony\\Bundle\\FrameworkBundle\\Controller\\TemplateController';
+		$templates = [
+			'Symfony\\Bundle\\FrameworkBundle\\Controller\\TemplateController',
+			'Symfony\\Bundle\\FrameworkBundle\\Controller\\RedirectController',
+		];
 
 		return match (true) {
-			$controller->containsAny('::')      => $this->getSitemapFromAttribute($controller),
-			$controller->containsAny($template) => $this->getSitemapFromTemplate($route),
-			default                             => null,
+			$controller->containsAny('::')       => $this->getSitemapFromAttribute($controller),
+			$controller->containsAny($templates) => $this->getSitemapFromTemplate($route),
+			default                              => null,
 		};
 	}
 

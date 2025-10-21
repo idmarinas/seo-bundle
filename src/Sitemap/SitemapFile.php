@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 10/10/2025, 17:07
+ * Last modified by "IDMarinas" on 21/10/2025, 17:20
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -297,12 +297,18 @@ final class SitemapFile implements Countable
 	private function removeUrlsByLocation (string $location): void
 	{
 		$xpath = new DOMXPath($this->document);
+		$tag = $this->index ? 'sitemap' : 'url';
 
-		// Registrar el namespace del sitemap
+		// Register namespace of sitemap
 		$xpath->registerNamespace('sm', 'https://www.sitemaps.org/schemas/sitemap/0.9');
 
-		$tag = $this->index ? 'sitemap' : 'url';
-		$query = sprintf("//sm:%s[sm:loc/text()='%s']", $tag, str_replace(["'", '"'], ["''", '""'], $location));
+		// Only work in HP 8.4
+		// $query = sprintf("//sm:%s[sm:loc/text()='%s']", $tag, str_replace(["'", '"'], ["''", '""'], $location));
+		$query = sprintf(
+			"//*[local-name()='%s'][*[local-name()='loc']/text()='%s']",
+			$tag,
+			str_replace(["'", '"'], ["''", '""'], $location)
+		);
 
 		$nodes = $xpath->query($query);
 

@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 21/10/2025, 19:33
+ * Last modified by "IDMarinas" on 21/10/2025, 20:08
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -99,7 +99,7 @@ final class SitemapGenerator
 	private function getSitemapFromRoute (Route $route): ?SitemapInterface
 	{
 		$controller = $route->getDefault('_controller');
-		$controller = is_string($controller) ? $controller : $controller[0];
+		$controller = is_array($controller) ? $controller[0] : $controller;
 		$controller = u($controller)->trim();
 
 		if ($controller->isEmpty()) {

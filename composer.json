@@ -1,6 +1,6 @@
 {
 	"name": "idmarinas/seo-bundle",
-	"description": "Template for create a custom Symfony ^6.4 and ^7.0 Bundle",
+	"description": "Tools for SEO optimization in Symfony applications and sitemap generation and management.",
 	"type": "symfony-bundle",
 	"license": "BSD-3-Clause",
 	"keywords": [

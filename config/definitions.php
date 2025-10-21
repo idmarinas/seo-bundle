@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 17/06/2025, 13:46
+ * Last modified by "IDMarinas" on 21/10/2025, 19:59
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -20,6 +20,8 @@
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 
 return function (DefinitionConfigurator $definition): void {
+	$defaultExcludedRoutes = ['_preview_error', '_profiler', '_wdt', '_debug', '_error', 'admin_'];
+
 	// @formatter:off
 	$definition
 		->rootNode()
@@ -35,10 +37,10 @@ return function (DefinitionConfigurator $definition): void {
 						->arrayNode('excluded_routes')
 							->info('List of route names or route name patterns to exclude from sitemap. You can exclude specific routes by their exact name or use patterns like "admin_" to exclude all routes starting with that prefix. This helps optimize sitemap generation.')
 							->scalarPrototype()->end()
-							->defaultValue(['_preview_error', '_profiler', '_wdt', '_debug', '_error', 'admin_'])
+							->defaultValue($defaultExcludedRoutes)
 							->beforeNormalization()
 								->castToArray()
-								->then(static fn (array $v) => array_unique($v + ['_preview_error', '_profiler', '_wdt', '_debug', '_error']))
+								->always(static fn (array $v) => array_unique(($v + $defaultExcludedRoutes)))
 							->end()
 						->end()
 					->end()

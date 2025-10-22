@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 21/10/2025, 20:08
+ * Last modified by "IDMarinas" on 22/10/2025, 15:25
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -141,6 +141,7 @@ final class SitemapGenerator
 				return null;
 			}
 
+			/** @var SitemapInterface */
 			return $attributes[0]->newInstance();
 		} catch (ReflectionException) {
 			return null;

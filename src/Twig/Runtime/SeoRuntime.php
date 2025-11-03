@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 03/11/2025, 16:53
+ * Last modified by "IDMarinas" on 03/11/2025, 17:08
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -35,7 +35,7 @@ final readonly class SeoRuntime implements RuntimeExtensionInterface
 		$template = $this->templates[$type] ?? $this->templates['title'];
 
 		return u($template)
-			->replace('{title}', $this->seoPage->getSeo()?->title ?? '')
+			->replace('{title}', $this->seoPage->getSeo()?->title ?? $this->seoPage->getTitle())
 			->replace('{separator}', $this->seoPage->getSeparator())
 			->replace('{prefix}', $this->seoPage->getPrefix())
 			->replace('{suffix}', $this->seoPage->getSuffix())

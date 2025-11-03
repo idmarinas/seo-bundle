@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 03/11/2025, 16:18
+ * Last modified by "IDMarinas" on 03/11/2025, 17:07
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -51,6 +51,7 @@ return function (DefinitionConfigurator $definition): void {
 						->arrayNode('title')
 							->addDefaultsIfNotSet()
 							->children()
+								->scalarNode('default')->cannotBeEmpty()->defaultValue('IDMarinas Seo Bundle')->end()
 								->scalarNode('prefix')->defaultValue('')->end()
 								->scalarNode('separator')->defaultValue('|')->end()
 								->scalarNode('suffix')->defaultValue('')->end()

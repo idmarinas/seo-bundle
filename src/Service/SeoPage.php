@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 03/11/2025, 16:43
+ * Last modified by "IDMarinas" on 03/11/2025, 17:08
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -24,6 +24,7 @@ use Idm\Bundle\Seo\Entity\Seo;
 final class SeoPage
 {
 	private ?Seo   $seo = null;
+	private string $title;
 	private string $prefix;
 	private string $suffix;
 	private string $separator;
@@ -31,6 +32,11 @@ final class SeoPage
 	public function __construct (array $config = [])
 	{
 		$this->configure($config);
+	}
+
+	public function getTitle (): string
+	{
+		return $this->title;
 	}
 
 	public function getPrefix (): string
@@ -62,6 +68,7 @@ final class SeoPage
 
 	private function configure (array $config): void
 	{
+		$this->title = $config['title']['default'];
 		$this->prefix = $config['title']['prefix'];
 		$this->suffix = $config['title']['suffix'];
 		$this->separator = $config['title']['separator'];

@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 17/06/2025, 14:25
+ * Last modified by "IDMarinas" on 03/11/2025, 16:22
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -22,7 +22,10 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 use Idm\Bundle\Seo\Cache\Warmer\GenerateSitemap;
 use Idm\Bundle\Seo\Command\SeoSitemapGenerateCommand;
 use Idm\Bundle\Seo\Controller\SitemapController;
+use Idm\Bundle\Seo\Service\SeoPage;
 use Idm\Bundle\Seo\Service\Sitemap\SitemapGenerator;
+use Idm\Bundle\Seo\Twig\Extension\SeoExtension;
+use Idm\Bundle\Seo\Twig\Runtime\SeoRuntime;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
 return function (ContainerConfigurator $container) {
@@ -58,6 +61,24 @@ return function (ContainerConfigurator $container) {
 			->private()
 			->args(['$generator' => service('idm_seo.service.sitemap_generator')])
 			->tag('console.command')
+
+		->set('idm_seo.service.seo_page', SeoPage::class)
+			->private()
+			->args([
+				'$config' => param('idm_seo.parameter.seo'),
+			])
+		->alias(SeoPage::class, 'idm_seo.service.seo_page')->public()
+
+		->set('idm_seo.twig.extension.seo', SeoExtension::class)
+			->private()
+			->tag('twig.extension')
+
+		->set('idm_seo.twig.extension.seo.runtime', SeoRuntime::class)
+			->private()
+			->args([
+				'$templates' => param('idm_seo.parameter.seo.title.templates'),
+			])
+			->tag('twig.runtime')
 	;
 	// @formatter::on
 };

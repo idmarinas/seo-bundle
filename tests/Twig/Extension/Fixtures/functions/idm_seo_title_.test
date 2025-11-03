@@ -1,0 +1,13 @@
+--TEST--
+"idm_seo_title_*" function
+"idm_seo_title" function
+
+--TEMPLATE--
+{{ idm_seo_title_title() }}
+{{ idm_seo_title_page() }}
+{{ idm_seo_title() }}
+
+--DATA--
+return []
+
+--EXPECT--

@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 03/11/2025, 16:22
+ * Last modified by "IDMarinas" on 03/11/2025, 17:03
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -77,6 +77,7 @@ return function (ContainerConfigurator $container) {
 			->private()
 			->args([
 				'$templates' => param('idm_seo.parameter.seo.title.templates'),
+				'$seoPage' => service('idm_seo.service.seo_page')
 			])
 			->tag('twig.runtime')
 	;

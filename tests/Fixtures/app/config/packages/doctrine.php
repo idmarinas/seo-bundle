@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 17/06/2025, 17:05
+ * Last modified by "IDMarinas" on 04/11/2025, 19:30
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -50,7 +50,7 @@ return static function (ContainerConfigurator $container, ContainerBuilder $buil
 		'orm'  => [
 			'enable_lazy_ghost_objects'   => true,
 			'auto_generate_proxy_classes' => true,
-			'auto_mapping'                => false,
+			'auto_mapping'                => true,
 			'controller_resolver'         => [
 				'auto_mapping' => false,
 			],

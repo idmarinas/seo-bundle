@@ -91,9 +91,9 @@ final class Kernel extends BaseKernel
 			->add('app_home', '/')
 			->methods(['GET'])
 			->controller(TemplateController::class)
-//			->defaults([
-//				'template' => 'path/to/template.html.twig',
-//			])
+			->defaults([
+				'template' => 'pages/home.html.twig',
+			])
 		;
 	}
 

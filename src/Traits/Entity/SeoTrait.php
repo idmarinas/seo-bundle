@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 03/11/2025, 12:04
+ * Last modified by "IDMarinas" on 06/11/2025, 11:28
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -21,18 +21,20 @@ namespace Idm\Bundle\Seo\Traits\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Idm\Bundle\Seo\Entity\Seo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 trait SeoTrait
 {
-	#[ORM\Embedded(class: Seo::class)]
-	protected Seo $seo;
+	#[ORM\OneToOne(targetEntity: Seo::class, cascade: ['all'])]
+	#[Assert\Valid]
+	protected ?Seo $seo = null;
 
-	public function getSeo (): Seo
+	public function getSeo (): ?Seo
 	{
 		return $this->seo;
 	}
 
-	public function setSeo (Seo $seo): static
+	public function setSeo (?Seo $seo): static
 	{
 		$this->seo = $seo;
 

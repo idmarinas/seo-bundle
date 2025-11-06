@@ -24,6 +24,7 @@
 	"require": {
 		"php": "^8.3",
 		"ext-dom": "*",
+		"idmarinas/common-bundle": "^3.5",
 		"symfony/dependency-injection": "^6.4 | ^7.1",
 		"symfony/framework-bundle": "^6.4 | ^7.1",
 		"symfony/string": "^6.4 | ^7.1"

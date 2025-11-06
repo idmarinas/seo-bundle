@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 19/03/2025, 18:06
+ * Last modified by "IDMarinas" on 06/11/2025, 17:45
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -28,7 +28,8 @@ return static function (FrameworkConfig $config) {
 		->httpMethodOverride(false)
 		->handleAllThrowables(true)
 	;
-	$config->form()->enabled(false);
+	$config->form()->enabled(true);
 	$config->propertyAccess()->enabled(true);
 	$config->phpErrors()->log(true);
+	$config->assets()->enabled(true);
 };

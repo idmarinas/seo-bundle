@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/11/2025, 17:15
+ * Last modified by "IDMarinas" on 06/11/2025, 17:29
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -76,16 +76,13 @@ final class Kernel extends BaseKernel
 
 	public function configureRoutes (RoutingConfigurator $routes): void
 	{
-		if (file_exists($rf = $this->getConfigDir() . '/routes.php')) {
-			$routes->import($rf);
-		}
+		$extraRoutes = array_unique(array_merge([
+			$this->getConfigDir() . '/routes.php',
+			$this->getTestConfigDir() . '/routes.php',
+		], $this->extraRoutes));
+		array_walk($extraRoutes, static fn(string $route) => file_exists($route) ? $routes->import($route) : null);
+
 		//$routes->import('security.route_loader.logout', 'service')->methods(['GET']);
-
-		$extraRoutes = array_unique($this->extraRoutes);
-
-		foreach ($extraRoutes as $route) {
-			$routes->import($route);
-		}
 
 		$routes
 			->add('app_home', '/')

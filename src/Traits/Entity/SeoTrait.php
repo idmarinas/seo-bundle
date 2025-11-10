@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/11/2025, 11:28
+ * Last modified by "IDMarinas" on 07/11/2025, 15:53
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 trait SeoTrait
 {
-	#[ORM\OneToOne(targetEntity: Seo::class, cascade: ['all'])]
+	#[ORM\OneToOne(targetEntity: Seo::class, cascade: ['all'], orphanRemoval: true)]
 	#[Assert\Valid]
 	protected ?Seo $seo = null;
 

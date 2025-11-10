@@ -21,7 +21,11 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use Idm\Bundle\Seo\Cache\Warmer\GenerateSitemap;
 use Idm\Bundle\Seo\Command\SeoSitemapGenerateCommand;
+use Idm\Bundle\Seo\Controller\Admin\OpenGraphCrudController;
+use Idm\Bundle\Seo\Controller\Admin\SeoCrudController;
+use Idm\Bundle\Seo\Controller\Admin\TwitterCardCrudController;
 use Idm\Bundle\Seo\Controller\SitemapController;
+use Idm\Bundle\Seo\Form\Type\OpenGraphLocaleType;
 use Idm\Bundle\Seo\Service\SeoPage;
 use Idm\Bundle\Seo\Service\Sitemap\SitemapGenerator;
 use Idm\Bundle\Seo\Twig\Extension\SeoExtension;
@@ -69,6 +73,13 @@ return function (ContainerConfigurator $container) {
 			])
 		->alias(SeoPage::class, 'idm_seo.service.seo_page')->public()
 
+		// Forms
+		->set(OpenGraphLocaleType::class)
+			->private()
+			->args(['$parameterBag' => service('parameter_bag')])
+			->tag('form.type')
+
+		// Twig Extensions
 		->set('idm_seo.twig.extension.seo', SeoExtension::class)
 			->private()
 			->tag('twig.extension')

@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/11/2025, 15:29
+ * Last modified by "IDMarinas" on 07/11/2025, 15:37
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -29,7 +29,7 @@ class Meta
 	#[ORM\Column]
 	#[Assert\Length(min: 1, max: 160)]
 	#[Assert\NotBlank(allowNull: false)]
-	public string $title;
+	public string $title = '';
 
 	#[ORM\Column]
 	#[Assert\NotNull]
@@ -43,7 +43,7 @@ class Meta
 	/**
 	 * @var string[]
 	 */
-	#[ORM\Column(type: Types::SIMPLE_ARRAY)]
+	#[ORM\Column(type: Types::JSON)]
 	#[Assert\NotNull]
 	public array $keywords = [];
 

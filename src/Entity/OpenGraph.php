@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/11/2025, 11:30
+ * Last modified by "IDMarinas" on 10/11/2025, 13:07
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -72,7 +72,7 @@ class OpenGraph
 
 	#[ORM\Column]
 	#[Assert\Locale(canonicalize: true)]
-	#[Assert\NotBlank]
+	#[Assert\NotBlank(allowNull: false)]
 	public string $locale = '';
 
 	#[ORM\Column(type: Types::JSON)]

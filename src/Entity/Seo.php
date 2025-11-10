@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/11/2025, 15:31
+ * Last modified by "IDMarinas" on 07/11/2025, 15:53
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -31,39 +31,39 @@ class Seo
 	use UuidTrait;
 
 	#[ORM\Embedded(class: Meta::class)]
-	private Meta $meta;
+	public Meta $meta;
 
-	#[ORM\OneToOne(targetEntity: OpenGraph::class, cascade: ['all'])]
-	private OpenGraph $op;
+	#[ORM\OneToOne(targetEntity: OpenGraph::class, cascade: ['all'], orphanRemoval: true)]
+	private OpenGraph $og;
 
-	#[ORM\OneToOne(targetEntity: TwitterCard::class, cascade: ['all'])]
+	#[ORM\OneToOne(targetEntity: TwitterCard::class, cascade: ['all'], orphanRemoval: true)]
 	private TwitterCard $twitter;
 
 	public function __construct ()
 	{
 		$this->meta = new Meta();
-		$this->op = new OpenGraph();
+		$this->og = new OpenGraph();
 		$this->twitter = new TwitterCard();
 	}
 
-	public function getOpenGraph (): OpenGraph
+	public function getOg (): OpenGraph
 	{
-		return $this->op;
+		return $this->og;
 	}
 
-	public function setOpenGraph (OpenGraph $op): self
+	public function setOg (OpenGraph $og): self
 	{
-		$this->op = $op;
+		$this->og = $og;
 
 		return $this;
 	}
 
-	public function getTwitterCard (): TwitterCard
+	public function getTwitter (): TwitterCard
 	{
 		return $this->twitter;
 	}
 
-	public function setTwitterCard (TwitterCard $twitter): self
+	public function setTwitter (TwitterCard $twitter): self
 	{
 		$this->twitter = $twitter;
 

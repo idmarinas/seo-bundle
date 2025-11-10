@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/11/2025, 11:30
+ * Last modified by "IDMarinas" on 10/11/2025, 15:43
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -60,10 +60,6 @@ class TwitterCard
 
 	#[ORM\Column(type: Types::STRING, length: 70)]
 	#[Assert\Length(min: 0, max: 70, normalizer: 'trim')]
-	#[Assert\When(
-		expression : 'this.card != "app"',
-		constraints: [new Assert\NotBlank(allowNull: false)]
-	)]
 	#[Assert\NotNull]
 	public string $title = '';
 

@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/11/2025, 11:21
+ * Last modified by "IDMarinas" on 07/11/2025, 16:11
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -27,13 +27,13 @@ class Player
 {
 	#[ORM\Column]
 	#[Assert\Url(protocols: ['https'], normalizer: 'trim')]
-	public string $url;
+	public string $url = '';
 
 	#[ORM\Column]
 	#[Assert\GreaterThan(262)]
-	public int $width;
+	public int $width = 262;
 
 	#[ORM\Column]
 	#[Assert\GreaterThan(262)]
-	public int $height;
+	public int $height = 262;
 }

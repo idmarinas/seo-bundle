@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 10/11/2025, 13:07
+ * Last modified by "IDMarinas" on 10/11/2025, 14:57
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -66,7 +66,7 @@ class OpenGraph
 	public string $url = '';
 
 	#[ORM\Column]
-	#[Assert\Length(min: 1, max: 255)]
+	#[Assert\Length(min: 0, max: 255)]
 	#[Assert\NotBlank]
 	public string $siteName = '';
 

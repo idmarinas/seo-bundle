@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/11/2025, 17:45
+ * Last modified by "IDMarinas" on 10/11/2025, 16:45
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -28,8 +28,14 @@ return static function (FrameworkConfig $config) {
 		->httpMethodOverride(false)
 		->handleAllThrowables(true)
 	;
-	$config->form()->enabled(true);
+	$config->csrfProtection()->enabled(true);
+	$config->session()->enabled(true)->cookieSecure(true)->handlerId(null)->cookieSamesite('lax');
+	$config->form()->enabled(true)->csrfProtection()->enabled(true);
 	$config->propertyAccess()->enabled(true);
 	$config->phpErrors()->log(true);
 	$config->assets()->enabled(true);
+
+	$config->validation()->enabled(true)->emailValidationMode('html5')->notCompromisedPassword()->enabled(false);
+
+	$config->defaultLocale('en')->enabledLocales(['en', 'es']);
 };

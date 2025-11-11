@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 10/11/2025, 14:57
+ * Last modified by "IDMarinas" on 11/11/2025, 17:12
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -52,23 +52,19 @@ class OpenGraph
 	public string $type = 'website';
 
 	#[ORM\Column]
-	#[Assert\Length(min: 1, max: 255)]
-	#[Assert\NotBlank]
+	#[Assert\Length(min: 0, max: 255)]
+	#[Assert\NotNull]
 	public string $title = '';
 
-	#[ORM\Column(type: Types::TEXT)]
-	#[Assert\NotBlank]
+	#[ORM\Column]
+	#[Assert\Length(min: 0, max: 255)]
+	#[Assert\NotNull]
 	public string $description = '';
 
 	#[ORM\Column]
 	#[Assert\Url(normalizer: 'trim')]
-	#[Assert\NotBlank]
+	#[Assert\NotNull]
 	public string $url = '';
-
-	#[ORM\Column]
-	#[Assert\Length(min: 0, max: 255)]
-	#[Assert\NotBlank]
-	public string $siteName = '';
 
 	#[ORM\Column]
 	#[Assert\Locale(canonicalize: true)]

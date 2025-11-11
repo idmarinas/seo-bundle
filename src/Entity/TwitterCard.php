@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 10/11/2025, 15:43
+ * Last modified by "IDMarinas" on 11/11/2025, 17:09
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -36,19 +36,6 @@ class TwitterCard
 	#[ORM\Column(type: Types::STRING, length: 25)]
 	#[Assert\Choice(choices: ['summary', 'summary_large_image', 'app', 'player'])]
 	public string $card = 'summary';
-
-	#[ORM\Column(type: Types::STRING, length: 20)]
-	#[Assert\Length(min: 0, maxMessage: 16)]
-	#[Assert\When(
-		expression : 'this.card == "player" || this.card == "app"',
-		constraints: [new Assert\NotBlank(allowNull: false)]
-	)]
-	#[Assert\AtLeastOneOf([
-		new Assert\Regex(pattern: '/^@.{4,15}$/'),
-		new Assert\Blank(),
-	])]
-	#[Assert\NotNull]
-	public string $site = '';
 
 	#[ORM\Column(type: Types::STRING, length: 20)]
 	#[Assert\AtLeastOneOf([

@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 11/11/2025, 15:32
+ * Last modified by "IDMarinas" on 11/11/2025, 16:57
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -34,7 +34,7 @@ return function (DefinitionConfigurator $definition): void {
 						->values(['http', 'https'])
 					->end()
 					->arrayNode('excluded_routes')
-						->info('List of route names or route name patterns to exclude from sitemap. You can exclude specific routes by their exact name or use patterns like "admin_" to exclude all routes starting with that prefix. This helps optimize sitemap generation.')
+						->info('List of routes to exclude from sitemap. You can exclude specific routes by their exact name or use patterns like "admin_" to exclude all routes starting with that prefix.')
 						->arrayPrototype()->end()
 						->defaultValue($defaultExcludedRoutes)
 						->beforeNormalization()

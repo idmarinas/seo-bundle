@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 07/11/2025, 15:37
+ * Last modified by "IDMarinas" on 11/11/2025, 19:02
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -27,7 +27,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Meta
 {
 	#[ORM\Column]
-	#[Assert\Length(min: 1, max: 160)]
+	#[Assert\Length(min: 0, max: 160)]
 	#[Assert\NotBlank(allowNull: false)]
 	public string $title = '';
 
@@ -44,8 +44,8 @@ class Meta
 	 * @var string[]
 	 */
 	#[ORM\Column(type: Types::JSON)]
-	#[Assert\NotNull]
-	public array $keywords = [];
+	#[Assert\All([new Assert\NotNull])]
+	public array $keywords = ['index', 'follow'];
 
 	/**
 	 * @var string[]

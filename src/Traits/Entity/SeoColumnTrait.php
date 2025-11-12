@@ -2,12 +2,12 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 07/11/2025, 15:53
+ * Last modified by "IDMarinas" on 12/11/2025, 17:02
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
  *
- * @file    SeoTrait.php
+ * @file    SeoColumnTrait.php
  * @date    21/10/2025
  * @time    18:07
  *
@@ -23,7 +23,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Idm\Bundle\Seo\Entity\Seo;
 use Symfony\Component\Validator\Constraints as Assert;
 
-trait SeoTrait
+trait SeoColumnTrait
 {
 	#[ORM\OneToOne(targetEntity: Seo::class, cascade: ['all'], orphanRemoval: true)]
 	#[Assert\Valid]
@@ -39,5 +39,10 @@ trait SeoTrait
 		$this->seo = $seo;
 
 		return $this;
+	}
+
+	public function hasSeo (): bool
+	{
+		return $this->seo instanceof Seo;
 	}
 }

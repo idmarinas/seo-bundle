@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 11/11/2025, 19:02
+ * Last modified by "IDMarinas" on 12/11/2025, 13:42
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -45,11 +45,11 @@ class Meta
 	 */
 	#[ORM\Column(type: Types::JSON)]
 	#[Assert\All([new Assert\NotNull])]
-	public array $keywords = ['index', 'follow'];
+	public array $keywords = [];
 
 	/**
 	 * @var string[]
 	 */
 	#[ORM\Column(type: Types::JSON)]
-	public array $robots = [];
+	public array $robots = ['index', 'follow'];
 }

@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 11/11/2025, 18:54
+ * Last modified by "IDMarinas" on 12/11/2025, 13:56
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -28,12 +28,12 @@ class AppCard
 {
 	#[ORM\Column(type: Types::STRING)]
 	#[Assert\Length(min: 0, max: 255)]
-	#[Assert\NotBlank(allowNull: false, groups: ['app'])]
+	#[Assert\NotBlank(allowNull: false, groups: ['twitter-card-app'])]
 	public string $id = '';
 
 	#[ORM\Column(type: Types::STRING)]
 	#[Assert\Length(min: 0, max: 255)]
-	#[Assert\NotBlank(allowNull: false, groups: ['app'])]
+	#[Assert\NotBlank(allowNull: false, groups: ['twitter-card-app'])]
 	public string $name = '';
 
 	#[ORM\Column(type: Types::STRING)]

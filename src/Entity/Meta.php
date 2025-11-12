@@ -21,6 +21,7 @@ namespace Idm\Bundle\Seo\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Idm\Bundle\Seo\Validator\NoConflictingRobots;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Embeddable]
@@ -51,5 +52,6 @@ class Meta
 	 * @var string[]
 	 */
 	#[ORM\Column(type: Types::JSON)]
+	#[NoConflictingRobots]
 	public array $robots = ['index', 'follow'];
 }

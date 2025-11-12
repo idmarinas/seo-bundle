@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 07/11/2025, 15:53
+ * Last modified by "IDMarinas" on 12/11/2025, 19:16
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -66,18 +66,6 @@ class Seo
 	public function setTwitter (TwitterCard $twitter): self
 	{
 		$this->twitter = $twitter;
-
-		return $this;
-	}
-
-	public function getMeta (): Meta
-	{
-		return $this->meta;
-	}
-
-	public function setMeta (Meta $meta): self
-	{
-		$this->meta = $meta;
 
 		return $this;
 	}

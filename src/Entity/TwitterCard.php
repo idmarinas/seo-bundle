@@ -59,10 +59,7 @@ class TwitterCard
 	#[Assert\Length(min: 0, max: 1000)]
 	#[Assert\Url(normalizer: 'trim')]
 	#[Assert\NotNull]
-	#[Assert\When(
-		expression : 'this.card == "player"',
-		constraints: [new Assert\NotBlank(allowNull: false)]
-	)]
+	#[Assert\NotBlank(allowNull: false, groups: ['twitter-card-player'])]
 	public string $image = '';
 
 	#[ORM\Column(type: Types::STRING, length: 420)]

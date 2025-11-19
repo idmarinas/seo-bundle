@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 12/11/2025, 19:16
+ * Last modified by "IDMarinas" on 17/11/2025, 13:49
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -21,12 +21,13 @@ namespace Idm\Bundle\Seo\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Idm\Bundle\Common\Traits\Entity\UuidTrait;
+use Stringable;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'idm_seo__seo_data')]
 #[Assert\Cascade]
-class Seo
+class Seo implements Stringable
 {
 	use UuidTrait;
 
@@ -44,6 +45,11 @@ class Seo
 		$this->meta = new Meta();
 		$this->og = new OpenGraph();
 		$this->twitter = new TwitterCard();
+	}
+
+	public function __toString (): string
+	{
+		return $this->id;
 	}
 
 	public function getOg (): OpenGraph

@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 11/11/2025, 17:09
+ * Last modified by "IDMarinas" on 17/11/2025, 13:49
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -24,12 +24,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Idm\Bundle\Common\Traits\Entity\UuidTrait;
 use Idm\Bundle\Seo\Entity\TwitterCard\App;
 use Idm\Bundle\Seo\Entity\TwitterCard\Player;
+use Stringable;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'idm_seo__twitter_card_data')]
 #[Assert\Cascade]
-class TwitterCard
+class TwitterCard implements Stringable
 {
 	use UuidTrait;
 
@@ -77,5 +78,10 @@ class TwitterCard
 	{
 		$this->player = new Player();
 		$this->app = new App();
+	}
+
+	public function __toString (): string
+	{
+		return $this->id;
 	}
 }

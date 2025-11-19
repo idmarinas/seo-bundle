@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 11/11/2025, 17:12
+ * Last modified by "IDMarinas" on 17/11/2025, 13:48
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -24,12 +24,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Idm\Bundle\Common\Traits\Entity\UuidTrait;
 use Idm\Bundle\Seo\Entity\OpenGraph\StructuredProperty;
 use LogicException;
+use Stringable;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'idm_seo__open_graph_data')]
 #[Assert\Cascade]
-class OpenGraph
+class OpenGraph implements Stringable
 {
 	use UuidTrait;
 
@@ -106,6 +107,11 @@ class OpenGraph
 	public function __construct ()
 	{
 		$this->image = new StructuredProperty\Image();
+	}
+
+	public function __toString (): string
+	{
+		return $this->id;
 	}
 
 	public function isVideoType (): bool

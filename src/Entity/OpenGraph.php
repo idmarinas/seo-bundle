@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 17/11/2025, 13:48
+ * Last modified by "IDMarinas" on 19/11/2025, 19:09
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -43,7 +43,7 @@ class OpenGraph implements Stringable
 	// Video types
 	const array TYPE_VIDEO = ['video.movie', 'video.episode', 'video.tv_show', 'video.other'];
 
-	const array TYPE_ALL = self::TYPE_BASIC + self::TYPE_MUSIC + self::TYPE_VIDEO;
+	const array TYPE_ALL = [...self::TYPE_BASIC, ...self::TYPE_MUSIC, ...self::TYPE_VIDEO];
 
 	// Basic Properties (required for all)
 

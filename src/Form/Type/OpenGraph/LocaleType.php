@@ -2,12 +2,12 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 13/11/2025, 13:40
+ * Last modified by "IDMarinas" on 14/11/2025, 16:02
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
  *
- * @file    OpenGraphLocaleType.php
+ * @file    LocaleType.php
  * @date    10/11/2025
  * @time    14:15
  *
@@ -17,16 +17,16 @@
  * @since   1.0.0
  */
 
-namespace Idm\Bundle\Seo\Form\Type;
+namespace Idm\Bundle\Seo\Form\Type\OpenGraph;
 
 use Override;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\ChoiceList\ChoiceList;
-use Symfony\Component\Form\Extension\Core\Type\LocaleType;
+use Symfony\Component\Form\Extension\Core\Type\LocaleType as BaseLocaleType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use function Symfony\Component\String\u;
 
-final  class OpenGraphLocaleType extends LocaleType
+final  class LocaleType extends BaseLocaleType
 {
 	public function __construct (private readonly ParameterBagInterface $parameterBag) {}
 

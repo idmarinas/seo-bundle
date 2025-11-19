@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 19/11/2025, 17:54
+ * Last modified by "IDMarinas" on 19/11/2025, 20:25
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -19,22 +19,15 @@
 
 namespace Idm\Bundle\Seo\Form\Type;
 
-use EasyCorp\Bundle\EasyAdminBundle\Dto\FieldDto;
-use EasyCorp\Bundle\EasyAdminBundle\Dto\FormVarsDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use Override;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-final class ArrayFieldType extends AbstractType
+final class ArrayFieldType extends AbstractFieldType
 {
-	public function getParent (): string
-	{
-		return CollectionType::class;
-	}
+	protected const string FIELD_FQCN = ArrayField::class;
+	protected const string TYPE_FQCN  = CollectionType::class;
 
 	/**
 	 * @inheritDoc
@@ -42,32 +35,15 @@ final class ArrayFieldType extends AbstractType
 	#[Override]
 	public function configureOptions (OptionsResolver $resolver): void
 	{
-		$resolver->setDefaults([
-			'entry_options'      => ['label' => false,],
-			'row_attr'           => ['class' => 'field-array'],
-			'empty_data'         => [],
-			'allow_add'          => true,
-			'allow_delete'       => true,
-			'delete_empty'       => true,
-			'column_css_classes' => 'col-md-12',
-		]);
+		parent::configureOptions($resolver);
 
-		$resolver->setAllowedTypes('column_css_classes', ['string']);
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	#[Override]
-	public function finishView (FormView $view, FormInterface $form, array $options): void
-	{
-		$field = new FieldDto();
-		$field->setFieldFqcn(ArrayField::class);
-
-		if (is_string($options['column_css_classes'])) {
-			$field->setColumns($options['column_css_classes']);
-		}
-
-		$view->vars['ea_vars'] = new FormVarsDto($field);
+		$resolver
+			->setDefault('entry_options', ['label' => false,])
+			->setDefault('row_attr', ['class' => 'field-array'])
+			->setDefault('empty_data', [])
+			->setDefault('allow_add', true)
+			->setDefault('allow_delete', true)
+			->setDefault('delete_empty', true)
+		;
 	}
 }

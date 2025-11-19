@@ -7,9 +7,9 @@
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
  *
- * @file    TextFieldType.php
+ * @file    IntegerFieldType.php
  * @date    19/11/2025
- * @time    18:15
+ * @time    20:06
  *
  * @author  Iván Diaz Marinas (IDMarinas)
  * @license BSD 3-Clause License
@@ -19,11 +19,11 @@
 
 namespace Idm\Bundle\Seo\Form\Type;
 
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
-final class TextFieldType extends AbstractFieldType
+final class IntegerFieldType extends AbstractFieldType
 {
-	protected const string FIELD_FQCN = TextField::class;
-	protected const string TYPE_FQCN  = TextType::class;
+	protected const string FIELD_FQCN = IntegerField::class;
+	protected const string TYPE_FQCN  = IntegerType::class;
 }

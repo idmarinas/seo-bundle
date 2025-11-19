@@ -19,18 +19,22 @@
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
+use EasyCorp\Bundle\EasyAdminBundle\DependencyInjection\EasyAdminExtension;
+use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
+use Idm\Bundle\Seo\Admin\Field\Configurator\OpenGraphTypeDataConfigurator;
 use Idm\Bundle\Seo\Cache\Warmer\GenerateSitemap;
 use Idm\Bundle\Seo\Command\SeoSitemapGenerateCommand;
 use Idm\Bundle\Seo\Controller\Admin\OpenGraphCrudController;
 use Idm\Bundle\Seo\Controller\Admin\SeoCrudController;
 use Idm\Bundle\Seo\Controller\Admin\TwitterCardCrudController;
 use Idm\Bundle\Seo\Controller\SitemapController;
-use Idm\Bundle\Seo\Form\Type\OpenGraphLocaleType;
+use Idm\Bundle\Seo\Form\Type\OpenGraph\LocaleType;
 use Idm\Bundle\Seo\Service\SeoPage;
 use Idm\Bundle\Seo\Service\Sitemap\SitemapGenerator;
 use Idm\Bundle\Seo\Twig\Extension\SeoExtension;
 use Idm\Bundle\Seo\Twig\Runtime\SeoRuntime;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
 return function (ContainerConfigurator $container) {
 	// @formatter:off
@@ -74,9 +78,9 @@ return function (ContainerConfigurator $container) {
 		->alias(SeoPage::class, 'idm_seo.service.seo_page')->public()
 
 		// Forms
-		->set(OpenGraphLocaleType::class)
+		->set(LocaleType::class)
 			->private()
-			->args(['$parameterBag' => service('parameter_bag')])
+			->args(['$enabledLocales' => param('kernel.enabled_locales')])
 			->tag('form.type')
 
 		// Twig Extensions

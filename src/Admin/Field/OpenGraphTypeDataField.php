@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 17/11/2025, 19:00
+ * Last modified by "IDMarinas" on 19/11/2025, 16:09
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -23,7 +23,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FieldTrait;
 use Override;
 
-class OpenGraphTypeDataField implements FieldInterface
+final class OpenGraphTypeDataField implements FieldInterface
 {
 	use FieldTrait;
 

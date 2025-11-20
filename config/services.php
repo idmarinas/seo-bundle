@@ -28,7 +28,7 @@ use Idm\Bundle\Seo\Controller\Admin\OpenGraphCrudController;
 use Idm\Bundle\Seo\Controller\Admin\SeoCrudController;
 use Idm\Bundle\Seo\Controller\Admin\TwitterCardCrudController;
 use Idm\Bundle\Seo\Controller\SitemapController;
-use Idm\Bundle\Seo\Form\Type\OpenGraph\LocaleType;
+use Idm\Bundle\Seo\Form\Type\OpenGraph\SeoLocaleType;
 use Idm\Bundle\Seo\Service\SeoPage;
 use Idm\Bundle\Seo\Service\Sitemap\SitemapGenerator;
 use Idm\Bundle\Seo\Twig\Extension\SeoExtension;
@@ -78,7 +78,7 @@ return function (ContainerConfigurator $container) {
 		->alias(SeoPage::class, 'idm_seo.service.seo_page')->public()
 
 		// Forms
-		->set(LocaleType::class)
+		->set(SeoLocaleType::class)
 			->private()
 			->args(['$enabledLocales' => param('kernel.enabled_locales')])
 			->tag('form.type')

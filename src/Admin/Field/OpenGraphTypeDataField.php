@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 19/11/2025, 16:09
+ * Last modified by "IDMarinas" on 20/11/2025, 13:15
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -21,7 +21,6 @@ namespace Idm\Bundle\Seo\Admin\Field;
 
 use EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FieldTrait;
-use Override;
 
 final class OpenGraphTypeDataField implements FieldInterface
 {
@@ -30,7 +29,6 @@ final class OpenGraphTypeDataField implements FieldInterface
 	/**
 	 * @inheritDoc
 	 */
-	#[Override]
 	public static function new (string $propertyName, /* TranslatableInterface|string|false|null */ $label = null): self
 	{
 		return (new self())

@@ -58,7 +58,7 @@ return function (ContainerConfigurator $container) {
 			->args(['$generator' => service('idm_seo.service.sitemap_generator')])
 			->tag('kernel.cache_warmer')
 
-		->set(SitemapController::class, SitemapController::class)
+		->set(SitemapController::class)
 			->private()
 			->call('setContainer', [service_locator([
 				'idm_seo.cache' => service('idm_seo.cache'),

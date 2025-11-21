@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/11/2025, 11:21
+ * Last modified by "IDMarinas" on 21/11/2025, 17:28
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -28,18 +28,39 @@ use Symfony\Component\Validator\Constraints as Assert;
 class App
 {
 	#[ORM\Embedded(class: AppCard::class)]
+	#[Assert\Expression(
+		expression: "this.iphone.id == '' and this.ipad.id == '' and this.googleplay.id == ''",
+		message   : 'idm_seo.twitter_card.ipad_or_iphone_or_googleplay_required',
+		groups    : ['twitter-card-app'],
+		negate    : false
+	)]
+	#[Assert\Callback('doAppleIdValidation', ['twitter-card-app'])]
 	public AppCard $iphone;
 
 	#[ORM\Embedded(class: AppCard::class)]
+	#[Assert\Expression(
+		expression: "this.iphone.id == '' and this.ipad.id == '' and this.googleplay.id == ''",
+		message   : 'idm_seo.twitter_card.ipad_or_iphone_or_googleplay_required',
+		groups    : ['twitter-card-app'],
+		negate    : false
+	)]
+	#[Assert\Callback('doAppleIdValidation', ['twitter-card-app'])]
 	public AppCard $ipad;
 
 	#[ORM\Embedded(class: AppCard::class)]
+	#[Assert\Expression(
+		expression: "this.iphone.id == '' and this.ipad.id == '' and this.googleplay.id == ''",
+		message   : 'idm_seo.twitter_card.ipad_or_iphone_or_googleplay_required',
+		groups    : ['twitter-card-app'],
+		negate    : false
+	)]
+	#[Assert\Callback('doGooglePlayIdValidation', ['twitter-card-app'])]
 	public AppCard $googleplay;
 
 	#[ORM\Column(type: Types::STRING, length: 2)]
 	#[Assert\Country]
 	#[Assert\NotNull]
-	public string $country = '';
+	public ?string $country = null;
 
 	public function __construct ()
 	{

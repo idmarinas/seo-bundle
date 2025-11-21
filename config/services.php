@@ -94,6 +94,10 @@ return function (ContainerConfigurator $container) {
 				'$seoPage' => service('idm_seo.service.seo_page')
 			])
 			->tag('twig.runtime')
+		// Admin
+		->set(OpenGraphTypeDataConfigurator::class)
+			->private()
+			->tag(EasyAdminExtension::TAG_FIELD_CONFIGURATOR, ['priority' => -100])
 	;
 	// @formatter::on
 };

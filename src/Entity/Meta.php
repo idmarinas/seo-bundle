@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 12/11/2025, 19:16
+ * Last modified by "IDMarinas" on 24/11/2025, 13:14
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -29,6 +29,7 @@ class Meta
 {
 	#[ORM\Column]
 	#[Assert\Length(min: 0, max: 160)]
+	#[Assert\NotNull]
 	public string $title = '';
 
 	#[ORM\Column]

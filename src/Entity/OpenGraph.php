@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 19/11/2025, 19:09
+ * Last modified by "IDMarinas" on 24/11/2025, 13:18
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -49,7 +49,7 @@ class OpenGraph implements Stringable
 
 	#[ORM\Column]
 	#[Assert\Choice(choices: self::TYPE_ALL)]
-	#[Assert\NotBlank]
+	#[Assert\NotBlank(allowNull: false)]
 	public string $type = 'website';
 
 	#[ORM\Column]

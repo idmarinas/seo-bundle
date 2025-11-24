@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/11/2025, 11:21
+ * Last modified by "IDMarinas" on 24/11/2025, 13:23
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -29,15 +29,17 @@ class Audio
 	 * og:audio or og:audio:url
 	 */
 	#[ORM\Column(nullable: true)]
-	#[Assert\Url]
-	public ?string $url = null;
+	#[Assert\Url(normalizer: 'trim')]
+	#[Assert\NotNull]
+	public string $url = '';
 
 	/**
 	 * og:audio:secure_url
 	 */
 	#[ORM\Column(nullable: true)]
 	#[Assert\Url(protocols: ['https'])]
-	public ?string $secureUrl = null;
+	#[Assert\NotNull]
+	public string $secureUrl = '';
 
 	/**
 	 * og:audio:type
@@ -45,5 +47,6 @@ class Audio
 	 */
 	#[ORM\Column(nullable: true)]
 	#[Assert\Regex(pattern: '#^audio/[\w\-\+\.]+$#')]
-	public ?string $type = null;
+	#[Assert\NotNull]
+	public string $type = '';
 }

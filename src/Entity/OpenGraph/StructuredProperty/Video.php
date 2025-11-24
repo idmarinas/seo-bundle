@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/11/2025, 11:21
+ * Last modified by "IDMarinas" on 24/11/2025, 13:24
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -50,5 +50,5 @@ class Video extends Audio
 	 */
 	#[ORM\Column(nullable: true)]
 	#[Assert\Regex(pattern: '#^video/[\w\-\+\.]+$#')]
-	public ?string $type = null;
+	public string $type = '';
 }

@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/11/2025, 11:21
+ * Last modified by "IDMarinas" on 24/11/2025, 13:23
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -30,8 +30,9 @@ class Image extends Video
 	 * Texto alternativo de la imagen para accesibilidad
 	 */
 	#[ORM\Column(nullable: true)]
-	#[Assert\Length(max: 255)]
-	public ?string $alt = null;
+	#[Assert\Length(min: 0, max: 255)]
+	#[Assert\NotNull]
+	public string $alt = '';
 
 	/**
 	 * og:image:type
@@ -39,5 +40,5 @@ class Image extends Video
 	 * Sobrescribe la validación de Video para permitir image/*
 	 */
 	#[Assert\Regex(pattern: '/^image\/[\w\-\+\.]+$/')]
-	public ?string $type = null;
+	public string $type = '';
 }

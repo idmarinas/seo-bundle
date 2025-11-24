@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 21/11/2025, 17:28
+ * Last modified by "IDMarinas" on 24/11/2025, 13:14
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -60,7 +60,7 @@ class App
 	#[ORM\Column(type: Types::STRING, length: 2)]
 	#[Assert\Country]
 	#[Assert\NotNull]
-	public ?string $country = null;
+	public string $country = '';
 
 	public function __construct ()
 	{

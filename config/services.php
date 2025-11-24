@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 03/11/2025, 19:59
+ * Last modified by "IDMarinas" on 24/11/2025, 19:11
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -21,6 +21,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use EasyCorp\Bundle\EasyAdminBundle\DependencyInjection\EasyAdminExtension;
 use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
+use Idm\Bundle\Seo\Admin\Action\SeoActionExtension;
 use Idm\Bundle\Seo\Admin\Field\Configurator\OpenGraphTypeDataConfigurator;
 use Idm\Bundle\Seo\Cache\Warmer\GenerateSitemap;
 use Idm\Bundle\Seo\Command\SeoSitemapGenerateCommand;
@@ -98,6 +99,25 @@ return function (ContainerConfigurator $container) {
 		->set(OpenGraphTypeDataConfigurator::class)
 			->private()
 			->tag(EasyAdminExtension::TAG_FIELD_CONFIGURATOR, ['priority' => -100])
+		->set(SeoActionExtension::class)
+			->private()
+			->arg('$translator', service('translator'))
+			->tag(EasyAdminExtension::TAG_ACTIONS_EXTENSION)
+
+
+		// Admin Crud Controllers
+		->set(SeoCrudController::class)
+			->private()
+			->call('setContainer', [$crudServiceLocator])
+			->tag('controller.service_arguments')
+		->set(OpenGraphCrudController::class)
+			->private()
+			->call('setContainer', [$crudServiceLocator])
+			->tag('controller.service_arguments')
+		->set(TwitterCardCrudController::class)
+			->private()
+			->call('setContainer', [$crudServiceLocator])
+			->tag('controller.service_arguments')
 	;
 	// @formatter::on
 };

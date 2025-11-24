@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 10/11/2025, 14:58
+ * Last modified by "IDMarinas" on 24/11/2025, 18:30
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -26,14 +26,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Player
 {
 	#[ORM\Column]
-	#[Assert\Url(protocols: ['https'], normalizer: 'trim')]
+	#[Assert\Url(protocols: ['https'], normalizer: 'trim', groups: ['twitter-card-player'])]
 	public string $url = '';
 
 	#[ORM\Column]
-	#[Assert\GreaterThanOrEqual(262)]
+	#[Assert\GreaterThanOrEqual(262, groups: ['twitter-card-player'])]
 	public int $width = 262;
 
 	#[ORM\Column]
-	#[Assert\GreaterThanOrEqual(262)]
+	#[Assert\GreaterThanOrEqual(262, groups: ['twitter-card-player'])]
 	public int $height = 262;
 }

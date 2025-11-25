@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 24/11/2025, 13:23
+ * Last modified by "IDMarinas" on 24/11/2025, 20:26
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -32,6 +32,10 @@ class Image extends Video
 	#[ORM\Column(nullable: true)]
 	#[Assert\Length(min: 0, max: 255)]
 	#[Assert\NotNull]
+	#[Assert\When(
+		expression : "this.url != ''",
+		constraints: new Assert\NotBlank()
+	)]
 	public string $alt = '';
 
 	/**

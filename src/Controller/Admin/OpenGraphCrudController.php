@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 25/11/2025, 12:42
+ * Last modified by "IDMarinas" on 25/11/2025, 16:49
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -46,9 +46,7 @@ final class OpenGraphCrudController extends AbstractCrudController
 	public function configureFields (string $pageName): iterable
 	{
 		// PANEL: Basic Properties
-		yield FormField::addTab('OG', 'fa fa-info-circle')
-			->setCustomOption(FormField::OPTION_TAB_ID, 'tab-og-basic-properties')
-		;
+		yield FormField::addTab(t('entity.og.tab.label'), 'fa fa-info-circle');
 
 		yield ChoiceField::new('type', t('entity.og.type.label'))
 			->setFormType(OpenGraphTypeType::class)

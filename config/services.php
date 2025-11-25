@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 24/11/2025, 19:11
+ * Last modified by "IDMarinas" on 25/11/2025, 19:42
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -55,8 +55,6 @@ return function (ContainerConfigurator $container) {
 				'$router' => service('router.default'),
 				'$cache' => service('idm_seo.cache'),
 				'$entityManager' => service('doctrine.orm.entity_manager'),
-				'$defaultScheme' => param('idm_seo.parameter.sitemap.default_scheme'),
-				'$excludedRoutes' => param('idm_seo.parameter.sitemap.excluded_routes'),
 			])
 
 		->set('idm_seo.cache.warmer', GenerateSitemap::class)
@@ -78,10 +76,7 @@ return function (ContainerConfigurator $container) {
 
 		->set('idm_seo.service.seo_page', SeoPage::class)
 			->private()
-			->args([
-				'$config' => param('idm_seo.parameter.seo'),
-			])
-		->alias(SeoPage::class, 'idm_seo.service.seo_page')->public()
+			->alias(SeoPage::class, 'idm_seo.service.seo_page')->public()
 
 		// Forms
 		->set(SeoLocaleType::class)

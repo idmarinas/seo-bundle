@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 24/11/2025, 13:24
+ * Last modified by "IDMarinas" on 25/11/2025, 11:22
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -32,7 +32,7 @@ class Video extends Audio
 	#[ORM\Column(nullable: true)]
 	#[Assert\Positive]
 	#[Assert\GreaterThanOrEqual(262)]
-	public ?int $width = null;
+	public int $width = 262;
 
 	/**
 	 * og:video:height
@@ -41,7 +41,7 @@ class Video extends Audio
 	#[ORM\Column(nullable: true)]
 	#[Assert\Positive]
 	#[Assert\GreaterThanOrEqual(262)]
-	public ?int $height = null;
+	public int $height = 262;
 
 	/**
 	 * og:video:type

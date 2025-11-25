@@ -1,0 +1,371 @@
+admin:
+  form:
+    tab:
+      meta_tags:
+        label: Meta Tags
+        help: Metadatos básicos para SEO
+      seo: SEO
+    field_set:
+      og:
+        label: Open Graph
+        help: Metadatos para redes sociales (Facebook, LinkedIn, etc.)
+      twitter:
+        label: Twitter Card
+        help: Metadatos específicos para Twitter
+  index:
+    has_seo: ¿SEO?
+  action:
+    seo:
+      add: Añadir Seo
+      remove:
+        label: Eliminar Seo
+        confirm: ¿Seguro que quieres eliminar el contenido SEO de este elemento?
+  flash:
+    success:
+      added: El contenedor SEO se ha agregado correctamente.
+      deleted: El contenido SEO se ha eliminado correctamente.
+
+entity:
+  meta:
+    title:
+      label: Título
+      help: Título de la página (máx. %max% caracteres)
+      placeholder: Un título SEO para este contenido.
+    canonical:
+      label: Canonical URL
+      help: URL canónica para evitar contenido duplicado.
+    description:
+      label: Descripción
+      help: Descripción de la página para motores de búsqueda
+      placeholder: Una pequeña descripción del contenido.
+    robots:
+      label: Robots
+      help: Directivas para robots de búsqueda
+    keywords:
+      label: Keywords
+      help: Palabras clave asociadas al contenido
+  og:
+    tab:
+      label: Open Graph
+    type:
+      label: Tipo
+      help: Tipo de contenido
+    url:
+      label: URL
+      help: URL canónica del contenido
+      placeholder: https://example.com/article.html
+    title:
+      label: Título Open Graph
+      help: Título que aparecerá en redes sociales (máx. %max% caracteres)
+      placeholder: Título atractivo para compartir
+    description:
+      label: Descripción
+      help: Descripción que aparecerá en la preview social
+      placeholder: Descripción breve y atractiva...
+    locale:
+      label: Idioma
+      help: Código de idioma (es_ES, en_US, etc.)
+    locale_alternate:
+      label: Idiomas Alternativos
+      help: Otros idiomas disponibles
+    image:
+      tab:
+        label: Imagen
+        help: Imagen que se mostrará en redes sociales (Opcional)
+      url:
+        label: URL de la Imagen
+        help: URL de la imagen (1200x630px recomendado)
+        placeholder: https://example.com/image.jpg
+      secure_url:
+        label: URL Segura de la Imagen
+        help: URL alternativa con HTTPS (opcional)
+      alt:
+        label: Texto Alternativo
+        help: Una descripción de lo que aparece en la imagen (no un pie de foto).
+        placeholder: Descripción de la imagen
+      type:
+        label: Tipo MIME
+        help: Tipo de imagen (image/jpeg, image/png, etc.)
+        placeholder: image/jpeg
+      width:
+        label: Ancho
+        help: Ancho de la imagen en píxeles (mín. 262px)
+      height:
+        label: Alto
+        help: Alto de la imagen en píxeles (mín. 262px)
+    video:
+      tab:
+        label: Video
+        help: Video que se reproducirá en la preview (Opcional)
+      url:
+        label: URL del Video
+        help: URL del archivo de video para preview
+        placeholder: https://example.com/video.mp4
+      secure_url:
+        label: URL Segura del Video
+        help: URL alternativa con HTTPS (opcional)
+      type:
+        label: Tipo MIME del Video
+        help: Tipo de video (video/mp4, video/webm, etc.)
+        placeholder: video/mp4
+      width:
+        label: Ancho del video
+        help: Ancho del video en píxeles (mín. 262px)
+      height:
+        label: Alto del video
+        help: Alto del video en píxeles (mín. 262px)
+    audio:
+      tab:
+        label: Audio
+        help: Audio que se reproducirá en la preview (Opcional)
+      url:
+        label: URL del Audio
+        help: URL del archivo de audio para preview
+        placeholder: https://example.com/audio.mp3
+      secure_url:
+        label: URL Segura del Audio
+        help: URL alternativa con HTTPS (opcional)
+      type:
+        label: Tipo MIME del Audio
+        help: Tipo de audio (audio/mpeg, audio/ogg, etc.)
+        placeholder: audio/mpeg
+    type_data:
+      tab:
+        article: Article
+        book: Book
+        profile: Profile
+        # Music
+        music.song: Song
+        music.album: Music Album
+        music.playlist: Playlist
+        music.radio_station: Radio Station
+        # Video
+        video.movie: Movie
+        video.episode: Episode
+        video.tv_show: TV Show
+        video.other: Other Video
+      help: Propiedades específicas según el tipo seleccionado (video:*, music:*, article:*, etc.)
+    article:
+      section:
+        label: Section
+        help: A high-level section name. E.g. Technology
+      expiration_time:
+        label: Expiration Time
+        help: When the article is out of date after.
+      published_time:
+        label: Published Time
+        help: When the article was first published.
+      modified_time:
+        label: Modified Time
+        help: When the article was last changed.
+      author:
+        label: Author/s
+        help: Writers of the article.
+      tag:
+        label: Tags
+        help: Tag words associated with this article.
+    book:
+      release_date:
+        label: Release Date
+        help: The date the book was released.
+      isbn:
+        label: ISBN
+        help: International Standard Book Number.
+      author:
+        label: Author/s
+        help: Who wrote this book.
+      tag:
+        label: Tags
+        help: Tag words associated with this book.
+    profile:
+      first_name:
+        label: First Name
+        help: A name normally given to an individual by a parent or self-chosen.
+      last_name:
+        label: Last Name
+        help: A name inherited from a family or marriage and by which the individual is commonly known.
+      username:
+        label: Username
+        help: A short unique string to identify them.
+      gender:
+        label: Gender
+        help: Their gender.
+    video.movie:
+      actor:
+        label: Actors
+        help: Actors in the movie.
+        name:
+          help: Actor name or profile link.
+        role:
+          help: The role played in the movie.
+      tag:
+        label: Tags
+        help: Tag words associated with this movie.
+      release_date:
+        label: Release Date
+        help: The date the movie was released.
+      duration:
+        label: Duration
+        help: The movie's length in seconds.
+      writer:
+        label: Writers
+        help: Writers of the movie.
+      director:
+        label: Directors
+        help: Directors of the movie.
+    video.episode:
+      series:
+        label: Series
+        help: The TV series to which this episode belongs to.
+    music.song:
+      album:
+        label: Album
+        help: The album this song is from.
+        name: Name or URL of the album.
+        disc: Which disc of the album this song is on.
+        track: Which track this song is.
+      musician:
+        label: Musician/s
+        help: The musician that made this song.
+      duration:
+        label: Duration
+        help: The song's length in seconds.
+    music.radio_station.creator:
+      label: Creator
+      help: The creator of this station.
+    music.album:
+      musician:
+        label: Musician
+        help: The musician that made this song.
+      release_date:
+        label: Release Date
+        help: The date the album was released.
+      song:
+        label: Songs
+        help: The song on this album.
+        name: Name or URL of the song.
+        disc: Which disc of the album this song is on.
+        track: Which track this song is.
+    music.playlist:
+      creator:
+        label: Creator
+        help: The creator of this playlist.
+  twitter:
+    tab:
+      card:
+        label: Tarjeta
+        help: Configuración principal de la Tarjeta de Twitter
+      image:
+        label: Imagen
+        help: Imagen que se mostrará en la tarjeta.
+      app:
+        label: Aplicación
+        help: Configuración de aplicaciones móviles
+      player:
+        label: Reproductor
+        help: Configuración del reproductor de video/audio
+    card:
+      label: Tipo de Tarjeta
+      help: Tipo de tarjeta que se mostrará en Twitter
+    creator:
+      label: Usuario del Creador (@)
+      help: 'Usuario de Twitter del autor del contenido (ej: @autor)'
+      placeholder: '@autor'
+    title:
+      label: Título
+      help: Título del contenido (máx. 70 caracteres).
+      placeholder: Título conciso y atractivo
+    description:
+      label: Descripción
+      help: Descripción del contenido (máx. 200 caracteres)
+      placeholder: Descripción breve...
+    image:
+      label: URL de la Imagen
+      help: URL de la imagen (HTTPS recomendado)
+      placeholder: https://example.com/image.jpg
+    image_alt:
+      label: Texto Alternativo
+      help: Descripción de la imagen para accesibilidad (máx. 420 caracteres)
+      placeholder: Descripción de la imagen
+    player:
+      url:
+        label: URL del reproductor
+        help: URL HTTPS del reproductor embebido
+        placeholder: https://example.com/player.html
+      height:
+        label: Alto del reproductor
+        help: Alto del reproductor en píxeles (mín. 262px)
+      width:
+        label: Ancho del reproductor
+        help: Ancho del reproductor en píxeles (mín. 262px)
+    app:
+      country:
+        label: País
+        help: |
+          If your application is not available in the US App Store,
+          you must set this value to the two-letter country code for the App Store that contains your application.
+      iphone:
+        label: iPhone
+        name:
+          label: Nombre
+          help: Nombre de la aplicación en la App Store de iPhone
+          placeholder: Mi aplicación
+        id:
+          label: ID de App
+          help: Should be the numeric representation of your app ID in the App Store
+          placeholder: 123456789
+        url:
+          label: URL Custom
+          help: Your app's custom URL scheme (you must include ”://” after your scheme name)
+          placeholder: 'myapp://'
+      ipad:
+        label: iPad
+        name:
+          label: Nombre
+          help: Nombre de la aplicación en la App Store de iPad
+          placeholder: Mi aplicación
+        id:
+          label: ID de App
+          help: Should be the numeric representation of your app ID in the App Store
+          placeholder: 123456789
+        url:
+          label: URL Custom
+          help: Your app’s custom URL scheme
+          placeholder: 'myapp://'
+      googleplay:
+        label: Google Play
+        name:
+          label: Nombre
+          help: Nombre de la aplicación en Google Play
+          placeholder: Mi aplicación
+        id:
+          label: ID de App
+          help: Should be the package name representation of your app ID in Google Play
+          placeholder: com.example.app
+        url:
+          label: URL Custom
+          help: Your app’s custom URL scheme
+          placeholder: 'myapp://'
+form:
+  og:
+    type:
+      website: Website
+      article: Article
+      book: Book
+      profile: Profile
+      music: Music
+      music.song: Song
+      music.album: Album
+      music.playlist: Playlist
+      music.radio_station: Radio Station
+      video: Video
+      video.movie: Movie
+      video.episode: Episode
+      video.tv_show: TV Show
+      video.other: Other
+  twitter:
+    type:
+      summary: Summary
+      summary_large_image: Summary Large Image
+      app: App
+      player: Player

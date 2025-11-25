@@ -38,6 +38,11 @@ use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
 return function (ContainerConfigurator $container) {
+	$crudServiceLocator = service_locator([
+		AdminContextProvider::class => service(AdminContextProvider::class)->nullOnInvalid(),
+		'parameter_bag'             => service(ContainerBagInterface::class)->nullOnInvalid(),
+	]);
+
 	// @formatter:off
 	$container->services()
 		->set('idm_seo.service.cache_adapter', FilesystemAdapter::class)

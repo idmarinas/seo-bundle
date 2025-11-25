@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 25/11/2025, 12:28
+ * Last modified by "IDMarinas" on 25/11/2025, 12:42
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -50,53 +50,53 @@ final class OpenGraphCrudController extends AbstractCrudController
 			->setCustomOption(FormField::OPTION_TAB_ID, 'tab-og-basic-properties')
 		;
 
-		yield ChoiceField::new('type', t('entity.seo.og.type.label'))
+		yield ChoiceField::new('type', t('entity.og.type.label'))
 			->setFormType(OpenGraphTypeType::class)
-			->setHelp(t('entity.seo.og.type.help'))
+			->setHelp(t('entity.og.type.help'))
 			->setRequired(true)
 			->setColumns('col-md-4')
 		;
 
-		yield 'url' => UrlField::new('url', t('entity.seo.og.url.label'))
-			->setHelp(t('entity.seo.og.url.help'))
+		yield 'url' => UrlField::new('url', t('entity.og.url.label'))
+			->setHelp(t('entity.og.url.help'))
 			->setRequired(false)
 			->setColumns('col-md-8')
 			->setEmptyData('')
 			->setFormTypeOption('attr', ['placeholder' => 'https://example.com/page'])
 		;
 
-		yield 'title' => TextField::new('title', t('entity.seo.og.title.label'))
-			->setHelp(t('entity.seo.og.title.help', ['%max%' => 255]))
+		yield 'title' => TextField::new('title', t('entity.og.title.label'))
+			->setHelp(t('entity.og.title.help', ['%max%' => 255]))
 			->setRequired(true)
 			->setColumns('col-md-12')
 			->setEmptyData('')
 			->setFormTypeOption('attr', [
 				'maxlength'   => 255,
-				'placeholder' => t('entity.seo.og.title.placeholder'),
+				'placeholder' => t('entity.og.title.placeholder'),
 			])
 		;
 
-		yield 'description' => TextareaField::new('description', t('entity.seo.og.description.label'))
-			->setHelp(t('entity.seo.og.description.help'))
+		yield 'description' => TextareaField::new('description', t('entity.og.description.label'))
+			->setHelp(t('entity.og.description.help'))
 			->setRequired(true)
 			->setColumns('col-md-12')
 			->setEmptyData('')
 			->setFormTypeOption('attr', [
 				'rows'        => 3,
-				'placeholder' => t('entity.seo.og.description.placeholder'),
+				'placeholder' => t('entity.og.description.placeholder'),
 			])
 		;
 
-		yield 'locale' => LocaleField::new('locale', t('entity.seo.og.locale.label'))
-			->setHelp(t('entity.seo.og.locale.help'))
+		yield 'locale' => LocaleField::new('locale', t('entity.og.locale.label'))
+			->setHelp(t('entity.og.locale.help'))
 			->setRequired(true)
 			->setFormType(SeoLocaleType::class)
 			->setColumns('col-md-6')
 			->setFormTypeOption('data', $this->getParameter('kernel.default_locale'))
 		;
 
-		yield 'locale_alternate' => ArrayField::new('localeAlternate', t('entity.seo.og.locale_alternate.label'))
-			->setHelp(t('entity.seo.og.locale_alternate.help'))
+		yield 'locale_alternate' => ArrayField::new('localeAlternate', t('entity.og.locale_alternate.label'))
+			->setHelp(t('entity.og.locale_alternate.help'))
 			->setFormTypeOption('entry_type', SeoLocaleType::class)
 			->setFormTypeOption('entry_options', ['row_attr' => ['class' => 'field-locale']])
 			->addCssClass('field-locale')
@@ -134,8 +134,8 @@ final class OpenGraphCrudController extends AbstractCrudController
 				default                                => 'fa fa-database',
 			};
 
-			yield FormField::addTab(t("entity.seo.og.type_data.tab.{$seo->getOg()->type}"), $icon)
-				->setHelp(t('entity.seo.og.type_data.help'))
+			yield FormField::addTab(t("entity.og.type_data.tab.{$seo->getOg()->type}"), $icon)
+				->setHelp(t('entity.og.type_data.help'))
 			;
 
 			yield OpenGraphTypeDataField::new('typeData', false)
@@ -147,49 +147,49 @@ final class OpenGraphCrudController extends AbstractCrudController
 	private function structuredProperty (string $name): iterable
 	{
 		$icon = 'audio' == $name ? 'volume-high' : $name;
-		yield FormField::addTab(t("entity.seo.og.$name.tab.label"), "fa fa-$icon")
-			->setHelp(t("entity.seo.og.$name.tab.help"))
+		yield FormField::addTab(t("entity.og.$name.tab.label"), "fa fa-$icon")
+			->setHelp(t("entity.og.$name.tab.help"))
 		;
 
-		yield UrlField::new("$name.url", t("entity.seo.og.$name.url.label"))
-			->setHelp(t("entity.seo.og.$name.url.help"))
+		yield UrlField::new("$name.url", t("entity.og.$name.url.label"))
+			->setHelp(t("entity.og.$name.url.help"))
 			->setColumns('col-md-6')
 			->setEmptyData('')
-			->setFormTypeOption('attr', ['placeholder' => t("entity.seo.og.$name.url.placeholder")])
+			->setFormTypeOption('attr', ['placeholder' => t("entity.og.$name.url.placeholder")])
 		;
 
-		yield UrlField::new("$name.secureUrl", t("entity.seo.og.$name.secure_url.label"))
-			->setHelp(t("entity.seo.og.$name.secure_url.help"))
+		yield UrlField::new("$name.secureUrl", t("entity.og.$name.secure_url.label"))
+			->setHelp(t("entity.og.$name.secure_url.help"))
 			->setEmptyData('')
 			->setColumns('col-md-6')
 		;
 
 		if ('image' == $name) {
-			yield TextField::new("$name.alt", t("entity.seo.og.$name.alt.label"))
-				->setHelp(t("entity.seo.og.$name.alt.help"))
+			yield TextField::new("$name.alt", t("entity.og.$name.alt.label"))
+				->setHelp(t("entity.og.$name.alt.help"))
 				->setColumns('col-md-12')
 				->setEmptyData('')
-				->setFormTypeOption('attr', ['placeholder' => t('entity.seo.og.image.alt.placeholder')])
+				->setFormTypeOption('attr', ['placeholder' => t('entity.og.image.alt.placeholder')])
 			;
 		}
 
-		yield TextField::new("$name.type", t("entity.seo.og.$name.type.label"))
-			->setHelp(t("entity.seo.og.$name.type.help"))
+		yield TextField::new("$name.type", t("entity.og.$name.type.label"))
+			->setHelp(t("entity.og.$name.type.help"))
 			->setColumns('col-md-6')
 			->setEmptyData('')
-			->setFormTypeOption('attr', ['placeholder' => t("entity.seo.og.$name.type.placeholder")])
+			->setFormTypeOption('attr', ['placeholder' => t("entity.og.$name.type.placeholder")])
 		;
 
 		if ('audio' != $name) {
-			yield IntegerField::new("$name.width", t("entity.seo.og.$name.width.label"))
-				->setHelp(t("entity.seo.og.$name.width.help"))
+			yield IntegerField::new("$name.width", t("entity.og.$name.width.label"))
+				->setHelp(t("entity.og.$name.width.help"))
 				->setColumns('col-md-3')
 				->setEmptyData(262)
 				->setFormTypeOption('attr', ['min' => 262, 'placeholder' => '1200'])
 			;
 
-			yield IntegerField::new("$name.height", t("entity.seo.og.$name.height.label"))
-				->setHelp(t("entity.seo.og.$name.height.help"))
+			yield IntegerField::new("$name.height", t("entity.og.$name.height.label"))
+				->setHelp(t("entity.og.$name.height.help"))
 				->setColumns('col-md-3')
 				->setEmptyData(262)
 				->setFormTypeOption('attr', ['min' => 262, 'placeholder' => '630'])

@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 24/11/2025, 19:58
+ * Last modified by "IDMarinas" on 25/11/2025, 12:42
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -45,18 +45,18 @@ final class SeoCrudController extends AbstractCrudController
 		;
 
 		yield FormField::addColumn('col-sm-12 col-md-4');
-		yield TextField::new('meta.title', t('entity.seo.meta.title.label'))
-			->setHelp(t('entity.seo.meta.title.help', ['%max%' => 160]))
+		yield TextField::new('meta.title', t('entity.meta.title.label'))
+			->setHelp(t('entity.meta.title.help', ['%max%' => 160]))
 			->setEmptyData('')
 			->setRequired(true)
 			->setFormTypeOption('attr', [
 				'maxlength'   => 160,
-				'placeholder' => t('entity.seo.meta.title.placeholder'),
+				'placeholder' => t('entity.meta.title.placeholder'),
 			])
 		;
 
-		yield UrlField::new('meta.canonical', t('entity.seo.meta.canonical.label'))
-			->setHelp(t('entity.seo.meta.canonical.help'))
+		yield UrlField::new('meta.canonical', t('entity.meta.canonical.label'))
+			->setHelp(t('entity.meta.canonical.help'))
 			->setEmptyData('')
 			->setFormTypeOption('attr', [
 				'placeholder' => 'https://example.com/page',
@@ -64,16 +64,16 @@ final class SeoCrudController extends AbstractCrudController
 		;
 
 		yield FormField::addColumn('col-sm-12 col-md-4');
-		yield TextareaField::new('meta.description', t('entity.seo.meta.description.label'))
-			->setHelp(t('entity.seo.meta.description.help'))
+		yield TextareaField::new('meta.description', t('entity.meta.description.label'))
+			->setHelp(t('entity.meta.description.help'))
 			->setEmptyData('')
 			->setFormTypeOption('attr', [
 				'rows'        => 3,
-				'placeholder' => t('entity.seo.meta.description.placeholder'),
+				'placeholder' => t('entity.meta.description.placeholder'),
 			])
 		;
 
-		yield ChoiceField::new('meta.robots', t('entity.seo.meta.robots.label'))
+		yield ChoiceField::new('meta.robots', t('entity.meta.robots.label'))
 			->setChoices([
 				'Index'          => 'index',
 				'No Index'       => 'noindex',
@@ -86,12 +86,12 @@ final class SeoCrudController extends AbstractCrudController
 			])
 			->allowMultipleChoices()
 			->setFormTypeOption('choice_translation_domain', false)
-			->setHelp(t('entity.seo.meta.robots.help'))
+			->setHelp(t('entity.meta.robots.help'))
 		;
 
 		yield FormField::addColumn('col-sm-12 col-md-4');
-		yield ArrayField::new('meta.keywords', t('entity.seo.meta.keywords.label'))
-			->setHelp(t('entity.seo.meta.keywords.help'))
+		yield ArrayField::new('meta.keywords', t('entity.meta.keywords.label'))
+			->setHelp(t('entity.meta.keywords.help'))
 			->setFormTypeOption('error_bubbling', false)
 			->setEmptyData([])
 		;

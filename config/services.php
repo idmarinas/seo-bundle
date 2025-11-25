@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 25/11/2025, 19:42
+ * Last modified by "IDMarinas" on 25/11/2025, 19:52
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -31,6 +31,7 @@ use Idm\Bundle\Seo\Controller\Admin\TwitterCardCrudController;
 use Idm\Bundle\Seo\Controller\SitemapController;
 use Idm\Bundle\Seo\Form\Type\OpenGraph\SeoLocaleType;
 use Idm\Bundle\Seo\Service\SeoPage;
+use Idm\Bundle\Seo\Service\SeoPageInterface;
 use Idm\Bundle\Seo\Service\Sitemap\SitemapGenerator;
 use Idm\Bundle\Seo\Twig\Extension\SeoExtension;
 use Idm\Bundle\Seo\Twig\Runtime\SeoRuntime;
@@ -76,7 +77,7 @@ return function (ContainerConfigurator $container) {
 
 		->set('idm_seo.service.seo_page', SeoPage::class)
 			->private()
-			->alias(SeoPage::class, 'idm_seo.service.seo_page')->public()
+			->alias(SeoPageInterface::class, 'idm_seo.service.seo_page')->public()
 
 		// Forms
 		->set(SeoLocaleType::class)

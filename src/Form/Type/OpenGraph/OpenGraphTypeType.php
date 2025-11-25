@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 25/11/2025, 12:29
+ * Last modified by "IDMarinas" on 25/11/2025, 12:54
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -29,20 +29,20 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class OpenGraphTypeType extends AbstractType
 {
 	const array ALL_TYPES = [
-		'form.seo.og.type.website'             => 'website',
-		'form.seo.og.type.article'             => 'article',
-		'form.seo.og.type.book'                => 'book',
-		'form.seo.og.type.profile'             => 'profile',
+		'form.og.type.website'             => 'website',
+		'form.og.type.article'             => 'article',
+		'form.og.type.book'                => 'book',
+		'form.og.type.profile'             => 'profile',
 		// Music
-		'form.seo.og.type.music.song'          => 'music.song',
-		'form.seo.og.type.music.album'         => 'music.album',
-		'form.seo.og.type.music.playlist'      => 'music.playlist',
-		'form.seo.og.type.music.radio_station' => 'music.radio_station',
+		'form.og.type.music.song'          => 'music.song',
+		'form.og.type.music.album'         => 'music.album',
+		'form.og.type.music.playlist'      => 'music.playlist',
+		'form.og.type.music.radio_station' => 'music.radio_station',
 		// Video
-		'form.seo.og.type.video.movie'         => 'video.movie',
-		'form.seo.og.type.video.episode'       => 'video.episode',
-		'form.seo.og.type.video.tv_show'       => 'video.tv_show',
-		'form.seo.og.type.video.other'         => 'video.other',
+		'form.og.type.video.movie'         => 'video.movie',
+		'form.og.type.video.episode'       => 'video.episode',
+		'form.og.type.video.tv_show'       => 'video.tv_show',
+		'form.og.type.video.other'         => 'video.other',
 	];
 
 	public function getParent (): string

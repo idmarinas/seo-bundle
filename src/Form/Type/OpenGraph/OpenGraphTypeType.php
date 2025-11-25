@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 25/11/2025, 12:54
+ * Last modified by "IDMarinas" on 25/11/2025, 14:04
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -61,9 +61,9 @@ final class OpenGraphTypeType extends AbstractType
 			'choice_loader'      => new CallbackChoiceLoader(static fn() => self::ALL_TYPES),
 			'group_by'           => ChoiceList::groupBy($this, function ($choice) {
 				if (str_starts_with($choice, 'music.')) {
-					return 'form.seo.og.type.music';
+					return 'form.og.type.music';
 				} elseif (str_starts_with($choice, 'video.')) {
-					return 'form.seo.og.type.video';
+					return 'form.og.type.video';
 				}
 
 				return null;

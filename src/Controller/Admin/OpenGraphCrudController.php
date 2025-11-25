@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 25/11/2025, 16:49
+ * Last modified by "IDMarinas" on 25/11/2025, 16:57
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -60,7 +60,7 @@ final class OpenGraphCrudController extends AbstractCrudController
 			->setRequired(false)
 			->setColumns('col-md-8')
 			->setEmptyData('')
-			->setFormTypeOption('attr', ['placeholder' => 'https://example.com/page'])
+			->setFormTypeOption('attr', ['placeholder' => t('entity.og.url.placeholder')])
 		;
 
 		yield 'title' => TextField::new('title', t('entity.og.title.label'))
@@ -183,14 +183,14 @@ final class OpenGraphCrudController extends AbstractCrudController
 				->setHelp(t("entity.og.$name.width.help"))
 				->setColumns('col-md-3')
 				->setEmptyData(262)
-				->setFormTypeOption('attr', ['min' => 262, 'placeholder' => '1200'])
+				->setFormTypeOption('attr', ['min' => 262])
 			;
 
 			yield IntegerField::new("$name.height", t("entity.og.$name.height.label"))
 				->setHelp(t("entity.og.$name.height.help"))
 				->setColumns('col-md-3')
 				->setEmptyData(262)
-				->setFormTypeOption('attr', ['min' => 262, 'placeholder' => '630'])
+				->setFormTypeOption('attr', ['min' => 262])
 			;
 		}
 	}

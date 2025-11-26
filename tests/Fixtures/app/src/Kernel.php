@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 06/11/2025, 17:29
+ * Last modified by "IDMarinas" on 26/11/2025, 16:02
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -20,7 +20,6 @@
 namespace App;
 
 use Exception;
-use Symfony\Bundle\FrameworkBundle\Controller\TemplateController;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -81,17 +80,6 @@ final class Kernel extends BaseKernel
 			$this->getTestConfigDir() . '/routes.php',
 		], $this->extraRoutes));
 		array_walk($extraRoutes, static fn(string $route) => file_exists($route) ? $routes->import($route) : null);
-
-		//$routes->import('security.route_loader.logout', 'service')->methods(['GET']);
-
-		$routes
-			->add('app_home', '/')
-			->methods(['GET'])
-			->controller(TemplateController::class)
-			->defaults([
-				'template' => 'pages/home.html.twig',
-			])
-		;
 	}
 
 	public function registerBundles (): iterable

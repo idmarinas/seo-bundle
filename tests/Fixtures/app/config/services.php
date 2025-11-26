@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 19/03/2025, 18:06
+ * Last modified by "IDMarinas" on 11/11/2025, 16:04
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -23,6 +23,8 @@ return static function (ContainerConfigurator $container) {
 	// @formatter:off
 	$container
 		->services()
+			->defaults()->autowire()->autoconfigure()
+			->load('App\\', '../src')
 	;
 	// @formatter:on
 };

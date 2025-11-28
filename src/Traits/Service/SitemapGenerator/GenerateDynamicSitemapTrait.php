@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 10/10/2025, 16:32
+ * Last modified by "IDMarinas" on 28/11/2025, 17:53
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -21,32 +21,16 @@ namespace Idm\Bundle\Seo\Traits\Service\SitemapGenerator;
 
 use Exception;
 use Idm\Bundle\Seo\Attributes\Sitemap\SitemapDynamic;
+use Idm\Bundle\Seo\Service\RouterGeneratorSeoUrl;
 use Idm\Bundle\Seo\Sitemap\SitemapFile;
 use Psr\Cache\InvalidArgumentException;
 
 trait GenerateDynamicSitemapTrait
 {
-	protected static function processUrlParameters (
-		array          $params,
-		array|object   $result,
-		SitemapDynamic $sitemap,
-		bool           $isObject
-	): array {
-		$params = array_filter($params, function ($v) use ($isObject, $sitemap, $result) {
-			$method = 'get' . ucfirst($v);
-
-			return $isObject ? method_exists($sitemap->entity, $method) : isset($result[$v]);
-		});
-		array_walk($params, function (&$item) use ($isObject, $result) {
-			$method = 'get' . ucfirst($item);
-			$item = $isObject ? $result->{$method}() : $result[$item];
-		});
-
-		return $params;
-	}
-
-	protected static function processLastUpdated (bool $isObject, array|object $result, SitemapDynamic $sitemap): mixed
+	protected static function processLastUpdated (array|object $result, SitemapDynamic $sitemap): mixed
 	{
+		$isObject = $result instanceof $sitemap->entity;
+
 		if ($isObject) {
 			$method = 'get' . ucfirst($sitemap->updatedAtField);
 
@@ -70,10 +54,9 @@ trait GenerateDynamicSitemapTrait
 			$sitemapFile = $this->getCachedSitemap($sitemap->name, invalidate: $invalidate);
 
 			foreach ($results as $result) {
-				$isObject = $result instanceof $sitemap->entity;
-				$params = self::processUrlParameters($sitemap->urlParameters, $result, $sitemap, $isObject);
-				$url = $sitemap->getUrl($this->generateUrl($routeName, $params));
-				$url->setLastMod(self::processLastUpdated($isObject, $result, $sitemap));
+				$params = RouterGeneratorSeoUrl::processUrlParameters($sitemap->urlParameters, $result, $sitemap);
+				$url = $sitemap->getUrl($this->router->generateUrl($routeName, $params));
+				$url->setLastMod(self::processLastUpdated($result, $sitemap));
 
 				$sitemapFile->addUrl($url);
 			}

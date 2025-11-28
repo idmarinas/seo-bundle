@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 22/10/2025, 15:25
+ * Last modified by "IDMarinas" on 28/11/2025, 17:47
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -26,6 +26,7 @@ use Exception;
 use Idm\Bundle\Seo\Attributes\Sitemap\SitemapDynamic;
 use Idm\Bundle\Seo\Attributes\Sitemap\SitemapInterface;
 use Idm\Bundle\Seo\Attributes\Sitemap\SitemapUrl;
+use Idm\Bundle\Seo\Service\RouterGeneratorSeoUrl;
 use Idm\Bundle\Seo\Sitemap\Node\Sitemap;
 use Idm\Bundle\Seo\Traits\Service\CacheSaveAndLoadTrait;
 use Idm\Bundle\Seo\Traits\Service\SitemapGenerator\GenerateDynamicSitemapTrait;
@@ -35,9 +36,7 @@ use Psr\Cache\InvalidArgumentException;
 use ReflectionAttribute;
 use ReflectionException;
 use ReflectionMethod;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Route;
-use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use function Symfony\Component\String\u;
 
@@ -47,13 +46,13 @@ final class SitemapGenerator
 	use CacheSaveAndLoadTrait;
 
 	public function __construct (
-		private readonly RouterInterface                               $router,
+		private readonly RouterGeneratorSeoUrl                         $router,
 		private readonly CacheItemPoolInterface&TagAwareCacheInterface $cache,
 		private readonly EntityManagerInterface                        $entityManager,
 		private readonly string                                        $defaultScheme,
 		private readonly array                                         $excludedRoutes,
 	) {
-		$this->router->getContext()->setScheme($this->defaultScheme);
+		$this->router->setScheme($this->defaultScheme);
 	}
 
 	/**
@@ -64,13 +63,13 @@ final class SitemapGenerator
 	 */
 	public function generate (bool $invalidate = false): void
 	{
-		$all = $this->router->getRouteCollection()->all();
+		$all = $this->router->getAllRoutes();
 		$routers = array_filter($all, fn(string $r) => !u($r)->startsWith($this->excludedRoutes), ARRAY_FILTER_USE_KEY);
 
 		$sitemapIndex = $this->getCachedSitemap('index', $invalidate);
 		$sitemapDefault = $this->getCachedSitemap('default', $invalidate);
 
-		$url = $this->generateUrl('idm_seo_sitemap_file', ['name' => 'default']);
+		$url = $this->router->generateUrl('idm_seo_sitemap_file', ['name' => 'default']);
 		$sitemapIndex->addSitemap(new Sitemap($url, new DateTime()));
 
 		foreach ($routers as $routeName => $route) {
@@ -80,10 +79,10 @@ final class SitemapGenerator
 
 			if ($sitemap instanceof SitemapUrl) {
 				// Add URL to Default Sitemap
-				$sitemapDefault->addUrl($sitemap->getUrl($this->generateUrl($routeName)));
+				$sitemapDefault->addUrl($sitemap->getUrl($this->router->generateUrl($routeName)));
 			} elseif ($sitemap instanceof SitemapDynamic) {
 				// Add URL to NAMED Sitemap
-				$url = $this->generateUrl('idm_seo_sitemap_file', ['name' => $sitemap->name]);
+				$url = $this->router->generateUrl('idm_seo_sitemap_file', ['name' => $sitemap->name]);
 				$sitemapIndex->addSitemap(new Sitemap($url, new DateTime()));
 
 				if (null !== $sitemapFile = $this->generateSitemapDynamic($sitemap, $routeName, $invalidate)) {
@@ -146,11 +145,5 @@ final class SitemapGenerator
 		} catch (ReflectionException) {
 			return null;
 		}
-	}
-
-	/** @private */
-	private function generateUrl (string $name, array $parameters = []): string
-	{
-		return $this->router->generate($name, $parameters, UrlGeneratorInterface::ABSOLUTE_URL);
 	}
 }

@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 28/11/2025, 18:18
+ * Last modified by "IDMarinas" on 28/11/2025, 18:25
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -34,9 +34,10 @@ final readonly class RouterGeneratorSeoUrl
 {
 	public function __construct (private RouterInterface $router) {}
 
-	protected static function processUrlParameters (array $params, array|object $result, SitemapDynamic $sitemap): array
+	public static function processUrlParameters (SitemapDynamic $sitemap, array|object $result): array
 	{
 		$isObject = $result instanceof $sitemap->entity;
+		$params = $sitemap->urlParameters;
 
 		$params = array_filter($params, function ($v) use ($isObject, $sitemap, $result) {
 			$method = 'get' . ucfirst($v);

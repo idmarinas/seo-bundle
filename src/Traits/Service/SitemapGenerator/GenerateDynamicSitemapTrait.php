@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 28/11/2025, 17:53
+ * Last modified by "IDMarinas" on 28/11/2025, 18:24
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -54,7 +54,7 @@ trait GenerateDynamicSitemapTrait
 			$sitemapFile = $this->getCachedSitemap($sitemap->name, invalidate: $invalidate);
 
 			foreach ($results as $result) {
-				$params = RouterGeneratorSeoUrl::processUrlParameters($sitemap->urlParameters, $result, $sitemap);
+				$params = RouterGeneratorSeoUrl::processUrlParameters($sitemap, $result);
 				$url = $sitemap->getUrl($this->router->generateUrl($routeName, $params));
 				$url->setLastMod(self::processLastUpdated($result, $sitemap));
 

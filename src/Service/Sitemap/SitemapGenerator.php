@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 28/11/2025, 17:47
+ * Last modified by "IDMarinas" on 28/11/2025, 18:19
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -24,7 +24,6 @@ use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Idm\Bundle\Seo\Attributes\Sitemap\SitemapDynamic;
-use Idm\Bundle\Seo\Attributes\Sitemap\SitemapInterface;
 use Idm\Bundle\Seo\Attributes\Sitemap\SitemapUrl;
 use Idm\Bundle\Seo\Service\RouterGeneratorSeoUrl;
 use Idm\Bundle\Seo\Sitemap\Node\Sitemap;
@@ -33,10 +32,6 @@ use Idm\Bundle\Seo\Traits\Service\SitemapGenerator\GenerateDynamicSitemapTrait;
 use Psr\Cache\CacheException;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\InvalidArgumentException;
-use ReflectionAttribute;
-use ReflectionException;
-use ReflectionMethod;
-use Symfony\Component\Routing\Route;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use function Symfony\Component\String\u;
 
@@ -73,7 +68,7 @@ final class SitemapGenerator
 		$sitemapIndex->addSitemap(new Sitemap($url, new DateTime()));
 
 		foreach ($routers as $routeName => $route) {
-			if (null === $sitemap = $this->getSitemapFromRoute($route)) {
+			if (null === $sitemap = $this->router->getSitemapFromRoute($route)) {
 				continue;
 			}
 
@@ -93,57 +88,5 @@ final class SitemapGenerator
 
 		$this->save('index', $sitemapIndex);
 		$this->prepareToSave('default', $sitemapDefault);
-	}
-
-	private function getSitemapFromRoute (Route $route): ?SitemapInterface
-	{
-		$controller = $route->getDefault('_controller');
-		$controller = is_array($controller) ? $controller[0] : $controller;
-		$controller = u($controller)->trim();
-
-		if ($controller->isEmpty()) {
-			return null;
-		}
-
-		$templates = [
-			'Symfony\\Bundle\\FrameworkBundle\\Controller\\TemplateController',
-			'Symfony\\Bundle\\FrameworkBundle\\Controller\\RedirectController',
-		];
-
-		return match (true) {
-			$controller->containsAny('::')       => $this->getSitemapFromAttribute($controller),
-			$controller->containsAny($templates) => $this->getSitemapFromTemplate($route),
-			default                              => null,
-		};
-	}
-
-	/** @internal */
-	private function getSitemapFromTemplate (Route $route): ?SitemapInterface
-	{
-		if ($route->getOption('sitemap') ?? true) {
-			return new SitemapUrl(changefreq: SitemapInterface::CHANGEFREQ_YEARLY);
-		}
-
-		return null;
-	}
-
-	/** @internal */
-	private function getSitemapFromAttribute (string $_controller): ?SitemapInterface
-	{
-		try {
-			[$controller, $method] = explode('::', $_controller);
-			$ref = new ReflectionMethod($controller, $method);
-
-			$attributes = $ref->getAttributes(SitemapInterface::class, ReflectionAttribute::IS_INSTANCEOF);
-
-			if ([] === $attributes) {
-				return null;
-			}
-
-			/** @var SitemapInterface */
-			return $attributes[0]->newInstance();
-		} catch (ReflectionException) {
-			return null;
-		}
 	}
 }

@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 17/11/2025, 13:49
+ * Last modified by "IDMarinas" on 28/11/2025, 16:28
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -50,6 +50,11 @@ class Seo implements Stringable
 	public function __toString (): string
 	{
 		return $this->id;
+	}
+
+	public function getMeta (): Meta
+	{
+		return $this->meta;
 	}
 
 	public function getOg (): OpenGraph

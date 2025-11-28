@@ -26,7 +26,7 @@
 		"ext-dom": "*",
 		"idmarinas/common-bundle": "^3.5",
 		"symfony/dependency-injection": "^6.4 | ^7.1",
-		"symfony/expression-language": "^6.4",
+		"symfony/expression-language": "^6.4 | ^7.1",
 		"symfony/framework-bundle": "^6.4 | ^7.1",
 		"symfony/string": "^6.4 | ^7.1"
 	},
@@ -47,7 +47,7 @@
 		"symfony/stopwatch": "^6.4 | ^7.1",
 		"symfony/twig-bundle": "^6.4 | ^7.1",
 		"symfony/web-profiler-bundle": "^6.4 | ^7.1",
-		"zenstruck/foundry": "^2.3"
+		"zenstruck/foundry": "^2.6"
 	},
 	"autoload": {
 		"psr-4": {

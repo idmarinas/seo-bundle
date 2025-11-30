@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 28/11/2025, 18:24
+ * Last modified by "IDMarinas" on 30/11/2025, 19:34
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -21,7 +21,7 @@ namespace Idm\Bundle\Seo\Traits\Service\SitemapGenerator;
 
 use Exception;
 use Idm\Bundle\Seo\Attributes\Sitemap\SitemapDynamic;
-use Idm\Bundle\Seo\Service\RouterGeneratorSeoUrl;
+use Idm\Bundle\Seo\Service\RouterGenerateSeoUrl;
 use Idm\Bundle\Seo\Sitemap\SitemapFile;
 use Psr\Cache\InvalidArgumentException;
 
@@ -54,7 +54,7 @@ trait GenerateDynamicSitemapTrait
 			$sitemapFile = $this->getCachedSitemap($sitemap->name, invalidate: $invalidate);
 
 			foreach ($results as $result) {
-				$params = RouterGeneratorSeoUrl::processUrlParameters($sitemap, $result);
+				$params = RouterGenerateSeoUrl::processUrlParameters($sitemap, $result);
 				$url = $sitemap->getUrl($this->router->generateUrl($routeName, $params));
 				$url->setLastMod(self::processLastUpdated($result, $sitemap));
 

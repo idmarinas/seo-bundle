@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 28/11/2025, 18:19
+ * Last modified by "IDMarinas" on 30/11/2025, 19:34
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -25,7 +25,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Idm\Bundle\Seo\Attributes\Sitemap\SitemapDynamic;
 use Idm\Bundle\Seo\Attributes\Sitemap\SitemapUrl;
-use Idm\Bundle\Seo\Service\RouterGeneratorSeoUrl;
+use Idm\Bundle\Seo\Service\RouterGenerateSeoUrl;
 use Idm\Bundle\Seo\Sitemap\Node\Sitemap;
 use Idm\Bundle\Seo\Traits\Service\CacheSaveAndLoadTrait;
 use Idm\Bundle\Seo\Traits\Service\SitemapGenerator\GenerateDynamicSitemapTrait;
@@ -41,7 +41,7 @@ final class SitemapGenerator
 	use CacheSaveAndLoadTrait;
 
 	public function __construct (
-		private readonly RouterGeneratorSeoUrl                         $router,
+		private readonly RouterGenerateSeoUrl                          $router,
 		private readonly CacheItemPoolInterface&TagAwareCacheInterface $cache,
 		private readonly EntityManagerInterface                        $entityManager,
 		private readonly string                                        $defaultScheme,

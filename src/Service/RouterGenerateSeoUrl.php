@@ -2,12 +2,12 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 28/11/2025, 18:25
+ * Last modified by "IDMarinas" on 30/11/2025, 19:34
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
  *
- * @file    RouterGeneratorSeoUrl.php
+ * @file    RouterGenerateSeoUrl.php
  * @date    28/11/2025
  * @time    17:37
  *
@@ -30,7 +30,7 @@ use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouterInterface;
 use function Symfony\Component\String\u;
 
-final readonly class RouterGeneratorSeoUrl
+final readonly class RouterGenerateSeoUrl
 {
 	public function __construct (private RouterInterface $router) {}
 

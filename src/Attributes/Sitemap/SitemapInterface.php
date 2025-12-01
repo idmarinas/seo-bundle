@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 04/06/2025, 21:32
+ * Last modified by "IDMarinas" on 01/12/2025, 14:06
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -23,15 +23,15 @@ use Idm\Bundle\Seo\Sitemap\Node\Url;
 
 interface SitemapInterface
 {
-	public const CHANGEFREQ_ALWAYS  = 'always';
-	public const CHANGEFREQ_HOURLY  = 'hourly';
-	public const CHANGEFREQ_DAILY   = 'daily';
-	public const CHANGEFREQ_WEEKLY  = 'weekly';
-	public const CHANGEFREQ_MONTHLY = 'monthly';
-	public const CHANGEFREQ_YEARLY  = 'yearly';
-	public const CHANGEFREQ_NEVER   = 'never';
+	public const string CHANGEFREQ_ALWAYS  = 'always';
+	public const string CHANGEFREQ_HOURLY  = 'hourly';
+	public const string CHANGEFREQ_DAILY   = 'daily';
+	public const string CHANGEFREQ_WEEKLY  = 'weekly';
+	public const string CHANGEFREQ_MONTHLY = 'monthly';
+	public const string CHANGEFREQ_YEARLY  = 'yearly';
+	public const string CHANGEFREQ_NEVER   = 'never';
 
-	public const CHANGEFREQ_VALUES = [
+	public const array CHANGEFREQ_VALUES = [
 		self::CHANGEFREQ_ALWAYS,
 		self::CHANGEFREQ_HOURLY,
 		self::CHANGEFREQ_DAILY,

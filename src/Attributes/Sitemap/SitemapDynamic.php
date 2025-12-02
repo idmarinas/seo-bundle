@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 04/06/2025, 21:32
+ * Last modified by "IDMarinas" on 02/12/2025, 18:09
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -45,6 +45,8 @@ final readonly class SitemapDynamic implements SitemapInterface
 	 *                                            construct the URL parameters (default: []).
 	 *                                            <code>Example: ['slug' => 'slug', 'category' => 'categorySlug']</code>
 	 *                                            This would generate URLs with parameters from the entity fields.
+	 * @param SitemapUrl      $urlConfig          Sitemap configuration for each generated URL (defines priority and
+	 *                                            change frequency for individual entries).
 	 */
 	public function __construct (
 		public string          $name,
@@ -52,6 +54,7 @@ final readonly class SitemapDynamic implements SitemapInterface
 		public string|Criteria $criteria = 'findAll',
 		public string          $updatedAtField = 'updatedAt',
 		public array           $urlParameters = [],
+		public SitemapUrl      $urlConfig = new SitemapUrl(),
 	) {}
 
 	/**
@@ -59,6 +62,6 @@ final readonly class SitemapDynamic implements SitemapInterface
 	 */
 	public function getUrl (string $loc): Url
 	{
-		return new Url($loc);
+		return new Url($loc, null, $this->urlConfig->changefreq, $this->urlConfig->priority);
 	}
 }

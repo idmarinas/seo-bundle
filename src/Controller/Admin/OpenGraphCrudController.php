@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 02/12/2025, 16:05
+ * Last modified by "IDMarinas" on 02/12/2025, 16:52
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -20,11 +20,9 @@
 namespace Idm\Bundle\Seo\Controller\Admin;
 
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\LocaleField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
@@ -32,7 +30,6 @@ use Idm\Bundle\Seo\Admin\Field\OpenGraphTypeDataField;
 use Idm\Bundle\Seo\Entity\OpenGraph;
 use Idm\Bundle\Seo\Entity\Seo;
 use Idm\Bundle\Seo\Form\Type\OpenGraph\OpenGraphTypeType;
-use Idm\Bundle\Seo\Form\Type\OpenGraph\SeoLocaleType;
 use function Idm\Bundle\Seo\t;
 use function Symfony\Component\String\u;
 
@@ -75,23 +72,6 @@ final class OpenGraphCrudController extends AbstractCrudController
 				'rows'        => 3,
 				'placeholder' => t('entity.og.description.placeholder'),
 			])
-		;
-
-		yield 'locale' => LocaleField::new('locale', t('entity.og.locale.label'))
-			->setHelp(t('entity.og.locale.help'))
-			->setRequired(true)
-			->setFormType(SeoLocaleType::class)
-			->setColumns('col-md-6')
-			->setFormTypeOption('data', $this->getParameter('kernel.default_locale'))
-		;
-
-		yield 'locale_alternate' => ArrayField::new('localeAlternate', t('entity.og.locale_alternate.label'))
-			->setHelp(t('entity.og.locale_alternate.help'))
-			->setFormTypeOption('entry_type', SeoLocaleType::class)
-			->setFormTypeOption('entry_options', ['row_attr' => ['class' => 'field-locale']])
-			->addCssClass('field-locale')
-			->setColumns('col-md-6')
-			->setEmptyData([])
 		;
 
 		// PANEL: Image (Embeddable)

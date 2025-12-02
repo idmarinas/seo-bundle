@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 25/11/2025, 16:57
+ * Last modified by "IDMarinas" on 02/12/2025, 16:05
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -55,18 +55,10 @@ final class OpenGraphCrudController extends AbstractCrudController
 			->setColumns('col-md-4')
 		;
 
-		yield 'url' => UrlField::new('url', t('entity.og.url.label'))
-			->setHelp(t('entity.og.url.help'))
-			->setRequired(false)
-			->setColumns('col-md-8')
-			->setEmptyData('')
-			->setFormTypeOption('attr', ['placeholder' => t('entity.og.url.placeholder')])
-		;
-
 		yield 'title' => TextField::new('title', t('entity.og.title.label'))
 			->setHelp(t('entity.og.title.help', ['%max%' => 255]))
 			->setRequired(true)
-			->setColumns('col-md-12')
+			->setColumns('col-md-8')
 			->setEmptyData('')
 			->setFormTypeOption('attr', [
 				'maxlength'   => 255,

@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 24/11/2025, 13:14
+ * Last modified by "IDMarinas" on 02/12/2025, 16:02
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -35,11 +35,6 @@ class Meta
 	#[ORM\Column]
 	#[Assert\NotNull]
 	public string $description = '';
-
-	#[ORM\Column]
-	#[Assert\Url(normalizer: 'trim')]
-	#[Assert\NotNull]
-	public string $canonical = '';
 
 	/**
 	 * @var string[]

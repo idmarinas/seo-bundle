@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 25/11/2025, 12:42
+ * Last modified by "IDMarinas" on 02/12/2025, 16:05
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -26,7 +26,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 use Idm\Bundle\Seo\Entity\Seo;
 use function Idm\Bundle\Seo\t;
 
@@ -55,24 +54,6 @@ final class SeoCrudController extends AbstractCrudController
 			])
 		;
 
-		yield UrlField::new('meta.canonical', t('entity.meta.canonical.label'))
-			->setHelp(t('entity.meta.canonical.help'))
-			->setEmptyData('')
-			->setFormTypeOption('attr', [
-				'placeholder' => 'https://example.com/page',
-			])
-		;
-
-		yield FormField::addColumn('col-sm-12 col-md-4');
-		yield TextareaField::new('meta.description', t('entity.meta.description.label'))
-			->setHelp(t('entity.meta.description.help'))
-			->setEmptyData('')
-			->setFormTypeOption('attr', [
-				'rows'        => 3,
-				'placeholder' => t('entity.meta.description.placeholder'),
-			])
-		;
-
 		yield ChoiceField::new('meta.robots', t('entity.meta.robots.label'))
 			->setChoices([
 				'Index'          => 'index',
@@ -87,6 +68,16 @@ final class SeoCrudController extends AbstractCrudController
 			->allowMultipleChoices()
 			->setFormTypeOption('choice_translation_domain', false)
 			->setHelp(t('entity.meta.robots.help'))
+		;
+
+		yield FormField::addColumn('col-sm-12 col-md-4');
+		yield TextareaField::new('meta.description', t('entity.meta.description.label'))
+			->setHelp(t('entity.meta.description.help'))
+			->setEmptyData('')
+			->setFormTypeOption('attr', [
+				'rows'        => 3,
+				'placeholder' => t('entity.meta.description.placeholder'),
+			])
 		;
 
 		yield FormField::addColumn('col-sm-12 col-md-4');

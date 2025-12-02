@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 24/11/2025, 13:18
+ * Last modified by "IDMarinas" on 02/12/2025, 16:02
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -61,11 +61,6 @@ class OpenGraph implements Stringable
 	#[Assert\Length(min: 0, max: 255)]
 	#[Assert\NotNull]
 	public string $description = '';
-
-	#[ORM\Column]
-	#[Assert\Url(normalizer: 'trim')]
-	#[Assert\NotNull]
-	public string $url = '';
 
 	#[ORM\Column]
 	#[Assert\Locale(canonicalize: true)]

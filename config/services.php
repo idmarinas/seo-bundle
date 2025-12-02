@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 25/11/2025, 19:52
+ * Last modified by "IDMarinas" on 02/12/2025, 16:19
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -29,7 +29,9 @@ use Idm\Bundle\Seo\Controller\Admin\OpenGraphCrudController;
 use Idm\Bundle\Seo\Controller\Admin\SeoCrudController;
 use Idm\Bundle\Seo\Controller\Admin\TwitterCardCrudController;
 use Idm\Bundle\Seo\Controller\SitemapController;
+use Idm\Bundle\Seo\EventSubscriber\SeoConfigureSubscriber;
 use Idm\Bundle\Seo\Form\Type\OpenGraph\SeoLocaleType;
+use Idm\Bundle\Seo\Service\RouterGenerateSeoUrl;
 use Idm\Bundle\Seo\Service\SeoPage;
 use Idm\Bundle\Seo\Service\SeoPageInterface;
 use Idm\Bundle\Seo\Service\Sitemap\SitemapGenerator;
@@ -53,7 +55,7 @@ return function (ContainerConfigurator $container) {
 		->set('idm_seo.service.sitemap_generator', SitemapGenerator::class)
 			->private()
 			->args([
-				'$router' => service('router.default'),
+				'$router' => service('idm_seo.service.router_generator_seo_url'),
 				'$cache' => service('idm_seo.cache'),
 				'$entityManager' => service('doctrine.orm.entity_manager'),
 			])
@@ -77,7 +79,19 @@ return function (ContainerConfigurator $container) {
 
 		->set('idm_seo.service.seo_page', SeoPage::class)
 			->private()
+			->arg('$router', service('idm_seo.service.router_generator_seo_url'))
 			->alias(SeoPageInterface::class, 'idm_seo.service.seo_page')->public()
+
+		->set('idm_seo.service.router_generator_seo_url', RouterGenerateSeoUrl::class)
+			->private()
+			->arg('$router', service('router.default'))
+
+		// Events Subscriber
+		->set(SeoConfigureSubscriber::class)
+			->private()
+			->arg('$seo', service('idm_seo.service.seo_page'))
+			->arg('$enabledLocales', param('kernel.enabled_locales'))
+			->tag('kernel.event_subscriber')
 
 		// Forms
 		->set(SeoLocaleType::class)

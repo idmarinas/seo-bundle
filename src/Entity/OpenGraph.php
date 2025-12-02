@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 02/12/2025, 16:02
+ * Last modified by "IDMarinas" on 02/12/2025, 16:49
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -62,17 +62,7 @@ class OpenGraph implements Stringable
 	#[Assert\NotNull]
 	public string $description = '';
 
-	#[ORM\Column]
-	#[Assert\Locale(canonicalize: true)]
-	#[Assert\NotBlank(allowNull: false)]
-	public string $locale = '';
-
-	#[ORM\Column(type: Types::JSON)]
-	#[Assert\All([new Assert\Locale(canonicalize: true)])]
-	public array $localeAlternate = [];
-
 	// Structured Properties
-
 	/**
 	 * Main image (required)
 	 */

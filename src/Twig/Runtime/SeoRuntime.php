@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 03/11/2025, 17:08
+ * Last modified by "IDMarinas" on 02/12/2025, 16:40
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -20,29 +20,59 @@
 namespace Idm\Bundle\Seo\Twig\Runtime;
 
 use Idm\Bundle\Seo\Service\SeoPage;
+use Idm\Bundle\Seo\Traits\Twig\RunTime\SeoRuntime\BuildTagsTrait;
+use ReflectionException;
 use Twig\Extension\RuntimeExtensionInterface;
-use function Symfony\Component\String\u;
 
 final readonly class SeoRuntime implements RuntimeExtensionInterface
 {
-	public function __construct (private array $templates, private SeoPage $seoPage)
+	use BuildTagsTrait;
+
+	public function __construct (private SeoPage $seoPage) {}
+
+	public function seoTitle (string $type = ''): string
 	{
-		// Inject dependencies if needed
+		return $this->seoPage->getFormatedTitle($type);
 	}
 
-	public function idmSeoTitle (string $type = ''): string
+	/**
+	 * @throws ReflectionException
+	 */
+	public function seoMeta (): string
 	{
-		$template = $this->templates[$type] ?? $this->templates['title'];
+		$html = "<!-- Primary Meta Tags -->\n";
+		$html .= self::buildHtmlMetaTags($this->seoPage->getMetaTags(), '');
 
-		return u($template)
-			->replace('{title}', $this->seoPage->getSeo()?->title ?? $this->seoPage->getTitle())
-			->replace('{separator}', $this->seoPage->getSeparator())
-			->replace('{prefix}', $this->seoPage->getPrefix())
-			->replace('{suffix}', $this->seoPage->getSuffix())
-			->trim()
-			->trim($this->seoPage->getSeparator())
-			->trim()
-			->toString()
-		;
+		if (!empty($canonical = $this->seoPage->getCanonical())) {
+			$html .= self::buildHtmlTagCanonical($canonical);
+		}
+
+		if (!empty($locales = $this->seoPage->getLocaleAlternate())) {
+			foreach ($locales as $lang => $url) {
+				$html .= self::buildHtmlTagLocaleAlternate($lang, $url);
+			}
+		}
+
+		return $html;
+	}
+
+	/**
+	 * @throws ReflectionException
+	 */
+	public function seoOpenGraphMeta (): string
+	{
+		$html = "<!-- Open Graph / Facebook -->\n";
+
+		return $html . self::buildHtmlMetaTags($this->seoPage->getOpenGraphTags(), 'og');
+	}
+
+	/**
+	 * @throws ReflectionException
+	 */
+	public function seoTwitterMeta (): string
+	{
+		$html = "<!-- X (Twitter) -->\n";
+
+		return $html . self::buildHtmlMetaTags($this->seoPage->getTwitterTags(), 'twitter');
 	}
 }

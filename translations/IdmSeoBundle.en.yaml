@@ -31,9 +31,6 @@ entity:
       label: Título
       help: Título de la página (máx. %max% caracteres)
       placeholder: Un título SEO para este contenido.
-    canonical:
-      label: Canonical URL
-      help: URL canónica para evitar contenido duplicado.
     description:
       label: Descripción
       help: Descripción de la página para motores de búsqueda
@@ -50,10 +47,6 @@ entity:
     type:
       label: Tipo
       help: Tipo de contenido
-    url:
-      label: URL
-      help: URL canónica del contenido
-      placeholder: https://example.com/article.html
     title:
       label: Título Open Graph
       help: Título que aparecerá en redes sociales (máx. %max% caracteres)

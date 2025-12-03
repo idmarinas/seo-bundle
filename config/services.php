@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 02/12/2025, 16:19
+ * Last modified by "IDMarinas" on 03/12/2025, 18:48
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -90,7 +90,6 @@ return function (ContainerConfigurator $container) {
 		->set(SeoConfigureSubscriber::class)
 			->private()
 			->arg('$seo', service('idm_seo.service.seo_page'))
-			->arg('$enabledLocales', param('kernel.enabled_locales'))
 			->tag('kernel.event_subscriber')
 
 		// Forms

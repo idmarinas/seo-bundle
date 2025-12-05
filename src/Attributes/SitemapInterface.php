@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 01/12/2025, 14:06
+ * Last modified by "IDMarinas" on 05/12/2025, 15:51
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -17,7 +17,7 @@
  * @since   1.0.0
  */
 
-namespace Idm\Bundle\Seo\Attributes\Sitemap;
+namespace Idm\Bundle\Seo\Attributes;
 
 use Idm\Bundle\Seo\Sitemap\Node\Url;
 
@@ -43,4 +43,9 @@ interface SitemapInterface
 	];
 
 	public function getUrl (string $loc): Url;
+
+	/**
+	 * Check whether this sitemap is dynamic or not.
+	 */
+	public function isDynamic (): bool;
 }

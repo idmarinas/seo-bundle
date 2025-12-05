@@ -2,7 +2,7 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 25/11/2025, 19:50
+ * Last modified by "IDMarinas" on 05/12/2025, 14:51
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -32,6 +32,9 @@ final class IdmSeoBundle extends AbstractBundle
 		$container->import(dirname(__DIR__) . '/config/services.php');
 
 		$services = $container->services();
+
+		// Add enabled locales to filter with supported locales
+		$config['seo']['enabled_locales'] = $builder->getParameter('kernel.enabled_locales');
 
 		$services
 			->get('idm_seo.service.seo_page')

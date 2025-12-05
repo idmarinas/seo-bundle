@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 04/06/2025, 21:40
+ * Last modified by "IDMarinas" on 05/12/2025, 15:51
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -24,7 +24,7 @@ use DateTimeInterface;
 use DOMDocument;
 use DOMElement;
 use DOMException;
-use Idm\Bundle\Seo\Attributes\Sitemap\SitemapInterface;
+use Idm\Bundle\Seo\Attributes\SitemapInterface;
 use InvalidArgumentException;
 
 final class Url extends AbstractNode

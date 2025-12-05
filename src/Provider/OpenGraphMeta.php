@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 02/12/2025, 16:55
+ * Last modified by "IDMarinas" on 05/12/2025, 13:41
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -21,6 +21,7 @@ namespace Idm\Bundle\Seo\Provider;
 
 use Idm\Bundle\Seo\Entity\OpenGraph;
 use ReflectionException;
+use ReflectionProperty;
 
 final class OpenGraphMeta
 {
@@ -46,6 +47,10 @@ final class OpenGraphMeta
 	 */
 	public function toArray (): array
 	{
+		if (!(new ReflectionProperty($this, 'entity'))->isInitialized($this)) {
+			$this->setEntity(null);
+		}
+
 		return [
 			'title'            => $this->entity?->title,
 			'description'      => $this->entity?->description,

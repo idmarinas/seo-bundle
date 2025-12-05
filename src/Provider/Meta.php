@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 02/12/2025, 17:15
+ * Last modified by "IDMarinas" on 05/12/2025, 13:40
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -22,6 +22,7 @@ namespace Idm\Bundle\Seo\Provider;
 use Idm\Bundle\Seo\Entity\Meta as MetaEntity;
 use Idm\Bundle\Seo\Provider\Meta\TitleMeta;
 use ReflectionException;
+use ReflectionProperty;
 
 final class Meta
 {
@@ -47,6 +48,10 @@ final class Meta
 	 */
 	public function toArray (): array
 	{
+		if (!(new ReflectionProperty($this, 'entity'))->isInitialized($this)) {
+			$this->setEntity(null);
+		}
+
 		return [
 			'title'       => $this->entity?->title,
 			'description' => $this->entity?->description,

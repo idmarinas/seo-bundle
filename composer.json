@@ -28,6 +28,7 @@
 		"symfony/dependency-injection": "^6.4 | ^7.1",
 		"symfony/expression-language": "^6.4 | ^7.1",
 		"symfony/framework-bundle": "^6.4 | ^7.1",
+		"symfony/property-access": "^6.4 | ^7.1",
 		"symfony/string": "^6.4 | ^7.1"
 	},
 	"require-dev": {

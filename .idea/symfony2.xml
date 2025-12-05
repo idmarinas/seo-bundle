@@ -6,6 +6,7 @@
     <option name="twigBundleNamespaceSupport" value="true" />
     <option name="dismissEnableNotification" value="true" />
     <option name="profilerCsvPath" value="" />
+    <option name="lastServiceGeneratorLanguage" value="yaml" />
     <option name="routingFiles">
       <list>
         <routing_file path="app/cache/dev/appDevUrlGenerator.php" />

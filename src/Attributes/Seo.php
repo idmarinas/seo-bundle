@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 02/12/2025, 17:53
+ * Last modified by "IDMarinas" on 05/12/2025, 15:00
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -21,11 +21,14 @@ namespace Idm\Bundle\Seo\Attributes;
 
 use Attribute;
 
+/**
+ * Automatically configure SEO for this page
+ */
 #[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_FUNCTION)]
 final class Seo
 {
 	/**
-	 * @param string $entity The fully qualified entity class name to to search in arguments.
+	 * @param string $entity The fully qualified entity class name to search in arguments.
 	 */
 	public function __construct (
 		public string $entity = ''

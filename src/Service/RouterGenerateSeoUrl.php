@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 30/11/2025, 19:34
+ * Last modified by "IDMarinas" on 05/12/2025, 16:51
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -19,12 +19,12 @@
 
 namespace Idm\Bundle\Seo\Service;
 
-use Idm\Bundle\Seo\Attributes\Sitemap\SitemapDynamic;
-use Idm\Bundle\Seo\Attributes\Sitemap\SitemapInterface;
-use Idm\Bundle\Seo\Attributes\Sitemap\SitemapUrl;
+use Idm\Bundle\Seo\Attributes\Sitemap;
+use Idm\Bundle\Seo\Attributes\SitemapInterface;
 use ReflectionAttribute;
 use ReflectionException;
 use ReflectionMethod;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouterInterface;
@@ -34,19 +34,26 @@ final readonly class RouterGenerateSeoUrl
 {
 	public function __construct (private RouterInterface $router) {}
 
-	public static function processUrlParameters (SitemapDynamic $sitemap, array|object $result): array
+	public static function processUrlParameters (Sitemap $sitemap, array|object $result): array
 	{
-		$isObject = $result instanceof $sitemap->entity;
+		$isObject = is_object($result);
 		$params = $sitemap->urlParameters;
+		$accessor = PropertyAccess::createPropertyAccessor();
 
-		$params = array_filter($params, function ($v) use ($isObject, $sitemap, $result) {
-			$method = 'get' . ucfirst($v);
+		$params = array_filter($params, function ($v) use ($isObject, $sitemap, $result, $accessor) {
+			if ($v instanceof Sitemap\Prop) {
+				$property = $isObject ? $v->property : "[$v->property]";
 
-			return $isObject ? method_exists($sitemap->entity, $method) : isset($result[$v]);
+				return $accessor->isReadable($result, $property);
+			}
+
+			return true;
 		});
-		array_walk($params, function (&$item) use ($isObject, $result) {
-			$method = 'get' . ucfirst($item);
-			$item = $isObject ? $result->{$method}() : $result[$item];
+		array_walk($params, function (&$item) use ($isObject, $result, $accessor) {
+			if ($item instanceof Sitemap\Prop) {
+				$property = $isObject ? $item->property : "[$item->property]";
+				$item = $accessor->getValue($result, $property);
+			}
 		});
 
 		return $params;
@@ -104,7 +111,7 @@ final readonly class RouterGenerateSeoUrl
 	private function getSitemapFromTemplate (Route $route): ?SitemapInterface
 	{
 		if ($route->getOption('sitemap') ?? true) {
-			return new SitemapUrl(changefreq: SitemapInterface::CHANGEFREQ_YEARLY);
+			return new Sitemap(changefreq: SitemapInterface::CHANGEFREQ_YEARLY);
 		}
 
 		return null;

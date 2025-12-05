@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "idmarinas" on 13/06/2025, 16:58
+ * Last modified by "IDMarinas" on 05/12/2025, 16:56
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -48,9 +48,10 @@ final class SitemapController extends AbstractController
 		requirements: ['_format' => 'xml'],
 		defaults    : ['_format' => 'xml'],
 		methods     : ['GET'],
-		format      : 'xml'
+		format      : 'xml',
+		stateless   : true
 	)]
-	#[Cache(maxage: 3600, public: true)]
+	#[Cache(maxage: 86400, public: true)]
 	public function index (): Response
 	{
 		$sitemap = $this->cache('index');
@@ -69,7 +70,8 @@ final class SitemapController extends AbstractController
 		],
 		defaults    : ['_format' => 'xml'],
 		methods     : ['GET'],
-		format      : 'xml'
+		format      : 'xml',
+		stateless   : true
 	)]
 	#[Cache(maxage: 3600, public: true)]
 	public function sitemap (string $name): Response
@@ -95,7 +97,8 @@ final class SitemapController extends AbstractController
 		],
 		defaults    : ['id' => 0, '_format' => 'xml'],
 		methods     : ['GET'],
-		format      : 'xml'
+		format      : 'xml',
+		stateless   : true
 	)]
 	#[Cache(maxage: 3600, public: true)]
 	public function sitemapPage (string $name, int $id): Response
@@ -112,7 +115,7 @@ final class SitemapController extends AbstractController
 	/**
 	 * @throws ContainerExceptionInterface
 	 */
-	protected function cache (string $name): SitemapFile
+	private function cache (string $name): SitemapFile
 	{
 		if (!$this->container->has('idm_seo.cache')) {
 			throw new LogicException(sprintf('You cannot use the "%s" method if the Cache is not available.', __METHOD__));

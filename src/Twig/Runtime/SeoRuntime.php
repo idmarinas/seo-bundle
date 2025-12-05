@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 02/12/2025, 16:40
+ * Last modified by "IDMarinas" on 05/12/2025, 14:48
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -40,6 +40,10 @@ final readonly class SeoRuntime implements RuntimeExtensionInterface
 	 */
 	public function seoMeta (): string
 	{
+		if (!$this->seoPage->isEnabled()) {
+			return '';
+		}
+
 		$html = "<!-- Primary Meta Tags -->\n";
 		$html .= self::buildHtmlMetaTags($this->seoPage->getMetaTags(), '');
 
@@ -61,6 +65,10 @@ final readonly class SeoRuntime implements RuntimeExtensionInterface
 	 */
 	public function seoOpenGraphMeta (): string
 	{
+		if (!$this->seoPage->isEnabled()) {
+			return '';
+		}
+
 		$html = "<!-- Open Graph / Facebook -->\n";
 
 		return $html . self::buildHtmlMetaTags($this->seoPage->getOpenGraphTags(), 'og');
@@ -71,6 +79,10 @@ final readonly class SeoRuntime implements RuntimeExtensionInterface
 	 */
 	public function seoTwitterMeta (): string
 	{
+		if (!$this->seoPage->isEnabled()) {
+			return '';
+		}
+
 		$html = "<!-- X (Twitter) -->\n";
 
 		return $html . self::buildHtmlMetaTags($this->seoPage->getTwitterTags(), 'twitter');

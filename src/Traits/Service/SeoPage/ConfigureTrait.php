@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 02/12/2025, 17:05
+ * Last modified by "IDMarinas" on 08/12/2025, 11:39
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -19,19 +19,19 @@
 
 namespace Idm\Bundle\Seo\Traits\Service\SeoPage;
 
-use Idm\Bundle\Seo\Attributes\Sitemap\SitemapDynamic;
+use Idm\Bundle\Seo\Attributes\Sitemap;
 
 trait ConfigureTrait
 {
-	protected ?string       $routeName   = null;
-	protected array         $routeParams = [];
-	protected ?string       $title       = null;
-	protected ?string       $description = null;
-	protected ?string       $canonical   = null;
-	protected ?string       $locale      = null;
-	private ?SitemapDynamic $sitemap     = null;
+	protected ?string $routeName   = null;
+	protected array   $routeParams = [];
+	protected ?string $title       = null;
+	protected ?string $description = null;
+	protected ?string $canonical   = null;
+	protected ?string $locale      = null;
+	private ?Sitemap  $sitemap     = null;
 
-	public function setSitemap (SitemapDynamic $sitemap): self
+	public function setSitemap (Sitemap $sitemap): self
 	{
 		$this->sitemap = $sitemap;
 
@@ -41,6 +41,8 @@ trait ConfigureTrait
 	public function setLocale (string $locale): self
 	{
 		$this->locale = $locale;
+
+		$this->removeLocaleAlternate($locale);
 
 		return $this;
 	}
@@ -71,6 +73,22 @@ trait ConfigureTrait
 		if ([] !== array_diff($routeParams, $this->routeParams)) {
 			$this->routeParams = $routeParams;
 			$this->configureCanonical();
+		}
+
+		return $this;
+	}
+
+	public function addLocaleAlternate (string $locale, string $url): self
+	{
+		$this->localeAlternate[$locale] = $url;
+
+		return $this;
+	}
+
+	public function removeLocaleAlternate (string $locale): self
+	{
+		if (isset($this->localeAlternate[$locale])) {
+			unset($this->localeAlternate[$locale]);
 		}
 
 		return $this;

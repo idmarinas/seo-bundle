@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 30/11/2025, 19:34
+ * Last modified by "IDMarinas" on 05/12/2025, 16:32
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -20,14 +20,14 @@
 namespace Idm\Bundle\Seo\Traits\Service\SitemapGenerator;
 
 use Exception;
-use Idm\Bundle\Seo\Attributes\Sitemap\SitemapDynamic;
+use Idm\Bundle\Seo\Attributes\Sitemap;
 use Idm\Bundle\Seo\Service\RouterGenerateSeoUrl;
 use Idm\Bundle\Seo\Sitemap\SitemapFile;
 use Psr\Cache\InvalidArgumentException;
 
 trait GenerateDynamicSitemapTrait
 {
-	protected static function processLastUpdated (array|object $result, SitemapDynamic $sitemap): mixed
+	protected static function processLastUpdated (array|object $result, Sitemap $sitemap): mixed
 	{
 		$isObject = $result instanceof $sitemap->entity;
 
@@ -40,7 +40,7 @@ trait GenerateDynamicSitemapTrait
 		return $result[$sitemap->updatedAtField] ?? null;
 	}
 
-	private function generateSitemapDynamic (SitemapDynamic $sitemap, string $routeName, bool $invalidate): ?SitemapFile
+	private function generateSitemapDynamic (Sitemap $sitemap, string $routeName, bool $invalidate): ?SitemapFile
 	{
 		try {
 			$repository = $this->entityManager->getRepository($sitemap->entity);

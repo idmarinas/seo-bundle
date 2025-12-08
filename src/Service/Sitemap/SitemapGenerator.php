@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 30/11/2025, 19:34
+ * Last modified by "IDMarinas" on 05/12/2025, 16:31
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -23,8 +23,6 @@ use DateMalformedStringException;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
-use Idm\Bundle\Seo\Attributes\Sitemap\SitemapDynamic;
-use Idm\Bundle\Seo\Attributes\Sitemap\SitemapUrl;
 use Idm\Bundle\Seo\Service\RouterGenerateSeoUrl;
 use Idm\Bundle\Seo\Sitemap\Node\Sitemap;
 use Idm\Bundle\Seo\Traits\Service\CacheSaveAndLoadTrait;
@@ -72,10 +70,10 @@ final class SitemapGenerator
 				continue;
 			}
 
-			if ($sitemap instanceof SitemapUrl) {
+			if (!$sitemap->isDynamic()) {
 				// Add URL to Default Sitemap
 				$sitemapDefault->addUrl($sitemap->getUrl($this->router->generateUrl($routeName)));
-			} elseif ($sitemap instanceof SitemapDynamic) {
+			} elseif ($sitemap->isDynamic()) {
 				// Add URL to NAMED Sitemap
 				$url = $this->router->generateUrl('idm_seo_sitemap_file', ['name' => $sitemap->name]);
 				$sitemapIndex->addSitemap(new Sitemap($url, new DateTime()));

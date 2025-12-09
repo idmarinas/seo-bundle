@@ -2,19 +2,19 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 21/10/2025, 17:20
+ * Last modified by "IDMarinas" on 08/12/2025, 17:17
  *
  * @project IDMarinas Seo Bundle
- * @see     https://github.com/idmarinas/seo-bundle
+ * @see https://github.com/idmarinas/seo-bundle
  *
- * @file    SitemapFile.php
- * @date    28/05/2025
- * @time    19:52
+ * @file SitemapFile.php
+ * @date 28/05/2025
+ * @time 19:52
  *
- * @author  Iván Diaz Marinas (IDMarinas)
+ * @author Iván Diaz Marinas (IDMarinas)
  * @license BSD 3-Clause License
  *
- * @since   1.0.0
+ * @since 1.0.0
  */
 
 namespace Idm\Bundle\Seo\Sitemap;
@@ -45,9 +45,11 @@ final class SitemapFile implements Countable
 	public const int LIMIT_ITEMS = 50_000;
 	public const int LIMIT_BYTES = 52_428_800; // 50MB
 
-	private DOMDocument       $document;
-	private ?DOMElement       $rootElement = null;
-	private DateTimeInterface $updatedAt;
+	private readonly DOMDocument $document;
+	private ?DOMElement          $rootElement = null;
+	private DateTimeInterface    $updatedAt;
+	private readonly bool        $paginated;
+	private readonly bool        $page;
 
 	/**
 	 * Creates a new sitemap instance
@@ -57,9 +59,13 @@ final class SitemapFile implements Countable
 	 *
 	 * @throws DOMException If there's an error creating the DOM structure
 	 */
-	public function __construct (private string $name, private ?bool $index = null)
+	public function __construct (private readonly string $name, private ?bool $index = null)
 	{
-		$this->index = $index ?? ('index' === $name || u($name)->endsWith('.index'));
+		$name = u($name)->trim();
+		$page = $name->afterLast('.')->trim();
+		$this->index = $index ?? ($name->equalsTo('index') || $page->equalsTo('index'));
+		$this->paginated = is_numeric($page->toString());
+		$this->page = (int)$page->toString();
 		$this->document = new DOMDocument('1.0', 'UTF-8');
 		$this->document->formatOutput = true;
 
@@ -147,12 +153,27 @@ final class SitemapFile implements Countable
 		return $this->index;
 	}
 
+	public function isPaginated (): bool
+	{
+		return $this->paginated;
+	}
+
+	public function getPage (): int
+	{
+		return $this->page;
+	}
+
 	/**
 	 * Method for compatibility with related classes' code
 	 */
 	public function getName (): string
 	{
 		return $this->name;
+	}
+
+	public function getBaseName (): string
+	{
+		return u($this->name)->beforeLast('.')->toString();
 	}
 
 	/**

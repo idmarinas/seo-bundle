@@ -2,19 +2,19 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 05/12/2025, 14:51
+ * Last modified by "IDMarinas" on 09/12/2025, 16:40
  *
  * @project IDMarinas Seo Bundle
- * @see     https://github.com/idmarinas/seo-bundle
+ * @see https://github.com/idmarinas/seo-bundle
  *
- * @file    IdmSeoBundle.php
- * @date    19/03/2025
- * @time    17:06
+ * @file IdmSeoBundle.php
+ * @date 19/03/2025
+ * @time 17:06
  *
- * @author  Iván Diaz Marinas (IDMarinas)
+ * @author Iván Diaz Marinas (IDMarinas)
  * @license BSD 3-Clause License
  *
- * @since   1.0.0
+ * @since 1.0.0
  */
 
 namespace Idm\Bundle\Seo;
@@ -44,6 +44,10 @@ final class IdmSeoBundle extends AbstractBundle
 		$services
 			->get('idm_seo.service.sitemap_generator')
 			->arg('$defaultScheme', $config['sitemap']['default_scheme'])
+		;
+
+		$services
+			->get('idm_seo.service.router_generator_seo_url')
 			->arg('$excludedRoutes', $config['sitemap']['excluded_routes'])
 		;
 	}

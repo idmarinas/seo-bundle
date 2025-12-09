@@ -2,19 +2,19 @@
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 03/12/2025, 18:48
+ * Last modified by "IDMarinas" on 09/12/2025, 19:04
  *
  * @project IDMarinas Seo Bundle
- * @see     https://github.com/idmarinas/seo-bundle
+ * @see https://github.com/idmarinas/seo-bundle
  *
- * @file    services.php
- * @date    19/03/2025
- * @time    17:06
+ * @file services.php
+ * @date 19/03/2025
+ * @time 17:06
  *
- * @author  Iván Diaz Marinas (IDMarinas)
+ * @author Iván Diaz Marinas (IDMarinas)
  * @license BSD 3-Clause License
  *
- * @since   1.0.0
+ * @since 1.0.0
  */
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
@@ -23,8 +23,7 @@ use EasyCorp\Bundle\EasyAdminBundle\DependencyInjection\EasyAdminExtension;
 use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 use Idm\Bundle\Seo\Admin\Action\SeoActionExtension;
 use Idm\Bundle\Seo\Admin\Field\Configurator\OpenGraphTypeDataConfigurator;
-use Idm\Bundle\Seo\Cache\Warmer\GenerateSitemap;
-use Idm\Bundle\Seo\Command\SeoSitemapGenerateCommand;
+use Idm\Bundle\Seo\Cache\Warmer\InvalidateSeoCache;
 use Idm\Bundle\Seo\Controller\Admin\OpenGraphCrudController;
 use Idm\Bundle\Seo\Controller\Admin\SeoCrudController;
 use Idm\Bundle\Seo\Controller\Admin\TwitterCardCrudController;
@@ -34,7 +33,7 @@ use Idm\Bundle\Seo\Form\Type\OpenGraph\SeoLocaleType;
 use Idm\Bundle\Seo\Service\RouterGenerateSeoUrl;
 use Idm\Bundle\Seo\Service\SeoPage;
 use Idm\Bundle\Seo\Service\SeoPageInterface;
-use Idm\Bundle\Seo\Service\Sitemap\SitemapGenerator;
+use Idm\Bundle\Seo\Service\SitemapGenerator;
 use Idm\Bundle\Seo\Twig\Extension\SeoExtension;
 use Idm\Bundle\Seo\Twig\Runtime\SeoRuntime;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
@@ -56,26 +55,18 @@ return function (ContainerConfigurator $container) {
 			->private()
 			->args([
 				'$router' => service('idm_seo.service.router_generator_seo_url'),
-				'$cache' => service('idm_seo.cache'),
 				'$entityManager' => service('doctrine.orm.entity_manager'),
 			])
 
-		->set('idm_seo.cache.warmer', GenerateSitemap::class)
+		->set(InvalidateSeoCache::class)
 			->private()
-			->args(['$generator' => service('idm_seo.service.sitemap_generator')])
+			->arg('$cache', service('idm_seo.cache'))
 			->tag('kernel.cache_warmer')
 
 		->set(SitemapController::class)
 			->private()
-			->call('setContainer', [service_locator([
-				'idm_seo.cache' => service('idm_seo.cache'),
-			])])
+			->arg('$generator', service('idm_seo.service.sitemap_generator'))
 			->tag('controller.service_arguments')
-
-		->set('idm_seo.command.generate_sitemap', SeoSitemapGenerateCommand::class)
-			->private()
-			->args(['$generator' => service('idm_seo.service.sitemap_generator')])
-			->tag('console.command')
 
 		->set('idm_seo.service.seo_page', SeoPage::class)
 			->private()
@@ -85,6 +76,8 @@ return function (ContainerConfigurator $container) {
 		->set('idm_seo.service.router_generator_seo_url', RouterGenerateSeoUrl::class)
 			->private()
 			->arg('$router', service('router.default'))
+			->arg('$cache', service('idm_seo.cache'))
+			->arg('$denormalizer', service('serializer'))
 
 		// Events Subscriber
 		->set(SeoConfigureSubscriber::class)

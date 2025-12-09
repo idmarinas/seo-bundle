@@ -19,58 +19,119 @@
 
 namespace Idm\Bundle\Seo\Service;
 
-use Idm\Bundle\Seo\Entity\Seo;
+use Idm\Bundle\Seo\Provider\SeoMeta;
+use Idm\Bundle\Seo\Traits\Service\SeoPage\AutoConfigureTrait;
+use Idm\Bundle\Seo\Traits\Service\SeoPage\ConfigureTrait;
+use Idm\Bundle\Seo\Traits\Service\SeoPage\SanitizerTrait;
+use Idm\Bundle\Seo\Traits\Twig\RunTime\SeoRuntime\BuildTagsTrait;
+use ReflectionException;
 
-final class SeoPage
+final class SeoPage implements SeoPageInterface
 {
-	private ?Seo   $seo = null;
-	private string $title;
-	private string $prefix;
-	private string $suffix;
-	private string $separator;
+	use AutoConfigureTrait;
+	use ConfigureTrait;
+	use BuildTagsTrait;
+	use SanitizerTrait;
 
-	public function __construct (array $config = [])
+	private readonly SeoMeta $seo;
+	private array            $localeAlternate;
+	private bool             $enabled = true;
+
+	public function __construct (array $config, private readonly RouterGenerateSeoUrl $router)
 	{
-		$this->configure($config);
+		$this->seo = new SeoMeta($config);
+		$this->localeAlternate = array_fill_keys(
+			array_values(array_intersect($config['supported_locales'], $config['enabled_locales'])),
+			''
+		);
+	}
+
+	public function getFormatedTitle (string $type): string
+	{
+		return $this->seo->getFormatedTitle($type, $this->getTitle());
+	}
+
+	/**
+	 * @throws ReflectionException
+	 */
+	public function getMetaTags (): array
+	{
+		$tags = $this->seo->meta->toArray();
+		array_walk($tags, function (&$value, $key) {
+			if (empty($value)) {
+				$value = match ($key) {
+					'title'       => $this->getTitle(),
+					'description' => $this->getDescription(),
+					default       => ''
+				};
+			}
+		});
+
+		return $tags;
+	}
+
+	/**
+	 * @throws ReflectionException
+	 */
+	public function getOpenGraphTags (): array
+	{
+		$tags = $this->seo->og->toArray();
+		array_walk($tags, function (&$value, $key) {
+			if (empty($value)) {
+				$value = match ($key) {
+					'title'            => $this->getTitle(),
+					'description'      => $this->getDescription(),
+					'url'              => $this->getCanonical(),
+					'locale'           => $this->locale,
+					'locale:alternate' => array_keys($this->localeAlternate),
+					default            => ''
+				};
+			}
+		});
+
+		return $tags;
+	}
+
+	/**
+	 * @throws ReflectionException
+	 */
+	public function getTwitterTags (): array
+	{
+		return $this->seo->twitter->toArray();
 	}
 
 	public function getTitle (): string
 	{
-		return $this->title;
+		return (string)$this->title ?: $this->seo->meta->title->default;
 	}
 
-	public function getPrefix (): string
+	public function getDescription (): string
 	{
-		return $this->prefix;
+		return (string)$this->description ?: $this->seo->meta->description;
 	}
 
-	public function getSeparator (): string
+	public function getCanonical (): string
 	{
-		return $this->separator;
+		return (string)$this->canonical;
 	}
 
-	public function getSuffix (): string
+	public function getLocaleAlternate (): array
 	{
-		return $this->suffix;
+		return $this->localeAlternate;
 	}
 
-	public function getSeo (): ?Seo
+	public function disableSeo (): void
 	{
-		return $this->seo;
+		$this->enabled = false;
 	}
 
-	public function setSeo (Seo $seo): self
+	public function isEnabled (): bool
 	{
-		$this->seo = $seo;
-
-		return $this;
+		return $this->enabled;
 	}
 
-	private function configure (array $config): void
+	public function enableSeo (): void
 	{
-		$this->title = $config['title']['default'];
-		$this->prefix = $config['title']['prefix'];
-		$this->suffix = $config['title']['suffix'];
-		$this->separator = $config['title']['separator'];
+		$this->enabled = true;
 	}
 }

@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 02/12/2025, 17:26
+ * Last modified by "IDMarinas" on 03/12/2025, 12:07
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -65,6 +65,12 @@ return function (DefinitionConfigurator $definition): void {
 							->ifTrue(static fn ($v) => mb_strlen($v) > 160)
 							->thenInvalid('The description must be less than 160 characters long.')
 							->end()
+					->end()
+					->arrayNode('supported_locales')
+						->info('List of locales supported by the application.')
+						->defaultValue([])
+						->beforeNormalization()->ifString()->then(fn (string $v) => explode(',', $v))->end()
+						->scalarPrototype()->end()
 					->end()
 					->append(include __DIR__ . '/seo/open_graph.php')
 					->append(include __DIR__ . '/seo/twitter.php')

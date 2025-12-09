@@ -2,25 +2,25 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 11/11/2025, 16:57
+ * Last modified by "IDMarinas" on 09/12/2025, 13:51
  *
  * @project IDMarinas Seo Bundle
- * @see     https://github.com/idmarinas/seo-bundle
+ * @see https://github.com/idmarinas/seo-bundle
  *
- * @file    sitemap.php
- * @date    11/11/2025
- * @time    14:19
+ * @file sitemap.php
+ * @date 11/11/2025
+ * @time 14:19
  *
- * @author  Iván Diaz Marinas (IDMarinas)
+ * @author Iván Diaz Marinas (IDMarinas)
  * @license BSD 3-Clause License
  *
- * @since   1.0.0
+ * @since 1.0.0
  */
 
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 
 return function (DefinitionConfigurator $definition): void {
-	$defaultExcludedRoutes = ['_preview_error', '_profiler', '_wdt', '_debug', '_error', 'admin_'];
+	$defaultExcludedRoutes = ['_preview_error', '_profiler', '_wdt', '_debug', '_error', 'admin', 'idm_seo_sitemap_',];
 
 	// @formatter:off
 	$definition->rootNode()

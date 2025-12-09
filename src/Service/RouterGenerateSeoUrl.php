@@ -2,37 +2,45 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 05/12/2025, 16:51
+ * Last modified by "IDMarinas" on 09/12/2025, 19:13
  *
  * @project IDMarinas Seo Bundle
- * @see     https://github.com/idmarinas/seo-bundle
+ * @see https://github.com/idmarinas/seo-bundle
  *
- * @file    RouterGenerateSeoUrl.php
- * @date    28/11/2025
- * @time    17:37
+ * @file RouterGenerateSeoUrl.php
+ * @date 28/11/2025
+ * @time 17:37
  *
- * @author  Iván Diaz Marinas (IDMarinas)
+ * @author Iván Diaz Marinas (IDMarinas)
  * @license BSD 3-Clause License
  *
- * @since   1.0.0
+ * @since 1.0.0
  */
 
 namespace Idm\Bundle\Seo\Service;
 
 use Idm\Bundle\Seo\Attributes\Sitemap;
-use Idm\Bundle\Seo\Attributes\SitemapInterface;
-use ReflectionAttribute;
-use ReflectionException;
-use ReflectionMethod;
+use Idm\Bundle\Seo\Cache\CacheKeyEnum;
+use Idm\Bundle\Seo\Cache\CacheTagEnum;
+use Idm\Bundle\Seo\Sitemap\RouteAttributes;
+use Psr\Cache\CacheItemPoolInterface;
+use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use function Symfony\Component\String\u;
 
 final readonly class RouterGenerateSeoUrl
 {
-	public function __construct (private RouterInterface $router) {}
+	public function __construct (
+		private RouterInterface                               $router,
+		private CacheItemPoolInterface&TagAwareCacheInterface $cache,
+		private array                                         $excludedRoutes,
+		private DenormalizerInterface                         $denormalizer
+	) {}
 
 	public static function processUrlParameters (Sitemap $sitemap, array|object $result): array
 	{
@@ -66,16 +74,23 @@ final readonly class RouterGenerateSeoUrl
 	}
 
 	/**
-	 * @return array<string, Route>
+	 * @return array<string, RouteAttributes>
+	 * @throws InvalidArgumentException
 	 */
 	public function getAllRoutes (): array
 	{
-		return $this->router->getRouteCollection()->all();
-	}
+		return $this->cache->get(CacheKeyEnum::ROUTES_LIST->name, function (ItemInterface $item) {
+			$item->tag([
+				CacheTagEnum::ROUTES_LIST->value,
+				CacheTagEnum::ROUTES_LIST->suffix('.all'),
+				CacheTagEnum::ROUTES_LIST->suffix('.with.attributes'),
+			]);
 
-	public function findRouteByName (string $name): ?Route
-	{
-		return $this->router->getRouteCollection()->get($name);
+			$all = $this->router->getRouteCollection()->all();
+			$all = array_filter($all, fn(string $r) => !u($r)->startsWith($this->excludedRoutes), ARRAY_FILTER_USE_KEY);
+
+			return array_map(fn($route) => new RouteAttributes($route, $this->denormalizer), $all);
+		});
 	}
 
 	public function setScheme (string $scheme): self
@@ -83,57 +98,5 @@ final readonly class RouterGenerateSeoUrl
 		$this->router->getContext()->setScheme($scheme);
 
 		return $this;
-	}
-
-	public function getSitemapFromRoute (Route $route): ?SitemapInterface
-	{
-		$controller = $route->getDefault('_controller');
-		$controller = is_array($controller) ? $controller[0] : $controller;
-		$controller = u($controller)->trim();
-
-		if ($controller->isEmpty()) {
-			return null;
-		}
-
-		$templates = [
-			'Symfony\\Bundle\\FrameworkBundle\\Controller\\TemplateController',
-			'Symfony\\Bundle\\FrameworkBundle\\Controller\\RedirectController',
-		];
-
-		return match (true) {
-			$controller->containsAny('::')       => $this->getSitemapFromAttribute($controller),
-			$controller->containsAny($templates) => $this->getSitemapFromTemplate($route),
-			default                              => null,
-		};
-	}
-
-	/** @internal */
-	private function getSitemapFromTemplate (Route $route): ?SitemapInterface
-	{
-		if ($route->getOption('sitemap') ?? true) {
-			return new Sitemap(changefreq: SitemapInterface::CHANGEFREQ_YEARLY);
-		}
-
-		return null;
-	}
-
-	/** @internal */
-	private function getSitemapFromAttribute (string $_controller): ?SitemapInterface
-	{
-		try {
-			[$controller, $method] = explode('::', $_controller);
-			$ref = new ReflectionMethod($controller, $method);
-
-			$attributes = $ref->getAttributes(SitemapInterface::class, ReflectionAttribute::IS_INSTANCEOF);
-
-			if ([] === $attributes) {
-				return null;
-			}
-
-			/** @var SitemapInterface */
-			return $attributes[0]->newInstance();
-		} catch (ReflectionException) {
-			return null;
-		}
 	}
 }

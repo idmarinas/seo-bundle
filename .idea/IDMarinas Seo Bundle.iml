@@ -7,6 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/fixtures" isTestSource="true" packagePrefix="DataFixtures\" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="Idm\Bundle\Seo\Tests\" />
       <sourceFolder url="file://$MODULE_DIR$/tests/Fixtures/app/src" isTestSource="true" packagePrefix="App\" />
       <excludeFolder url="file://$MODULE_DIR$/var" />
@@ -16,6 +17,7 @@
       <excludeFolder url="file://$MODULE_DIR$/docs/.nuxt" />
       <excludeFolder url="file://$MODULE_DIR$/docs/.output" />
       <excludeFolder url="file://$MODULE_DIR$/docs/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/.dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

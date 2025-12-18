@@ -2,6 +2,7 @@
   <settings>
     <module2copyright>
       <element module="Scope for Copyright" copyright="Default" />
+      <element module="All" copyright="Default" />
     </module2copyright>
     <LanguageOptions name="Properties">
       <option name="fileTypeOverride" value="1" />

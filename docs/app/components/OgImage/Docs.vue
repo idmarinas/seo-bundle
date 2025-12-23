@@ -34,7 +34,7 @@ const description = computed(() => (props.description || "").slice(0, 200))
         <UIcon name="i-tabler-book" mode="svg" />
         <span>{{ headline }}</span>
       </p>
-      <h1 v-if="title" class="nlovk w-[600px] m-0 text-[75px] font-semibold mb-4 text-white text-ellipsis line-clamp-2">
+      <h1 v-if="title" class="w-[600px] m-0 text-[75px] font-semibold mb-4 text-white text-ellipsis line-clamp-2">
         {{ title }}
       </h1>
       <p v-if="description" class="block text-[32px] text-[#E4E4E7] leading-tight text-ellipsis line-clamp-3">

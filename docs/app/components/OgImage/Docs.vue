@@ -5,7 +5,8 @@ const bundle = useAppConfig().bundle
 const props = defineProps({
   title: { type: String, required: false },
   description: { type: String, required: false },
-  headline: { type: String, required: false }
+  headline: { type: String, required: false },
+  icon: { type: String, required: false, default: 'i-tabler-book' }
 });
 const title = computed(() => (props.title || "").slice(0, 60))
 const description = computed(() => (props.description || "").slice(0, 200))
@@ -31,7 +32,7 @@ const description = computed(() => (props.description || "").slice(0, 200))
 
     <div class="flex-1 flex flex-col justify-center">
       <p v-if="headline" class="flex items-center gap-4 uppercase text-[24px] text-blue-300 mb-4 font-semibold">
-        <UIcon name="i-tabler-book" mode="svg" />
+        <UIcon :name="icon" mode="svg" />
         <span>{{ headline }}</span>
       </p>
       <h1 v-if="title" class="w-[600px] m-0 text-[75px] font-semibold mb-4 text-white text-ellipsis line-clamp-2">

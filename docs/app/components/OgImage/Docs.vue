@@ -3,17 +3,17 @@ import { computed } from "vue";
 
 const bundle = useAppConfig().bundle
 const props = defineProps({
-  title: { type: String, required: false, default: "title" },
-  description: { type: String, required: false, default: "description" },
-  headline: { type: String, required: false, default: "headline" }
+  title: { type: String, required: false },
+  description: { type: String, required: false },
+  headline: { type: String, required: false }
 });
 const title = computed(() => (props.title || "").slice(0, 60))
 const description = computed(() => (props.description || "").slice(0, 200))
 </script>
 
 <template>
-  <div class="w-full h-full flex flex-col justify-center bg-blue-950">
-    <svg class="absolute right-0 top-0" width="629" height="593" viewBox="0 0 629 593" fill="none"
+  <div class="relative w-full h-full flex flex-row justify-center gap-4 pl-[100px] bg-blue-950">
+    <svg class="absolute right-0 top-0 fill-blue-200" width="629" height="593" viewBox="0 0 629 593"
       xmlns="http://www.w3.org/2000/svg">
       <g filter="url(#filter0_f_199_94966)">
         <path class="fill-blue-200"
@@ -29,9 +29,10 @@ const description = computed(() => (props.description || "").slice(0, 200))
       </defs>
     </svg>
 
-    <div class="w-[600px] pl-[100px]">
-      <p v-if="headline" class="uppercase text-[24px] text-blue-300 mb-4 font-semibold">
-        {{ headline }}
+    <div class="flex-1 flex flex-col justify-center">
+      <p v-if="headline" class="flex items-center gap-4 uppercase text-[24px] text-blue-300 mb-4 font-semibold">
+        <UIcon name="i-tabler-book" mode="svg" />
+        <span>{{ headline }}</span>
       </p>
       <h1 v-if="title" class="nlovk w-[600px] m-0 text-[75px] font-semibold mb-4 text-white text-ellipsis line-clamp-2">
         {{ title }}
@@ -41,8 +42,7 @@ const description = computed(() => (props.description || "").slice(0, 200))
       </p>
     </div>
 
-    <div
-      class="absolute top-[160px] right-[90px] flex flex-col items-center justify-center gap-0 text-blue-300 dark:text-blue-900">
+    <div class="flex-none flex flex-col items-center justify-center text-blue-300 dark:text-blue-900">
       <div class="text-4xl -mb-7">{{ bundle.author }}</div>
       <SvgShip width="340" height="340" class="opacity-65" />
       <span class="text-5xl -mt-24">{{ bundle.short_name }}</span>

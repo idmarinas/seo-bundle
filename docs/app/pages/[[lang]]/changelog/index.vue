@@ -89,8 +89,6 @@ const items = useBreadcrumbItems({
     <UPageBody>
       <UBreadcrumb :items="items" />
 
-      <OgImageDocs title="Titulo" headline="1.0.0" description="lL lhjsadf oiy werñhl ahfupwoier ñahsuhdfpio" />
-
       <UChangelogVersions>
         <UChangelogVersion v-for="(version, index) in pages" :key="index" v-bind="version" :to="version.path" />
       </UChangelogVersions>

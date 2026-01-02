@@ -5,8 +5,6 @@ navigation: false
 seo:
   ogImage:
     props:
-      title: About
-      description: Third-party libraries/bundles that have helped create this bundle
       headline: Components Used
       icon: i-tabler-user
 ---
@@ -24,15 +22,5 @@ These other third-party libraries/bundles have been used to create :vars{n=proje
   ---
   #header
   :icon{ name="i-tabler-brand-symfony" } Symfony Components
-  ::
-
-  ::u-page-card
-  ---
-  description: Other Component used in this project.
-  to: https://example.com
-  target: _blank
-  ---
-  #header
-  :icon{ name="i-tabler-components" } Other Component
   ::
 :::

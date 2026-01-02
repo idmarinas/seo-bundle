@@ -1,7 +1,8 @@
 {
+	"description": "Provides tools for SEO optimization in Symfony applications and sitemap generation and management.",
 	"scripts": {
-		"dev": "nuxt dev --extends docus",
-		"build": "nuxt build --extends docus"
+		"dev": "nuxt dev",
+		"build": "nuxt build"
 	},
 	"dependencies": {
 		"better-sqlite3": "^12.2.0",

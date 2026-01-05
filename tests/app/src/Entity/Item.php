@@ -22,12 +22,12 @@ namespace App\Entity;
 use App\Repository\ItemRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Idm\Bundle\Seo\Traits\Entity\SeoTrait;
+use Idm\Bundle\Seo\Traits\Entity\SeoColumnTrait;
 
 #[ORM\Entity(repositoryClass: ItemRepository::class)]
 class Item
 {
-	use SeoTrait;
+	use SeoColumnTrait;
 
 	#[ORM\Id]
 	#[ORM\GeneratedValue]
@@ -82,5 +82,10 @@ class Item
 		$this->tags = $tags;
 
 		return $this;
+	}
+
+	public function hasTags (): bool
+	{
+		return !empty($this->tags);
 	}
 }

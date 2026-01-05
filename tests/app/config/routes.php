@@ -2,7 +2,7 @@
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
- * Last modified by "IDMarinas" on 26/11/2025, 16:04
+ * Last modified by "IDMarinas" on 09/12/2025, 16:54
  *
  * @project IDMarinas Seo Bundle
  * @see     https://github.com/idmarinas/seo-bundle
@@ -18,7 +18,9 @@
  */
 
 use App\Controller\Admin\DashboardController;
+use App\Controller\HomeController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminRouteLoader;
+use Symfony\Bundle\FrameworkBundle\Controller\TemplateController;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 return function (RoutingConfigurator $routes) {
@@ -27,17 +29,16 @@ return function (RoutingConfigurator $routes) {
 
 	//$routes->import('security.route_loader.logout', 'service')->methods(['GET']);
 
-	$routes
-		->import(DashboardController::class, AdminRouteLoader::ROUTE_LOADER_TYPE)
+	$routes->add('app_home', '/')
+		->controller(TemplateController::class)
+		->methods(['GET'])
+		->defaults(['template' => '@IdmSeo/pages/home.html.twig'])
+		->options([
+			'seo' => true
+		])
 	;
 
-//	$routes
-//		->add('app_home', '/')
-//		->methods(['GET'])
-//		->controller(TemplateController::class)
-//		->defaults([
-//			'template' => 'pages/home.html.twig',
-//		])
-//	;
+	$routes->import(DashboardController::class, AdminRouteLoader::ROUTE_LOADER_TYPE);
+	$routes->import(HomeController::class, 'attribute');
 	// @formatter:on
 };

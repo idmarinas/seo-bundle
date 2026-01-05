@@ -5,16 +5,16 @@
  * Last modified by "IDMarinas" on 09/12/2025, 19:15
  *
  * @project IDMarinas Seo Bundle
- * @see https://github.com/idmarinas/seo-bundle
+ * @see     https://github.com/idmarinas/seo-bundle
  *
- * @file RouteAttributes.php
- * @date 08/12/2025
- * @time 18:15
+ * @file    RouteAttributes.php
+ * @date    08/12/2025
+ * @time    18:15
  *
- * @author Iván Diaz Marinas (IDMarinas)
+ * @author  Iván Diaz Marinas (IDMarinas)
  * @license BSD 3-Clause License
  *
- * @since 1.0.0
+ * @since   1.0.0
  */
 
 namespace Idm\Bundle\Seo\Sitemap;
@@ -43,6 +43,18 @@ final readonly class RouteAttributes
 	public function __construct (public Route $route, private DenormalizerInterface $denormalizer)
 	{
 		$this->attributes = new ArrayObject($this->getAttributes());
+	}
+
+	public function __serialize (): array
+	{
+		return [
+			'attributes' => $this->attributes->getIterator()->getArrayCopy(),
+		];
+	}
+
+	public function __unserialize (array $data): void
+	{
+		$this->attributes = new ArrayObject($data['attributes']);
 	}
 
 	/**

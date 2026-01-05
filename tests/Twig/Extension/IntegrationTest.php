@@ -23,6 +23,9 @@ use App\Kernel;
 use Idm\Bundle\Seo\Service\SeoPage;
 use Idm\Bundle\Seo\Twig\Extension\SeoExtension;
 use Idm\Bundle\Seo\Twig\Runtime\SeoRuntime;
+use Override;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Twig\RuntimeLoader\FactoryRuntimeLoader;
 use Twig\Test\IntegrationTestCase;
@@ -53,6 +56,31 @@ final class IntegrationTest extends IntegrationTestCase
 		yield new FactoryRuntimeLoader([
 			SeoRuntime::class => fn(): SeoRuntime => new SeoRuntime($seoPage),
 		]);
+	}
+
+	#[DataProvider('getTests')]
+	#[Override]
+	public function testIntegration ($file, $message, $condition, $templates, $exception, $outputs, $deprecation = '')
+	{
+		parent::testIntegration($file, $message, $condition, $templates, $exception, $outputs, $deprecation);
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	#[Override]
+	#[DataProvider('getLegacyTests')]
+	#[Group('legacy')]
+	public function testLegacyIntegration (
+		$file,
+		$message,
+		$condition,
+		$templates,
+		$exception,
+		$outputs,
+		$deprecation = ''
+	) {
+		parent::testLegacyIntegration($file, $message, $condition, $templates, $exception, $outputs, $deprecation);
 	}
 
 	protected function getContainer (): ContainerInterface

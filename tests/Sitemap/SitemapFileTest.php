@@ -26,14 +26,15 @@ use Exception;
 use Idm\Bundle\Seo\Sitemap\Node\Sitemap;
 use Idm\Bundle\Seo\Sitemap\Node\Url;
 use Idm\Bundle\Seo\Sitemap\SitemapFile;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class SitemapFileTest extends TestCase
 {
 	/**
-	 * @dataProvider initializationAutodetectIndexDataProvider
 	 * @throws DOMException
 	 */
+	#[DataProvider('initializationAutodetectIndexDataProvider')]
 	public function testSitemapAutodetectIndexInitialization (
 		string $name,
 		string $node,
@@ -132,9 +133,9 @@ class SitemapFileTest extends TestCase
 	}
 
 	/**
-	 * @dataProvider initializationDataProvider
 	 * @throws DOMException
 	 */
+	#[DataProvider('initializationDataProvider')]
 	public function testSitemapInitialization (
 		string $name,
 		string $node,

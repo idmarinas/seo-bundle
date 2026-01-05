@@ -20,7 +20,6 @@
 namespace Idm\Bundle\Seo\Tests\Twig\Extension;
 
 use App\Kernel;
-use Idm\Bundle\Advertising\Provider\ProviderHub;
 use Idm\Bundle\Seo\Service\SeoPage;
 use Idm\Bundle\Seo\Twig\Extension\SeoExtension;
 use Idm\Bundle\Seo\Twig\Runtime\SeoRuntime;
@@ -48,11 +47,11 @@ final class IntegrationTest extends IntegrationTestCase
 	protected function getRuntimeLoaders (): iterable
 	{
 		$container = $this->getContainer();
-		$templates = $container->getParameter('idm_seo.parameter.seo.title.templates');
+		/** @var SeoPage $seoPage */
 		$seoPage = $container->get(SeoPage::class);
 
 		yield new FactoryRuntimeLoader([
-			SeoRuntime::class => fn(): SeoRuntime => new SeoRuntime($templates, $seoPage),
+			SeoRuntime::class => fn(): SeoRuntime => new SeoRuntime($seoPage),
 		]);
 	}
 

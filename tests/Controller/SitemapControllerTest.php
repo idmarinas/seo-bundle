@@ -19,11 +19,22 @@
 
 namespace Idm\Bundle\Seo\Tests\Controller;
 
+use Override;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 class SitemapControllerTest extends WebTestCase
 {
+	/**
+	 * @inheritDoc
+	 */
+	#[Override]
+	protected static function createKernel (array $options = []): KernelInterface
+	{
+		return parent::createKernel(array_merge($options, ['environment' => 'sitemap']));
+	}
+
 	/**
 	 * Prueba que la ruta del índice del sitemap funciona
 	 */
@@ -32,8 +43,8 @@ class SitemapControllerTest extends WebTestCase
 		$client = static::createClient();
 		$client->request('GET', '/sitemap.xml');
 
-		$this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-		$this->assertEquals('text/xml; charset=UTF-8', $client->getResponse()->headers->get('Content-Type'));
+		$this->assertResponseStatusCodeSame(Response::HTTP_OK);
+		$this->assertResponseHeaderSame('Content-Type', 'text/xml; charset=UTF-8');
 		$this->assertStringContainsString('<sitemapindex', $client->getResponse()->getContent());
 	}
 
@@ -45,8 +56,10 @@ class SitemapControllerTest extends WebTestCase
 		$client = static::createClient();
 		$client->request('GET', '/sitemap/pages.xml');
 
-		$this->assertEquals(Response::HTTP_NOT_FOUND, $client->getResponse()->getStatusCode());
-		$this->assertPageTitleContains('Sitemap "pages.xml" not found.');
+		$this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+		$this->assertResponseHeaderSame('Content-Type', 'text/xml; charset=UTF-8');
+		$this->assertPageTitleContains('An error occurred');
+		$this->assertSelectorTextContains('detail', 'Sitemap "pages.xml" not found.');
 	}
 
 	/**
@@ -57,8 +70,10 @@ class SitemapControllerTest extends WebTestCase
 		$client = static::createClient();
 		$client->request('GET', '/sitemap/pages.1.xml');
 
-		$this->assertEquals(Response::HTTP_NOT_FOUND, $client->getResponse()->getStatusCode());
-		$this->assertPageTitleContains('Sitemap "pages.1.xml" not found.');
+		$this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+		$this->assertPageTitleContains('An error occurred');
+		$this->assertResponseHeaderSame('Content-Type', 'text/xml; charset=UTF-8');
+		$this->assertSelectorTextContains('detail', 'Sitemap "pages.1.xml" not found.');
 	}
 
 	/**
@@ -69,7 +84,7 @@ class SitemapControllerTest extends WebTestCase
 		$client = static::createClient();
 		$client->request('GET', '/sitemap.html');
 
-		$this->assertNotEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+		$this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
 		$this->assertPageTitleContains('No route found for "GET http://localhost/sitemap.html"');
 	}
 
@@ -81,7 +96,7 @@ class SitemapControllerTest extends WebTestCase
 		$client = static::createClient();
 		$client->request('GET', '/sitemap/123.xml');
 
-		$this->assertNotEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+		$this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
 		$this->assertPageTitleContains('No route found for "GET http://localhost/sitemap/123.xml"');
 	}
 }

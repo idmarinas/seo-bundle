@@ -47,7 +47,7 @@ return static function (ContainerConfigurator $container, ContainerBuilder $buil
 			'url'    => $getDatabaseCache($builder->getParameter('kernel.project_dir'), $container->env()),
 		],
 		'orm'  => [
-			'auto_mapping'        => false,
+			'auto_mapping'        => true,
 			'controller_resolver' => [
 				'auto_mapping' => false,
 			],

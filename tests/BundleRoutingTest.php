@@ -39,7 +39,7 @@ class BundleRoutingTest extends KernelTestCase
 		$routeCollection = $router->getRouteCollection();
 		$routes = $routeCollection->all();
 
-		$this->assertCount(4, $routes);
+		$this->assertCount(30, $routes);
 		$this->assertNotNull($routeCollection->get('idm_seo_sitemap_index'));
 		$this->assertNotNull($routeCollection->get('idm_seo_sitemap_file'));
 		$this->assertNotNull($routeCollection->get('idm_seo_sitemap_file_page'));

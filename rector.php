@@ -20,31 +20,27 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\Symfony\Set\SymfonySetList;
 
 return RectorConfig::configure()
 	->withPaths([
-		__DIR__ . '/app/src',
-		__DIR__ . '/factories',
-		__DIR__ . '/fixtures',
+		__DIR__ . '/config',
 		__DIR__ . '/src',
 		__DIR__ . '/tests',
 	])
 	->withPhpSets(php83: true)
 	->withPreparedSets(
-		deadCode           : true,
-		codeQuality        : true,
-		codingStyle        : true,
+		phpunitCodeQuality : true,
 		doctrineCodeQuality: true,
 		symfonyCodeQuality : true,
-		symfonyConfigs     : true,
-		twig               : true
+		symfonyConfigs     : true
 	)
-	->withImportNames(removeUnusedImports: true)
 	->withTypeCoverageLevel(0)
-	->withSets([
-		SymfonySetList::SYMFONY_64,
+	->withDeadCodeLevel(0)
+	->withCodeQualityLevel(0)
+	->withImportNames(importDocBlockNames: false, removeUnusedImports: true)
+	->withComposerBased(twig: true, doctrine: true, symfony: true)
+	->withSymfonyContainerXml(__DIR__ . '/var/cache/dev/App_KernelDevDebugContainer.xml')
+	->withSkip([
+		__DIR__ . '/tests/app/config/bundles.php',
 	])
-	->withRules([])
-	->withSkip([])
 ;

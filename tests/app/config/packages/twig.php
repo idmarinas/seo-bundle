@@ -18,11 +18,10 @@
  */
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symfony\Config\TwigConfig;
 
-return static function (TwigConfig $config, ContainerConfigurator $container) {
-	$config
-		->defaultPath(dirname(__DIR__, 2) . '/templates')
-		->fileNamePattern('*.twig')
-	;
+return static function (ContainerConfigurator $container) {
+	$container->extension('twig', [
+		'default_path'      => dirname(__DIR__, 2) . '/templates',
+		'file_name_pattern' => ['*.twig'],
+	]);
 };

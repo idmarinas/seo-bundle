@@ -24,7 +24,7 @@ return static function (ContainerConfigurator $container, ContainerBuilder $buil
 	// @formatter:off
 	$container
 		->services()
-			->load('DataFixtures\\', $builder->getParameter('kernel.project_dir') . '/fixtures')
+			->load('DataFixtures\\', $builder->getParameter('kernel.project_dir') . '/tests/Fixture')
 			->public()
 			->autowire()
 			->autoconfigure()

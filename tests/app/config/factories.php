@@ -24,7 +24,7 @@ return static function (ContainerConfigurator $container, ContainerBuilder $buil
 	// @formatter:off
 	$container
 		->services()
-			->load('Factory\\', $builder->getParameter('kernel.project_dir') . '/factories')
+			->load('Factory\\', $builder->getParameter('kernel.project_dir'). '/tests/Factory')
 			->public()
 			->autowire()
 			->autoconfigure()

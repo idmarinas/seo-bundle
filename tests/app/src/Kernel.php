@@ -209,7 +209,7 @@ final class Kernel extends BaseKernel
 
 	private function getTestConfigDir (): string
 	{
-		return $this->getProjectDir() . '/tests/Fixtures/app/config';
+		return $this->getProjectDir() . '/tests/app/config';
 	}
 
 	private function getTestPackagesConfigDir (): string

@@ -32,7 +32,7 @@ return function (RoutingConfigurator $routes) {
 	$routes->add('app_home', '/')
 		->controller(TemplateController::class)
 		->methods(['GET'])
-		->defaults(['template' => '@IdmSeo/pages/home.html.twig'])
+		->defaults(['template' => 'pages/home.html.twig'])
 		->options([
 			'seo' => true
 		])

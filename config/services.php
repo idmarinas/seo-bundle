@@ -5,16 +5,16 @@
  * Last modified by "IDMarinas" on 09/12/2025, 19:04
  *
  * @project IDMarinas Seo Bundle
- * @see https://github.com/idmarinas/seo-bundle
+ * @see     https://github.com/idmarinas/seo-bundle
  *
- * @file services.php
- * @date 19/03/2025
- * @time 17:06
+ * @file    services.php
+ * @date    19/03/2025
+ * @time    17:06
  *
- * @author Iván Diaz Marinas (IDMarinas)
+ * @author  Iván Diaz Marinas (IDMarinas)
  * @license BSD 3-Clause License
  *
- * @since 1.0.0
+ * @since   1.0.0
  */
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
@@ -66,6 +66,7 @@ return function (ContainerConfigurator $container) {
 		->set(SitemapController::class)
 			->private()
 			->arg('$generator', service('idm_seo.service.sitemap_generator'))
+			->call('setContainer', [service_locator([])])
 			->tag('controller.service_arguments')
 
 		->set('idm_seo.service.seo_page', SeoPage::class)

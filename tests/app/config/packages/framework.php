@@ -67,7 +67,7 @@ return static function (ContainerConfigurator $container) {
 			'log' => true,
 		],
 		'messenger'             => [
-			'enabled'    => true,
+			'enabled'    => false,
 			'routing'    => [
 				'Symfony\Component\Mailer\Messenger\SendEmailMessage' => [
 					'senders' => [
@@ -80,7 +80,7 @@ return static function (ContainerConfigurator $container) {
 			],
 		],
 		'mailer'                => [
-			'enabled'  => true,
+			'enabled'  => false,
 			'dsn'      => getenv('MAILER_DSN') ?? 'null://null',
 			'envelope' => [
 				'sender' => 'idm_bundle@test.bundle',

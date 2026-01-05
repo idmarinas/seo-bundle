@@ -26,6 +26,7 @@ return (function (): NodeDefinition {
 
 	return $treeBuilder->getRootNode()
 		->info('Default configuration for Twitter Card tags.')
+		->addDefaultsIfNotSet()
 		->children()
 			->enumNode('card')
 				->info('The type of card to display.')

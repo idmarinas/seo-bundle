@@ -27,6 +27,7 @@ return (function (): NodeDefinition {
 
 	return $treeBuilder->getRootNode()
 		->info('Default configuration for Open Graph tags.')
+		->addDefaultsIfNotSet()
 		->children()
 			->scalarNode('site_name')
 				->info('The name which should be displayed for the overall site.')

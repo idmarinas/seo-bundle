@@ -19,6 +19,6 @@
 
 use App\Kernel;
 
-require_once dirname(__DIR__, 4) . '/vendor/autoload_runtime.php';
+require_once dirname(__DIR__, 3) . '/vendor/autoload_runtime.php';
 
 return fn(array $context) => new Kernel($context['APP_ENV'], (bool)$context['APP_DEBUG']);

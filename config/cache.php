@@ -19,13 +19,15 @@
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use Symfony\Config\FrameworkConfig;
-
-return static function (FrameworkConfig $config): void {
-	// @formatter:off
-	$config->cache()
-		->pool('idm_seo.cache')
-			->adapters(['idm_seo.service.cache_adapter'])
-			->tags(true)
-	;
+return static function (ContainerConfigurator $container): void {
+	$container->extension('framework', [
+		'cache' => [
+			'pools' => [
+				'idm_seo.cache' => [
+					'adapter' => 'idm_seo.service.cache_adapter',
+					'tags'    => true,
+				],
+			],
+		],
+	]);
 };

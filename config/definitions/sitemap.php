@@ -35,6 +35,7 @@ return function (DefinitionConfigurator $definition): void {
 					->end()
 					->arrayNode('excluded_routes')
 						->info('List of routes to exclude from sitemap. You can exclude specific routes by their exact name or use patterns like "admin_" to exclude all routes starting with that prefix.')
+						->scalarPrototype()->end()
 						->defaultValue($defaultExcludedRoutes)
 						->beforeNormalization()
 							->castToArray()

@@ -5,16 +5,16 @@
  * Last modified by "IDMarinas" on 09/12/2025, 13:51
  *
  * @project IDMarinas Seo Bundle
- * @see https://github.com/idmarinas/seo-bundle
+ * @see     https://github.com/idmarinas/seo-bundle
  *
- * @file sitemap.php
- * @date 11/11/2025
- * @time 14:19
+ * @file    sitemap.php
+ * @date    11/11/2025
+ * @time    14:19
  *
- * @author Iván Diaz Marinas (IDMarinas)
+ * @author  Iván Diaz Marinas (IDMarinas)
  * @license BSD 3-Clause License
  *
- * @since 1.0.0
+ * @since   1.0.0
  */
 
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
@@ -35,7 +35,6 @@ return function (DefinitionConfigurator $definition): void {
 					->end()
 					->arrayNode('excluded_routes')
 						->info('List of routes to exclude from sitemap. You can exclude specific routes by their exact name or use patterns like "admin_" to exclude all routes starting with that prefix.')
-						->arrayPrototype()->end()
 						->defaultValue($defaultExcludedRoutes)
 						->beforeNormalization()
 							->castToArray()

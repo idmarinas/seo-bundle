@@ -33,16 +33,16 @@ use function Idm\Bundle\Seo\t;
 
 final class TwitterCardCrudController extends AbstractCrudController
 {
-	public static function getEntityFqcn (): string
+	public static function getEntityFqcn(): string
 	{
 		return TwitterCard::class;
 	}
 
-	public function configureFields (string $pageName): iterable
+	public function configureFields(string $pageName): iterable
 	{
 		// Basic Properties
 		yield FormField::addTab(t('entity.twitter.tab.card.label'), 'fa-brands fa-x-twitter')
-			->setHelp(t(t('entity.twitter.tab.card.help')))
+			->setHelp(t('entity.twitter.tab.card.help'))
 		;
 
 		yield ChoiceField::new('card', t('entity.twitter.card.label'))
@@ -54,7 +54,7 @@ final class TwitterCardCrudController extends AbstractCrudController
 		;
 
 		yield TextField::new('creator', t('entity.twitter.creator.label'))
-			->setHelp(t(t('entity.twitter.creator.help')))
+			->setHelp(t('entity.twitter.creator.help'))
 			->setColumns('col-md-6')
 			->setRequired(false)
 			->setEmptyData('')
@@ -89,7 +89,7 @@ final class TwitterCardCrudController extends AbstractCrudController
 
 		// Imagen
 		yield FormField::addTab(t('entity.twitter.tab.image.label'), 'fa fa-image')
-			->setHelp(t(t('entity.twitter.tab.image.help')))
+			->setHelp(t('entity.twitter.tab.image.help'))
 		;
 
 		yield UrlField::new('image', t('entity.twitter.image.label'))
@@ -127,7 +127,7 @@ final class TwitterCardCrudController extends AbstractCrudController
 	/**
 	 * App Card Type
 	 */
-	private function getApp (): iterable
+	private function getApp(): iterable
 	{
 		yield FormField::addTab(t('entity.twitter.tab.app.label'), 'fa fa-mobile')
 			->setHelp(t('entity.twitter.tab.app.help'))
@@ -154,10 +154,10 @@ final class TwitterCardCrudController extends AbstractCrudController
 	/**
 	 * Player Card Type
 	 */
-	private function getPlayer (): iterable
+	private function getPlayer(): iterable
 	{
 		yield FormField::addTab(t('entity.twitter.tab.player.label'), 'fa fa-play-circle')
-			->setHelp(t(t('entity.twitter.tab.player.help')))
+			->setHelp(t('entity.twitter.tab.player.help'))
 		;
 
 		yield UrlField::new('player.url', t('entity.twitter.player.url.label'))
@@ -190,16 +190,16 @@ final class TwitterCardCrudController extends AbstractCrudController
 		;
 	}
 
-	private function getCardAppFields (string $store): iterable
+	private function getCardAppFields(string $store): iterable
 	{
 		if (!in_array($store, ['iphone', 'ipad', 'googleplay'])) {
 			return;
 		}
 
 		// Google Play App
-		yield FormField::addFieldset(t("entity.twitter.app.$store.label"));
+		yield FormField::addFieldset("entity.twitter.app.$store.label");
 
-		yield TextField::new('app.' . $store . '.id', t("entity.twitter.app.$store.id.label"))
+		yield TextField::new('app.'.$store.'.id', t("entity.twitter.app.$store.id.label"))
 			->setHelp(t("entity.twitter.app.$store.id.help"))
 			->setColumns('col-md-4')
 			->setRequired(false)
@@ -207,7 +207,7 @@ final class TwitterCardCrudController extends AbstractCrudController
 			->setFormTypeOption('attr', ['placeholder' => t("entity.twitter.app.$store.id.placeholder")])
 		;
 
-		yield TextField::new('app.' . $store . '.name', t("entity.twitter.app.$store.name.label"))
+		yield TextField::new('app.'.$store.'.name', t("entity.twitter.app.$store.name.label"))
 			->setHelp(t("entity.twitter.app.$store.name.help"))
 			->setColumns('col-md-4')
 			->setRequired(false)
@@ -215,7 +215,7 @@ final class TwitterCardCrudController extends AbstractCrudController
 			->setFormTypeOption('attr', ['placeholder' => t("entity.twitter.app.$store.name.placeholder")])
 		;
 
-		yield TextField::new('app.' . $store . '.url', t("entity.twitter.app.$store.url.label"))
+		yield TextField::new('app.'.$store.'.url', t("entity.twitter.app.$store.url.label"))
 			->setHelp(t("entity.twitter.app.$store.url.help"))
 			->setColumns('col-md-4')
 			->setEmptyData('')

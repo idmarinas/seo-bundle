@@ -63,7 +63,7 @@ entity:
       help: Otros idiomas disponibles
     image:
       tab:
-        label: Imagen
+        label: OG Imagen
         help: Imagen que se mostrará en redes sociales (Opcional)
       url:
         label: URL de la Imagen

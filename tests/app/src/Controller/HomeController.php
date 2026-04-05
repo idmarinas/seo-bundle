@@ -32,10 +32,9 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class HomeController extends AbstractController
 {
-//	#[Route('/', name: 'app_home')]
-//	#[Sitemap]
-//	#[Seo]
-	public function home (): Response
+	#[Sitemap, Seo]
+	#[Route('/', name: 'app_home')]
+	public function home(): Response
 	{
 		return $this->render('pages/home.html.twig');
 	}
@@ -67,15 +66,14 @@ final class HomeController extends AbstractController
 		]
 	)]
 	#[Seo(entity: Item::class)]
-	public function item (Item $item): Response
+	public function item(Item $item): Response
 	{
 		return $this->render('pages/home.html.twig', ['item' => $item]);
 	}
 
+	#[Sitemap, Seo]
 	#[Route('/seo', name: 'app_seo')]
-	#[Sitemap]
-	#[Seo]
-	public function seo (): Response
+	public function seo(): Response
 	{
 		return $this->render('pages/home.html.twig');
 	}

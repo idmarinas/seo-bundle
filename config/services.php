@@ -19,14 +19,7 @@
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use EasyCorp\Bundle\EasyAdminBundle\DependencyInjection\EasyAdminExtension;
-use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
-use Idm\Bundle\Seo\Admin\Action\SeoActionExtension;
-use Idm\Bundle\Seo\Admin\Field\Configurator\OpenGraphTypeDataConfigurator;
 use Idm\Bundle\Seo\Cache\Warmer\InvalidateSeoCache;
-use Idm\Bundle\Seo\Controller\Admin\OpenGraphCrudController;
-use Idm\Bundle\Seo\Controller\Admin\SeoCrudController;
-use Idm\Bundle\Seo\Controller\Admin\TwitterCardCrudController;
 use Idm\Bundle\Seo\Controller\SitemapController;
 use Idm\Bundle\Seo\EventSubscriber\SeoConfigureSubscriber;
 use Idm\Bundle\Seo\Form\Type\OpenGraph\SeoLocaleType;
@@ -37,14 +30,8 @@ use Idm\Bundle\Seo\Service\SitemapGenerator;
 use Idm\Bundle\Seo\Twig\Extension\SeoExtension;
 use Idm\Bundle\Seo\Twig\Runtime\SeoRuntime;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
 return function (ContainerConfigurator $container) {
-	$crudServiceLocator = service_locator([
-		AdminContextProvider::class => service(AdminContextProvider::class)->nullOnInvalid(),
-		'parameter_bag'             => service(ContainerBagInterface::class)->nullOnInvalid(),
-	]);
-
 	// @formatter:off
 	$container->services()
 		->set('idm_seo.service.cache_adapter', FilesystemAdapter::class)
@@ -103,29 +90,8 @@ return function (ContainerConfigurator $container) {
 				'$seoPage' => service('idm_seo.service.seo_page')
 			])
 			->tag('twig.runtime')
-		// Admin
-		->set(OpenGraphTypeDataConfigurator::class)
-			->private()
-			->tag(EasyAdminExtension::TAG_FIELD_CONFIGURATOR, ['priority' => -100])
-		->set(SeoActionExtension::class)
-			->private()
-			->arg('$translator', service('translator'))
-			->tag(EasyAdminExtension::TAG_ACTIONS_EXTENSION)
-
-
-		// Admin Crud Controllers
-		->set(SeoCrudController::class)
-			->private()
-			->call('setContainer', [$crudServiceLocator])
-			->tag('controller.service_arguments')
-		->set(OpenGraphCrudController::class)
-			->private()
-			->call('setContainer', [$crudServiceLocator])
-			->tag('controller.service_arguments')
-		->set(TwitterCardCrudController::class)
-			->private()
-			->call('setContainer', [$crudServiceLocator])
-			->tag('controller.service_arguments')
 	;
 	// @formatter::on
+
+	$container->import(__DIR__.'/services/easyadmin.php');
 };

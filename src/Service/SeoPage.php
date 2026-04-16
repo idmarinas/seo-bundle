@@ -57,7 +57,7 @@ final class SeoPage implements SeoPageInterface
 	public function getMetaTags (): array
 	{
 		$tags = $this->seo->meta->toArray();
-		array_walk($tags, function (&$value, $key) {
+		array_walk($tags, function (&$value, $key): void {
 			if (empty($value)) {
 				$value = match ($key) {
 					'title'       => $this->getTitle(),
@@ -76,7 +76,7 @@ final class SeoPage implements SeoPageInterface
 	public function getOpenGraphTags (): array
 	{
 		$tags = $this->seo->og->toArray();
-		array_walk($tags, function (&$value, $key) {
+		array_walk($tags, function (&$value, $key): void {
 			if (empty($value)) {
 				$value = match ($key) {
 					'title'            => $this->getTitle(),

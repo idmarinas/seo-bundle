@@ -19,13 +19,15 @@
 
 namespace Idm\Bundle\Seo\Twig\Extension;
 
+use Override;
 use Idm\Bundle\Seo\Twig\Runtime\SeoRuntime;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class SeoExtension extends AbstractExtension
 {
-	public function getFunctions (): array
+	#[Override]
+    public function getFunctions (): array
 	{
 		return [
 			new TwigFunction('idm_seo_title_*', [SeoRuntime::class, 'seoTitle']),

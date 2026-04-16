@@ -51,7 +51,7 @@ final class SongType extends AbstractType
 	 * @inheritDoc
 	 */
 	#[Override]
-	public function buildForm (FormBuilderInterface $builder, array $options)
+	public function buildForm (FormBuilderInterface $builder, array $options): void
 	{
 		$builder
 			->add('name', TextFieldType::class, [

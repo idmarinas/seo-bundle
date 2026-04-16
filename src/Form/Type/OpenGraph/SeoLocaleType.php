@@ -28,7 +28,7 @@ use function Symfony\Component\String\u;
 
 final class SeoLocaleType extends AbstractType
 {
-	private string $pattern;
+	private readonly string $pattern;
 
 	public function __construct (readonly array $enabledLocales)
 	{

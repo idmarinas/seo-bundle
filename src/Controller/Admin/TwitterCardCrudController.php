@@ -19,6 +19,7 @@
 
 namespace Idm\Bundle\Seo\Controller\Admin;
 
+use Override;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CountryField;
@@ -38,7 +39,8 @@ final class TwitterCardCrudController extends AbstractCrudController
 		return TwitterCard::class;
 	}
 
-	public function configureFields(string $pageName): iterable
+	#[Override]
+    public function configureFields(string $pageName): iterable
 	{
 		// Basic Properties
 		yield FormField::addTab(t('entity.twitter.tab.card.label'), 'fa-brands fa-x-twitter')

@@ -45,7 +45,8 @@ final class OpenGraphTypeType extends AbstractType
 		'form.og.type.video.other'         => 'video.other',
 	];
 
-	public function getParent (): string
+	#[Override]
+    public function getParent (): string
 	{
 		return ChoiceType::class;
 	}

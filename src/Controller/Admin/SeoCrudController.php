@@ -19,6 +19,7 @@
 
 namespace Idm\Bundle\Seo\Controller\Admin;
 
+use Override;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -36,7 +37,8 @@ final class SeoCrudController extends AbstractCrudController
 		return Seo::class;
 	}
 
-	public function configureFields (string $pageName): iterable
+	#[Override]
+    public function configureFields (string $pageName): iterable
 	{
 		// PANEL: Meta Tags
 		yield FormField::addColumn('col-12', t('admin.form.tab.meta_tags.label'), 'fa fa-tags')

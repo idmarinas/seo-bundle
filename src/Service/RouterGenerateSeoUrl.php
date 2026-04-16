@@ -19,6 +19,7 @@
 
 namespace Idm\Bundle\Seo\Service;
 
+use Idm\Bundle\Seo\Attributes\Sitemap\Prop;
 use Idm\Bundle\Seo\Attributes\Sitemap;
 use Idm\Bundle\Seo\Cache\CacheKeyEnum;
 use Idm\Bundle\Seo\Cache\CacheTagEnum;
@@ -49,7 +50,7 @@ final readonly class RouterGenerateSeoUrl
 		$accessor = PropertyAccess::createPropertyAccessor();
 
 		$params = array_filter($params, function ($v) use ($isObject, $sitemap, $result, $accessor) {
-			if ($v instanceof Sitemap\Prop) {
+			if ($v instanceof Prop) {
 				$property = $isObject ? $v->property : "[$v->property]";
 
 				return $accessor->isReadable($result, $property);
@@ -57,8 +58,8 @@ final readonly class RouterGenerateSeoUrl
 
 			return true;
 		});
-		array_walk($params, function (&$item) use ($isObject, $result, $accessor) {
-			if ($item instanceof Sitemap\Prop) {
+		array_walk($params, function (&$item) use ($isObject, $result, $accessor): void {
+			if ($item instanceof Prop) {
 				$property = $isObject ? $item->property : "[$item->property]";
 				$item = $accessor->getValue($result, $property);
 			}

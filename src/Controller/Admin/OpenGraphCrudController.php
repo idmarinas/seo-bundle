@@ -19,6 +19,7 @@
 
 namespace Idm\Bundle\Seo\Controller\Admin;
 
+use Override;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
@@ -40,7 +41,8 @@ final class OpenGraphCrudController extends AbstractCrudController
 		return OpenGraph::class;
 	}
 
-	public function configureFields (string $pageName): iterable
+	#[Override]
+    public function configureFields (string $pageName): iterable
 	{
 		// PANEL: Basic Properties
 		yield FormField::addTab(t('entity.og.tab.label'), 'fa fa-info-circle');

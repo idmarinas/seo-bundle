@@ -29,7 +29,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class SeoConfigureSubscriber implements EventSubscriberInterface
 {
-	public function __construct(private SeoPageInterface $seo, private TranslatorInterface $translator) {}
+	public function __construct(private SeoPageInterface $seo, private ?TranslatorInterface $translator = null) {}
 
 	public static function getSubscribedEvents(): array
 	{
@@ -70,7 +70,7 @@ final readonly class SeoConfigureSubscriber implements EventSubscriberInterface
 		if (!empty($seo->title)) {
 			$title = $seo->title;
 
-			if ($title instanceof TranslatableInterface) {
+			if ($title instanceof TranslatableInterface && $this->translator instanceof TranslatorInterface) {
 				$title = $title->trans($this->translator, $locale);
 			}
 
@@ -80,7 +80,7 @@ final readonly class SeoConfigureSubscriber implements EventSubscriberInterface
 		if (!empty($seo->description)) {
 			$description = $seo->description;
 
-			if ($description instanceof TranslatableInterface) {
+			if ($description instanceof TranslatableInterface && $this->translator instanceof TranslatorInterface) {
 				$description = $description->trans($this->translator, $locale);
 			}
 

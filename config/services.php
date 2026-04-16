@@ -71,6 +71,7 @@ return function (ContainerConfigurator $container) {
 		->set(SeoConfigureSubscriber::class)
 			->private()
 			->arg('$seo', service('idm_seo.service.seo_page'))
+			->arg('$translator', service('translator')->nullOnInvalid())
 			->tag('kernel.event_subscriber')
 
 		// Forms

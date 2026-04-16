@@ -20,6 +20,7 @@
 namespace Idm\Bundle\Seo\Attributes;
 
 use Attribute;
+use Symfony\Contracts\Translation\TranslatableInterface;
 
 /**
  * Automatically configure SEO for this page
@@ -28,9 +29,13 @@ use Attribute;
 final class Seo
 {
 	/**
-	 * @param string $entity The fully qualified entity class name to search in arguments.
+	 * @param string                       $entity      The fully qualified entity class name to search in arguments.
+	 * @param string|TranslatableInterface $title       Title for the page if is static. Can use a Translatable Message.
+	 * @param string|TranslatableInterface $description Description for the page if is static. Can use a Translatable Message.
 	 */
-	public function __construct (
-		public string $entity = ''
+	public function __construct(
+		public string                       $entity = '',
+		public string|TranslatableInterface $title = '',
+		public string|TranslatableInterface $description = '',
 	) {}
 }

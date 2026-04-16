@@ -5,16 +5,16 @@
  * Last modified by "IDMarinas" on 09/12/2025, 16:33
  *
  * @project IDMarinas Seo Bundle
- * @see https://github.com/idmarinas/seo-bundle
+ * @see     https://github.com/idmarinas/seo-bundle
  *
- * @file SeoConfigureSubscriber.php
- * @date 01/12/2025
- * @time 18:08
+ * @file    SeoConfigureSubscriber.php
+ * @date    01/12/2025
+ * @time    18:08
  *
- * @author Iván Diaz Marinas (IDMarinas)
+ * @author  Iván Diaz Marinas (IDMarinas)
  * @license BSD 3-Clause License
  *
- * @since 1.0.0
+ * @since   1.0.0
  */
 
 namespace Idm\Bundle\Seo\EventSubscriber;
@@ -24,19 +24,21 @@ use Idm\Bundle\Seo\Attributes\Sitemap;
 use Idm\Bundle\Seo\Service\SeoPageInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
+use Symfony\Contracts\Translation\TranslatableInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class SeoConfigureSubscriber implements EventSubscriberInterface
 {
-	public function __construct (private SeoPageInterface $seo) {}
+	public function __construct(private SeoPageInterface $seo, private TranslatorInterface $translator) {}
 
-	public static function getSubscribedEvents (): array
+	public static function getSubscribedEvents(): array
 	{
 		return [
 			ControllerArgumentsEvent::class => 'onControllerArgumentsEvent',
 		];
 	}
 
-	public function onControllerArgumentsEvent (ControllerArgumentsEvent $event): void
+	public function onControllerArgumentsEvent(ControllerArgumentsEvent $event): void
 	{
 		$attributes = $event->getAttributes();
 		$routeName = $event->getRequest()->attributes->get('_route', '');
@@ -63,6 +65,26 @@ final readonly class SeoConfigureSubscriber implements EventSubscriberInterface
 
 		if (array_key_exists(Sitemap::class, $attributes)) {
 			$this->seo->setSitemap($attributes[Sitemap::class][0]);
+		}
+
+		if (!empty($seo->title)) {
+			$title = $seo->title;
+
+			if ($title instanceof TranslatableInterface) {
+				$title = $title->trans($this->translator, $locale);
+			}
+
+			$this->seo->setTitle($title);
+		}
+
+		if (!empty($seo->description)) {
+			$description = $seo->description;
+
+			if ($description instanceof TranslatableInterface) {
+				$description = $description->trans($this->translator, $locale);
+			}
+
+			$this->seo->setDescription($description);
 		}
 
 		$this->seo->configure($entity);

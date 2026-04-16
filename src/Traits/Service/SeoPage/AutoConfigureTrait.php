@@ -26,7 +26,7 @@ trait AutoConfigureTrait
 {
 	private ?SeoEntityInterface $entity = null;
 
-	public function configure (?SeoEntityInterface $entity = null): self
+	public function configure(?SeoEntityInterface $entity = null): self
 	{
 		$this->entity = $entity;
 		$this->seo->setEntity($entity?->getSeo());
@@ -37,29 +37,37 @@ trait AutoConfigureTrait
 		return $this;
 	}
 
-	private function configureTitle (): void
+	private function configureTitle(): void
 	{
-		$this->title = $this->entity?->getSeo()?->getMeta()->title;
+		$title = $this->entity?->getSeo()?->getMeta()->title;
 
-		if (empty($this->title) && !empty($this->entity) && method_exists($this->entity, 'getTitle')) {
-			$this->title = $this->sanitize($this->entity->getTitle(), 70);
+		if (empty($title) && !empty($this->entity) && method_exists($this->entity, 'getTitle')) {
+			$title = $this->sanitize($this->entity->getTitle(), 70);
+		}
+
+		if (!empty($title)) {
+			$this->title = $title;
 		}
 	}
 
-	private function configureDescription (): void
+	private function configureDescription(): void
 	{
-		$this->description = $this->entity?->getSeo()?->getMeta()->description;
+		$description = $this->entity?->getSeo()?->getMeta()->description;
 
-		if (empty($this->description) && !empty($this->entity)) {
+		if (empty($description) && !empty($this->entity)) {
 			if (method_exists($this->entity, 'getDescription')) {
-				$this->description = $this->sanitize($this->entity->getDescription(), 160);
+				$description = $this->sanitize($this->entity->getDescription(), 160);
 			} elseif (method_exists($this->entity, 'getContent')) {
-				$this->description = $this->sanitize($this->entity->getContent(), 160);
+				$description = $this->sanitize($this->entity->getContent(), 160);
 			}
 		}
+
+		if (!empty($description)) {
+			$this->description = $description;
+		}
 	}
 
-	private function configureCanonical (): void
+	private function configureCanonical(): void
 	{
 		$params = $this->routeParams;
 		$params['_locale'] = $this->locale;

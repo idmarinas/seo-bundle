@@ -23,7 +23,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Router\AdminRouteLoader;
 use Symfony\Bundle\FrameworkBundle\Controller\TemplateController;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
-return function (RoutingConfigurator $routes) {
+return function (RoutingConfigurator $routes): void {
 	// @formatter:off
 	$routes->import('routes/web_profiler.php');
 

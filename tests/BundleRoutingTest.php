@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
@@ -16,13 +19,13 @@
  *
  * @since   1.0.0
  */
-
 namespace Idm\Bundle\Seo\Tests;
 
+use Symfony\Component\Routing\Route;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Routing\RouterInterface;
 
-class BundleRoutingTest extends KernelTestCase
+final class BundleRoutingTest extends KernelTestCase
 {
 	use CreateKernelCaseTrait;
 
@@ -40,8 +43,8 @@ class BundleRoutingTest extends KernelTestCase
 		$routes = $routeCollection->all();
 
 		$this->assertCount(30, $routes);
-		$this->assertNotNull($routeCollection->get('idm_seo_sitemap_index'));
-		$this->assertNotNull($routeCollection->get('idm_seo_sitemap_file'));
-		$this->assertNotNull($routeCollection->get('idm_seo_sitemap_file_page'));
+		$this->assertInstanceOf(Route::class, $routeCollection->get('idm_seo_sitemap_index'));
+		$this->assertInstanceOf(Route::class, $routeCollection->get('idm_seo_sitemap_file'));
+		$this->assertInstanceOf(Route::class, $routeCollection->get('idm_seo_sitemap_file_page'));
 	}
 }

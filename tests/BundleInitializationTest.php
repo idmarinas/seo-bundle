@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Copyright 2024-2025 (C) IDMarinas - All Rights Reserved
  *
@@ -17,7 +19,6 @@
  *
  * @since   1.0.0
  */
-
 namespace Idm\Bundle\Seo\Tests;
 
 use App\Kernel;
@@ -31,7 +32,7 @@ final class BundleInitializationTest extends KernelTestCase
 	{
 		// Boot the kernel.
 		$kernel = self::bootKernel([
-			'config' => static function (Kernel $kernel) {
+			'config' => static function (Kernel $kernel): void {
 //				$kernel->addExtraBundle(BundleName::class);
 //				$kernel->addExtraConfig('path/to/file.php');
 //				$kernel->addExtraConfig(['extension_name' => ['key_1' => 'value_1']);

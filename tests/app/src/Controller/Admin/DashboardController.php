@@ -33,12 +33,14 @@ use Symfony\Component\HttpFoundation\Response;
 #[AdminDashboard(routePath: '/admin', routeName: 'admin')]
 final class DashboardController extends AbstractDashboardController
 {
-	public function index (): Response
+	#[Override]
+    public function index (): Response
 	{
 		return $this->render('pages/dashboard.html.twig');
 	}
 
-	public function configureDashboard (): Dashboard
+	#[Override]
+    public function configureDashboard (): Dashboard
 	{
 		return Dashboard::new()
 			->setTitle('Html')
@@ -51,7 +53,8 @@ final class DashboardController extends AbstractDashboardController
 		return parent::configureActions()->add(Crud::PAGE_INDEX, Action::DETAIL);
 	}
 
-	public function configureMenuItems (): iterable
+	#[Override]
+    public function configureMenuItems (): iterable
 	{
 		yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
 		yield MenuItem::linkToCrud('Item', 'fas fa-list', Item::class);

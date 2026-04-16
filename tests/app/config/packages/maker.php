@@ -22,7 +22,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 use Idm\Bundle\Seo\IdmSeoBundle;
 use ReflectionClass;
 
-return static function (ContainerConfigurator $container) {
+return static function (ContainerConfigurator $container): void {
 	$container->extension('maker', [
 		'root_namespace' => (new ReflectionClass(IdmSeoBundle::class))->getNamespaceName(),
 	]);

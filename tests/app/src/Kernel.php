@@ -19,6 +19,7 @@
 
 namespace App;
 
+use Override;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -94,12 +95,14 @@ final class Kernel extends BaseKernel
 		}
 	}
 
-	public function getCacheDir (): string
+	#[Override]
+    public function getCacheDir (): string
 	{
 		return parent::getCacheDir() . $this->testCachePrefix;
 	}
 
-	public function shutdown (): void
+	#[Override]
+    public function shutdown (): void
 	{
 		parent::shutdown();
 

@@ -21,6 +21,6 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use Symfony\Config\ZenstruckFoundryConfig;
 
-return static function (ZenstruckFoundryConfig $config) {
+return static function (ZenstruckFoundryConfig $config): void {
 	$config->enableAutoRefreshWithLazyObjects(false)->persistence()->flushOnce(true);
 };

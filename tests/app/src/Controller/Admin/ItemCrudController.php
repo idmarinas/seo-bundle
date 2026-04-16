@@ -19,6 +19,7 @@
 
 namespace App\Controller\Admin;
 
+use Override;
 use App\Entity\Item;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
@@ -35,7 +36,8 @@ final class ItemCrudController extends AbstractCrudController
 		return Item::class;
 	}
 
-	public function configureFields (string $pageName): iterable
+	#[Override]
+    public function configureFields (string $pageName): iterable
 	{
 		$fields = ($this->container->get(FieldProvider::class)->getDefaultFields($pageName));
 

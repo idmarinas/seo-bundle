@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright 2021-2025 (C) IDMarinas - All Rights Reserved
  *
@@ -16,7 +19,6 @@
  *
  * @since   1.0.0
  */
-
 namespace Idm\Bundle\Seo\Tests\Twig\Extension;
 
 use App\Kernel;
@@ -40,14 +42,16 @@ final class IntegrationTest extends IntegrationTestCase
 		return __DIR__ . '/Fixtures/';
 	}
 
-	public function getExtensions (): array
+	#[Override]
+    public function getExtensions (): array
 	{
 		return [
 			new SeoExtension(),
 		];
 	}
 
-	protected function getRuntimeLoaders (): iterable
+	#[Override]
+    protected function getRuntimeLoaders (): iterable
 	{
 		$container = $this->getContainer();
 		/** @var SeoPage $seoPage */

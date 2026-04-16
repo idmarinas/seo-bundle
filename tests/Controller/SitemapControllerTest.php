@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
@@ -16,15 +19,15 @@
  *
  * @since   1.0.0
  */
-
 namespace Idm\Bundle\Seo\Tests\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Override;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
 
-class SitemapControllerTest extends WebTestCase
+final class SitemapControllerTest extends WebTestCase
 {
 	/**
 	 * @inheritDoc
@@ -41,11 +44,11 @@ class SitemapControllerTest extends WebTestCase
 	public function testSitemapIndex (): void
 	{
 		$client = static::createClient();
-		$client->request('GET', '/sitemap.xml');
+		$client->request(Request::METHOD_GET, '/sitemap.xml');
 
 		$this->assertResponseStatusCodeSame(Response::HTTP_OK);
 		$this->assertResponseHeaderSame('Content-Type', 'text/xml; charset=UTF-8');
-		$this->assertStringContainsString('<sitemapindex', $client->getResponse()->getContent());
+		$this->assertStringContainsString('<sitemapindex', (string) $client->getResponse()->getContent());
 	}
 
 	/**
@@ -54,7 +57,7 @@ class SitemapControllerTest extends WebTestCase
 	public function testNotFoundSitemapFile (): void
 	{
 		$client = static::createClient();
-		$client->request('GET', '/sitemap/pages.xml');
+		$client->request(Request::METHOD_GET, '/sitemap/pages.xml');
 
 		$this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
 		$this->assertResponseHeaderSame('Content-Type', 'text/xml; charset=UTF-8');
@@ -68,7 +71,7 @@ class SitemapControllerTest extends WebTestCase
 	public function testNotFoundSitemapFilePage (): void
 	{
 		$client = static::createClient();
-		$client->request('GET', '/sitemap/pages.1.xml');
+		$client->request(Request::METHOD_GET, '/sitemap/pages.1.xml');
 
 		$this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
 		$this->assertPageTitleContains('An error occurred');
@@ -82,7 +85,7 @@ class SitemapControllerTest extends WebTestCase
 	public function testInvalidFormat (): void
 	{
 		$client = static::createClient();
-		$client->request('GET', '/sitemap.html');
+		$client->request(Request::METHOD_GET, '/sitemap.html');
 
 		$this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
 		$this->assertPageTitleContains('No route found for "GET http://localhost/sitemap.html"');
@@ -94,7 +97,7 @@ class SitemapControllerTest extends WebTestCase
 	public function testInvalidSitemapName (): void
 	{
 		$client = static::createClient();
-		$client->request('GET', '/sitemap/123.xml');
+		$client->request(Request::METHOD_GET, '/sitemap/123.xml');
 
 		$this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
 		$this->assertPageTitleContains('No route found for "GET http://localhost/sitemap/123.xml"');

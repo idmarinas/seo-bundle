@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Copyright 2025 (C) IDMarinas - All Rights Reserved
  *
@@ -16,7 +19,6 @@
  *
  * @since   1.0.0
  */
-
 namespace Idm\Bundle\Seo\Tests\Sitemap;
 
 use DateMalformedStringException;
@@ -29,7 +31,7 @@ use Idm\Bundle\Seo\Sitemap\SitemapFile;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-class SitemapFileTest extends TestCase
+final class SitemapFileTest extends TestCase
 {
 	/**
 	 * @throws DOMException
@@ -44,13 +46,13 @@ class SitemapFileTest extends TestCase
 	): void {
 		$sitemap = new SitemapFile($name);
 
-		$this->assertEquals($name, $sitemap->getName());
+		$this->assertSame($name, $sitemap->getName());
 
-		$this->assertEquals($index, $sitemap->isIndex());
+		$this->assertSame($index, $sitemap->isIndex());
 
-		$this->assertEquals($empty, $sitemap->isEmpty());
+		$this->assertSame($empty, $sitemap->isEmpty());
 
-		$this->assertEquals($valid, $sitemap->isValid());
+		$this->assertSame($valid, $sitemap->isValid());
 
 		$xml = $sitemap->toString();
 		$this->assertStringContainsString('<?xml version="1.0" encoding="UTF-8"?>', $xml);
@@ -145,13 +147,13 @@ class SitemapFileTest extends TestCase
 	): void {
 		$sitemap = new SitemapFile($name, $index);
 
-		$this->assertEquals($name, $sitemap->getName());
+		$this->assertSame($name, $sitemap->getName());
 
-		$this->assertEquals($index, $sitemap->isIndex());
+		$this->assertSame($index, $sitemap->isIndex());
 
-		$this->assertEquals($empty, $sitemap->isEmpty());
+		$this->assertSame($empty, $sitemap->isEmpty());
 
-		$this->assertEquals($valid, $sitemap->isValid());
+		$this->assertSame($valid, $sitemap->isValid());
 
 		$xml = $sitemap->toString();
 		$this->assertStringContainsString('<?xml version="1.0" encoding="UTF-8"?>', $xml);

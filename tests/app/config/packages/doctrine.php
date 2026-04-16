@@ -25,7 +25,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Filesystem\Filesystem;
 use function Symfony\Component\String\u;
 
-return static function (ContainerConfigurator $container, ContainerBuilder $builder) {
+return static function (ContainerConfigurator $container, ContainerBuilder $builder): void {
 	$getDatabaseCache = function (string $projectDir, string $env): string {
 		$dir = $projectDir . '/var/cache/database';
 

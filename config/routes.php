@@ -20,7 +20,7 @@
 use Idm\Bundle\Seo\Controller\SitemapController;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
-return function (RoutingConfigurator $routes) {
+return function (RoutingConfigurator $routes): void {
 	// @formatter:off
 		$routes->import(SitemapController::class, 'attribute');
 	// @formatter:on

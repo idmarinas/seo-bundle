@@ -39,7 +39,7 @@ return function (DefinitionConfigurator $definition): void {
 						->defaultValue($defaultExcludedRoutes)
 						->beforeNormalization()
 							->castToArray()
-							->always(static fn(array $v) => array_unique(($v + $defaultExcludedRoutes)))
+							->always(static fn(array $v) => array_unique(array_merge($v, $defaultExcludedRoutes)))
 						->end()
 					->end()
 				->end()

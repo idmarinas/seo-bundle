@@ -30,7 +30,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service_locator;
 
-return function (ContainerConfigurator $container, ContainerBuilder $builder) {
+return function (ContainerConfigurator $container, ContainerBuilder $builder): void {
 	if (!$builder->hasExtension('easy_admin')) {
 		return;
 	}

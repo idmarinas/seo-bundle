@@ -68,7 +68,11 @@ Support Me
 
 ::u-page-section
 #title
-Shipped with many features
+Easily add SEO tools to your Symfony application.
+
+#description
+Optimize your website for search engines with features such as automatic meta tags, sitemap generation, breadcrumb navigation.
+
 
 #features
   :::u-page-feature

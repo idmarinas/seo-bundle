@@ -20,6 +20,7 @@
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 
 return function (DefinitionConfigurator $definition): void {
-	$definition->import(__DIR__ . '/definitions/sitemap.php');
-	$definition->import(__DIR__ . '/definitions/seo.php');
+	$definition->import(__DIR__.'/definitions/sitemap.php');
+	$definition->import(__DIR__.'/definitions/seo.php');
+	$definition->import(__DIR__.'/definitions/breadcrumb.php');
 };

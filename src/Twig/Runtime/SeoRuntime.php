@@ -19,6 +19,7 @@
 
 namespace Idm\Bundle\Seo\Twig\Runtime;
 
+use Idm\Bundle\Seo\Service\BreadcrumbBuilder;
 use Idm\Bundle\Seo\Service\SeoPage;
 use Idm\Bundle\Seo\Traits\Twig\RunTime\SeoRuntime\BuildTagsTrait;
 use ReflectionException;
@@ -28,9 +29,9 @@ final readonly class SeoRuntime implements RuntimeExtensionInterface
 {
 	use BuildTagsTrait;
 
-	public function __construct (private SeoPage $seoPage) {}
+	public function __construct(private SeoPage $seoPage, private BreadcrumbBuilder $breadcrumb) {}
 
-	public function seoTitle (string $type = ''): string
+	public function seoTitle(string $type = ''): string
 	{
 		return $this->seoPage->getFormatedTitle($type);
 	}
@@ -38,7 +39,7 @@ final readonly class SeoRuntime implements RuntimeExtensionInterface
 	/**
 	 * @throws ReflectionException
 	 */
-	public function seoMeta (): string
+	public function seoMeta(): string
 	{
 		if (!$this->seoPage->isEnabled()) {
 			return '';
@@ -63,7 +64,7 @@ final readonly class SeoRuntime implements RuntimeExtensionInterface
 	/**
 	 * @throws ReflectionException
 	 */
-	public function seoOpenGraphMeta (): string
+	public function seoOpenGraphMeta(): string
 	{
 		if (!$this->seoPage->isEnabled()) {
 			return '';
@@ -71,13 +72,13 @@ final readonly class SeoRuntime implements RuntimeExtensionInterface
 
 		$html = "<!-- Open Graph / Facebook -->\n";
 
-		return $html . self::buildHtmlMetaTags($this->seoPage->getOpenGraphTags(), 'og');
+		return $html.self::buildHtmlMetaTags($this->seoPage->getOpenGraphTags(), 'og');
 	}
 
 	/**
 	 * @throws ReflectionException
 	 */
-	public function seoTwitterMeta (): string
+	public function seoTwitterMeta(): string
 	{
 		if (!$this->seoPage->isEnabled()) {
 			return '';
@@ -85,6 +86,11 @@ final readonly class SeoRuntime implements RuntimeExtensionInterface
 
 		$html = "<!-- X (Twitter) -->\n";
 
-		return $html . self::buildHtmlMetaTags($this->seoPage->getTwitterTags(), 'twitter');
+		return $html.self::buildHtmlMetaTags($this->seoPage->getTwitterTags(), 'twitter');
+	}
+
+	public function breadcrumbItems(): array
+	{
+		return $this->breadcrumb->build();
 	}
 }

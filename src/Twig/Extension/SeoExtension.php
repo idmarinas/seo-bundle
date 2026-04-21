@@ -19,15 +19,15 @@
 
 namespace Idm\Bundle\Seo\Twig\Extension;
 
-use Override;
 use Idm\Bundle\Seo\Twig\Runtime\SeoRuntime;
+use Override;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class SeoExtension extends AbstractExtension
 {
 	#[Override]
-    public function getFunctions (): array
+	public function getFunctions(): array
 	{
 		return [
 			new TwigFunction('idm_seo_title_*', [SeoRuntime::class, 'seoTitle']),
@@ -35,6 +35,7 @@ class SeoExtension extends AbstractExtension
 			new TwigFunction('idm_seo_meta', [SeoRuntime::class, 'seoMeta'], ['is_safe' => ['html']]),
 			new TwigFunction('idm_seo_open_graph', [SeoRuntime::class, 'seoOpenGraphMeta'], ['is_safe' => ['html']]),
 			new TwigFunction('idm_seo_twitter', [SeoRuntime::class, 'seoTwitterMeta'], ['is_safe' => ['html']]),
+			new TwigFunction('idm_seo_breadcrumb_items', [SeoRuntime::class, 'breadcrumbItems']),
 		];
 	}
 }

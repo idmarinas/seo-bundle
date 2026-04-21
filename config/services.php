@@ -94,8 +94,9 @@ return function (ContainerConfigurator $container) {
 		->set('idm_seo.twig.extension.seo.runtime', SeoRuntime::class)
 			->private()
 			->args([
-				'$seoPage' => service('idm_seo.service.seo_page')
-			])
+				'$seoPage' => service('idm_seo.service.seo_page'),
+				'$breadcrumb' => service('idm_seo.service.breadcrumb_builder')
+ 			])
 			->tag('twig.runtime')
 	;
 	// @formatter::on

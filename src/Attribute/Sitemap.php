@@ -5,24 +5,24 @@
  * Last modified by "IDMarinas" on 09/12/2025, 18:57
  *
  * @project IDMarinas Seo Bundle
- * @see https://github.com/idmarinas/seo-bundle
+ * @see     https://github.com/idmarinas/seo-bundle
  *
- * @file Sitemap.php
- * @date 05/12/2025
- * @time 15:02
+ * @file    Sitemap.php
+ * @date    05/12/2025
+ * @time    15:02
  *
- * @author Iván Diaz Marinas (IDMarinas)
+ * @author  Iván Diaz Marinas (IDMarinas)
  * @license BSD 3-Clause License
  *
- * @since 1.0.0
+ * @since   1.0.0
  */
 
-namespace Idm\Bundle\Seo\Attributes;
+namespace Idm\Bundle\Seo\Attribute;
 
 use Attribute;
 use DateMalformedStringException;
 use Doctrine\Common\Collections\Criteria;
-use Idm\Bundle\Seo\Attributes\Sitemap\Prop;
+use Idm\Bundle\Seo\Attribute\Sitemap\Prop;
 use Idm\Bundle\Seo\Sitemap\Node\Url;
 
 #[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_FUNCTION | Attribute::IS_REPEATABLE)]
@@ -71,7 +71,7 @@ final class Sitemap implements SitemapInterface
 	 *                                                  ]
 	 *                                                  </code>
 	 */
-	public function __construct (
+	public function __construct(
 		public ?string         $name = null,
 		public string          $priority = '0.5',
 		public string          $changefreq = self::CHANGEFREQ_WEEKLY,
@@ -84,7 +84,7 @@ final class Sitemap implements SitemapInterface
 	/**
 	 * @throws DateMalformedStringException
 	 */
-	public function getUrl (string $loc): Url
+	public function getUrl(string $loc): Url
 	{
 		return new Url($loc, null, $this->changefreq, $this->priority);
 	}
@@ -92,7 +92,7 @@ final class Sitemap implements SitemapInterface
 	/**
 	 * @inheritDoc
 	 */
-	public function isDynamic (): bool
+	public function isDynamic(): bool
 	{
 		return !empty($this->name) && !empty($this->entity);
 	}

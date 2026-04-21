@@ -17,7 +17,7 @@
  * @since   1.0.0
  */
 
-namespace Idm\Bundle\Seo\Attributes;
+namespace Idm\Bundle\Seo\Attribute;
 
 use Idm\Bundle\Seo\Sitemap\Node\Url;
 
@@ -42,10 +42,10 @@ interface SitemapInterface
 		null,
 	];
 
-	public function getUrl (string $loc): Url;
+	public function getUrl(string $loc): Url;
 
 	/**
 	 * Check whether this sitemap is dynamic or not.
 	 */
-	public function isDynamic (): bool;
+	public function isDynamic(): bool;
 }

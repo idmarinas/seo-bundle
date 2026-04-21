@@ -17,7 +17,7 @@
  * @since   1.0.0
  */
 
-namespace Idm\Bundle\Seo\Attributes\Sitemap;
+namespace Idm\Bundle\Seo\Attribute\Sitemap;
 
 /**
  * Represents a reference to an entity property for URL parameter resolution.
@@ -31,14 +31,14 @@ namespace Idm\Bundle\Seo\Attributes\Sitemap;
  */
 final readonly class Prop
 {
-	public function __construct (
+	public function __construct(
 		public string $property
 	) {}
 
 	/**
 	 * Creates a reference to an entity property using a property path.
 	 */
-	public static function new (string $propertyPath): self
+	public static function new(string $propertyPath): self
 	{
 		return new self($propertyPath);
 	}

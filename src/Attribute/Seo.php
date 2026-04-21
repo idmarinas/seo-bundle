@@ -17,7 +17,7 @@
  * @since   1.0.0
  */
 
-namespace Idm\Bundle\Seo\Attributes;
+namespace Idm\Bundle\Seo\Attribute;
 
 use Attribute;
 use Symfony\Contracts\Translation\TranslatableInterface;

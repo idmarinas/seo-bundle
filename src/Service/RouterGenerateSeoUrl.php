@@ -5,22 +5,22 @@
  * Last modified by "IDMarinas" on 09/12/2025, 19:13
  *
  * @project IDMarinas Seo Bundle
- * @see https://github.com/idmarinas/seo-bundle
+ * @see     https://github.com/idmarinas/seo-bundle
  *
- * @file RouterGenerateSeoUrl.php
- * @date 28/11/2025
- * @time 17:37
+ * @file    RouterGenerateSeoUrl.php
+ * @date    28/11/2025
+ * @time    17:37
  *
- * @author Iván Diaz Marinas (IDMarinas)
+ * @author  Iván Diaz Marinas (IDMarinas)
  * @license BSD 3-Clause License
  *
- * @since 1.0.0
+ * @since   1.0.0
  */
 
 namespace Idm\Bundle\Seo\Service;
 
-use Idm\Bundle\Seo\Attributes\Sitemap\Prop;
-use Idm\Bundle\Seo\Attributes\Sitemap;
+use Idm\Bundle\Seo\Attribute\Sitemap;
+use Idm\Bundle\Seo\Attribute\Sitemap\Prop;
 use Idm\Bundle\Seo\Cache\CacheKeyEnum;
 use Idm\Bundle\Seo\Cache\CacheTagEnum;
 use Idm\Bundle\Seo\Sitemap\RouteAttributes;
@@ -36,14 +36,14 @@ use function Symfony\Component\String\u;
 
 final readonly class RouterGenerateSeoUrl
 {
-	public function __construct (
+	public function __construct(
 		private RouterInterface                               $router,
 		private CacheItemPoolInterface&TagAwareCacheInterface $cache,
 		private array                                         $excludedRoutes,
 		private DenormalizerInterface                         $denormalizer
 	) {}
 
-	public static function processUrlParameters (Sitemap $sitemap, array|object $result): array
+	public static function processUrlParameters(Sitemap $sitemap, array|object $result): array
 	{
 		$isObject = is_object($result);
 		$params = $sitemap->urlParameters;
@@ -69,7 +69,7 @@ final readonly class RouterGenerateSeoUrl
 	}
 
 	/** @internal */
-	public function generateUrl (string $name, array $parameters = []): string
+	public function generateUrl(string $name, array $parameters = []): string
 	{
 		return $this->router->generate($name, $parameters, UrlGeneratorInterface::ABSOLUTE_URL);
 	}
@@ -78,7 +78,7 @@ final readonly class RouterGenerateSeoUrl
 	 * @return array<string, RouteAttributes>
 	 * @throws InvalidArgumentException
 	 */
-	public function getAllRoutes (): array
+	public function getAllRoutes(): array
 	{
 		return $this->cache->get(CacheKeyEnum::ROUTES_LIST->name, function (ItemInterface $item) {
 			$item->tag([
@@ -94,7 +94,7 @@ final readonly class RouterGenerateSeoUrl
 		});
 	}
 
-	public function setScheme (string $scheme): self
+	public function setScheme(string $scheme): self
 	{
 		$this->router->getContext()->setScheme($scheme);
 

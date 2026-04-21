@@ -20,19 +20,19 @@
 namespace Idm\Bundle\Seo\Traits\Service\SitemapGenerator;
 
 use Exception;
-use Idm\Bundle\Seo\Attributes\Sitemap;
+use Idm\Bundle\Seo\Attribute\Sitemap;
 use Idm\Bundle\Seo\Service\RouterGenerateSeoUrl;
 use Idm\Bundle\Seo\Sitemap\SitemapFile;
 use Psr\Cache\InvalidArgumentException;
 
 trait GenerateDynamicSitemapTrait
 {
-	protected static function processLastUpdated (array|object $result, Sitemap $sitemap): mixed
+	protected static function processLastUpdated(array|object $result, Sitemap $sitemap): mixed
 	{
 		$isObject = $result instanceof $sitemap->entity;
 
 		if ($isObject) {
-			$method = 'get' . ucfirst($sitemap->updatedAtField);
+			$method = 'get'.ucfirst($sitemap->updatedAtField);
 
 			return method_exists($sitemap->entity, $method) ? $result->{$method}() : null;
 		}
@@ -40,7 +40,7 @@ trait GenerateDynamicSitemapTrait
 		return $result[$sitemap->updatedAtField] ?? null;
 	}
 
-	private function generateSitemapDynamic (Sitemap $sitemap, string $routeName, bool $invalidate): ?SitemapFile
+	private function generateSitemapDynamic(Sitemap $sitemap, string $routeName, bool $invalidate): ?SitemapFile
 	{
 		try {
 			$repository = $this->entityManager->getRepository($sitemap->entity);

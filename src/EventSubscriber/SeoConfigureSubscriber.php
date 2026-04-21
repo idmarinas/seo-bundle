@@ -19,8 +19,8 @@
 
 namespace Idm\Bundle\Seo\EventSubscriber;
 
-use Idm\Bundle\Seo\Attributes\Seo;
-use Idm\Bundle\Seo\Attributes\Sitemap;
+use Idm\Bundle\Seo\Attribute\Seo;
+use Idm\Bundle\Seo\Attribute\Sitemap;
 use Idm\Bundle\Seo\Service\SeoPageInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;

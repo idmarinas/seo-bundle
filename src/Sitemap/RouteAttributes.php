@@ -20,9 +20,9 @@
 namespace Idm\Bundle\Seo\Sitemap;
 
 use ArrayObject;
-use Idm\Bundle\Seo\Attributes\Seo;
-use Idm\Bundle\Seo\Attributes\Sitemap;
-use Idm\Bundle\Seo\Attributes\SitemapInterface;
+use Idm\Bundle\Seo\Attribute\Seo;
+use Idm\Bundle\Seo\Attribute\Sitemap;
+use Idm\Bundle\Seo\Attribute\SitemapInterface;
 use ReflectionException;
 use ReflectionMethod;
 use Symfony\Component\Routing\Route;
@@ -40,19 +40,19 @@ final readonly class RouteAttributes
 	/**
 	 * @throws ExceptionInterface
 	 */
-	public function __construct (public Route $route, private DenormalizerInterface $denormalizer)
+	public function __construct(public Route $route, private DenormalizerInterface $denormalizer)
 	{
 		$this->attributes = new ArrayObject($this->getAttributes());
 	}
 
-	public function __serialize (): array
+	public function __serialize(): array
 	{
 		return [
 			'attributes' => $this->attributes->getIterator()->getArrayCopy(),
 		];
 	}
 
-	public function __unserialize (array $data): void
+	public function __unserialize(array $data): void
 	{
 		$this->attributes = new ArrayObject($data['attributes']);
 	}
@@ -62,7 +62,7 @@ final readonly class RouteAttributes
 	 * @throws ExceptionInterface
 	 * @internal
 	 */
-	private function getAttributes (): ArrayObject
+	private function getAttributes(): ArrayObject
 	{
 		$controller = $this->route->getDefault('_controller');
 		$controller = is_array($controller) ? $controller[0] : $controller;
@@ -86,7 +86,7 @@ final readonly class RouteAttributes
 	/** @throws ExceptionInterface
 	 * @internal
 	 */
-	private function getAttributesFromTemplate (Route $route): ArrayObject
+	private function getAttributesFromTemplate(Route $route): ArrayObject
 	{
 		$routes = new ArrayObject();
 
@@ -106,7 +106,7 @@ final readonly class RouteAttributes
 	}
 
 	/** @internal */
-	private function getAttributesFromController (string $_controller): ArrayObject
+	private function getAttributesFromController(string $_controller): ArrayObject
 	{
 		$attributes = new ArrayObject();
 		try {

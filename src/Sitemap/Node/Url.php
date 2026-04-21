@@ -24,7 +24,7 @@ use DateTimeInterface;
 use DOMDocument;
 use DOMElement;
 use DOMException;
-use Idm\Bundle\Seo\Attributes\SitemapInterface;
+use Idm\Bundle\Seo\Attribute\SitemapInterface;
 use InvalidArgumentException;
 
 final class Url extends AbstractNode
@@ -32,7 +32,7 @@ final class Url extends AbstractNode
 	/**
 	 * @throws DateMalformedStringException
 	 */
-	public function __construct (
+	public function __construct(
 		protected string                        $loc,
 		protected null|string|DateTimeInterface $lastmod = null,
 		protected ?string                       $changefreq = null,
@@ -43,13 +43,13 @@ final class Url extends AbstractNode
 		$this->setPriority($priority);
 	}
 
-	public function setChangefreq (?string $changefreq): self
+	public function setChangefreq(?string $changefreq): self
 	{
 		if (!in_array($changefreq, SitemapInterface::CHANGEFREQ_VALUES)) {
 			throw new InvalidArgumentException(
 				sprintf(
 					'The value "%s" is not supported by the option changefreq.'
-					. ' See https://www.sitemaps.org/protocol.html#xmlTagDefinitions',
+					.' See https://www.sitemaps.org/protocol.html#xmlTagDefinitions',
 					$changefreq
 				)
 			);
@@ -60,12 +60,12 @@ final class Url extends AbstractNode
 		return $this;
 	}
 
-	public function getChangefreq (): ?string
+	public function getChangefreq(): ?string
 	{
 		return $this->changefreq;
 	}
 
-	public function setPriority (null|float|int|string $priority = null): self
+	public function setPriority(null|float|int|string $priority = null): self
 	{
 		if (null === $priority) {
 			return $this;
@@ -79,7 +79,7 @@ final class Url extends AbstractNode
 			throw new InvalidArgumentException(
 				sprintf(
 					'The value "%s" is not supported by the option priority.'
-					. ' See https://www.sitemaps.org/protocol.html#xmlTagDefinitions',
+					.' See https://www.sitemaps.org/protocol.html#xmlTagDefinitions',
 					$priority
 				)
 			);
@@ -90,7 +90,7 @@ final class Url extends AbstractNode
 		return $this;
 	}
 
-	public function getPriority (): ?string
+	public function getPriority(): ?string
 	{
 		return $this->priority;
 	}
@@ -99,7 +99,7 @@ final class Url extends AbstractNode
 	 * @inheritdoc
 	 * @throws DOMException
 	 */
-	public function getNode (DOMDocument $document): DOMElement
+	public function getNode(DOMDocument $document): DOMElement
 	{
 		$node = $document->createElement('url');
 

@@ -5,16 +5,16 @@
  * Last modified by "IDMarinas" on 09/12/2025, 18:53
  *
  * @project IDMarinas Seo Bundle
- * @see https://github.com/idmarinas/seo-bundle
+ * @see     https://github.com/idmarinas/seo-bundle
  *
- * @file SitemapGenerator.php
- * @date 08/12/2025
- * @time 14:52
+ * @file    SitemapGenerator.php
+ * @date    08/12/2025
+ * @time    14:52
  *
- * @author Iván Diaz Marinas (IDMarinas)
+ * @author  Iván Diaz Marinas (IDMarinas)
  * @license BSD 3-Clause License
  *
- * @since 1.0.0
+ * @since   1.0.0
  */
 
 namespace Idm\Bundle\Seo\Service;
@@ -24,7 +24,7 @@ use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use DOMException;
 use Exception;
-use Idm\Bundle\Seo\Attributes\Sitemap as SitemapAttribute;
+use Idm\Bundle\Seo\Attribute\Sitemap as SitemapAttribute;
 use Idm\Bundle\Seo\Sitemap\Node\Sitemap;
 use Idm\Bundle\Seo\Sitemap\RouteAttributes;
 use Idm\Bundle\Seo\Sitemap\SitemapFile;
@@ -33,7 +33,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 
 final readonly class SitemapGenerator
 {
-	public function __construct (
+	public function __construct(
 		private RouterGenerateSeoUrl   $router,
 		private EntityManagerInterface $entityManager,
 		private string                 $defaultScheme
@@ -41,7 +41,7 @@ final readonly class SitemapGenerator
 		$this->router->setScheme($this->defaultScheme);
 	}
 
-	protected static function processLastUpdated (array|object $result, SitemapAttribute $sitemap): mixed
+	protected static function processLastUpdated(array|object $result, SitemapAttribute $sitemap): mixed
 	{
 		$accessor = PropertyAccess::createPropertyAccessorBuilder()
 			->disableExceptionOnInvalidPropertyPath()
@@ -58,7 +58,7 @@ final readonly class SitemapGenerator
 	 * @throws DateMalformedStringException
 	 * @throws Exception|InvalidArgumentException
 	 */
-	public function sitemap (string $name = 'index'): SitemapFile
+	public function sitemap(string $name = 'index'): SitemapFile
 	{
 		$routes = $this->router->getAllRoutes();
 
@@ -77,7 +77,7 @@ final readonly class SitemapGenerator
 	 * @throws DOMException
 	 * @internal
 	 */
-	private function getPage (string $name, array $routes): SitemapFile
+	private function getPage(string $name, array $routes): SitemapFile
 	{
 		$sitemap = new SitemapFile($name);
 
@@ -127,7 +127,7 @@ final readonly class SitemapGenerator
 	 * @throws Exception
 	 * @internal
 	 */
-	private function getIndex (array $routes): SitemapFile
+	private function getIndex(array $routes): SitemapFile
 	{
 		$sitemap = new SitemapFile('index');
 
@@ -158,7 +158,7 @@ final readonly class SitemapGenerator
 	 * @throws Exception
 	 * @internal
 	 */
-	private function getDefault (array $routes): SitemapFile
+	private function getDefault(array $routes): SitemapFile
 	{
 		$sitemap = new SitemapFile('default');
 

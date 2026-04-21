@@ -19,8 +19,8 @@
 
 namespace Idm\Bundle\Seo\DependencyInjection\Compiler;
 
-use Idm\Bundle\Seo\Attributes\Sitemap\SitemapDynamic;
-use Idm\Bundle\Seo\Attributes\Sitemap\SitemapUrl;
+use Idm\Bundle\Seo\Attribute\Sitemap\SitemapDynamic;
+use Idm\Bundle\Seo\Attribute\Sitemap\SitemapUrl;
 use LogicException;
 use ReflectionClass;
 use ReflectionException;
@@ -32,7 +32,7 @@ class CheckAttributesValidityPass implements CompilerPassInterface
 	/**
 	 * @throws ReflectionException
 	 */
-	public function process (ContainerBuilder $container): void
+	public function process(ContainerBuilder $container): void
 	{
 		$services = $container->findTaggedServiceIds('controller.service_arguments', true);
 

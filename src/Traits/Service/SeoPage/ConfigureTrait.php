@@ -19,26 +19,32 @@
 
 namespace Idm\Bundle\Seo\Traits\Service\SeoPage;
 
-use Idm\Bundle\Seo\Attributes\Sitemap;
+use Idm\Bundle\Seo\Attribute\Sitemap;
 
 trait ConfigureTrait
 {
-	protected ?string $routeName   = null;
-	protected array   $routeParams = [];
-	protected ?string $title       = null;
-	protected ?string $description = null;
-	protected ?string $canonical   = null;
-	protected ?string $locale      = null;
-	private ?Sitemap  $sitemap     = null;
+	protected ?string $routeName = null;
 
-	public function setSitemap (Sitemap $sitemap): self
+	protected array $routeParams = [];
+
+	protected ?string $title = null;
+
+	protected ?string $description = null;
+
+	protected ?string $canonical = null;
+
+	protected ?string $locale = null;
+
+	private ?Sitemap $sitemap = null;
+
+	public function setSitemap(Sitemap $sitemap): self
 	{
 		$this->sitemap = $sitemap;
 
 		return $this;
 	}
 
-	public function setLocale (string $locale): self
+	public function setLocale(string $locale): self
 	{
 		$this->locale = $locale;
 
@@ -47,28 +53,28 @@ trait ConfigureTrait
 		return $this;
 	}
 
-	public function setRouteName (string $name): self
+	public function setRouteName(string $name): self
 	{
 		$this->routeName = $name;
 
 		return $this;
 	}
 
-	public function setTitle (string $title): self
+	public function setTitle(string $title): self
 	{
 		$this->title = $title;
 
 		return $this;
 	}
 
-	public function setDescription (string $description): self
+	public function setDescription(string $description): self
 	{
 		$this->description = $description;
 
 		return $this;
 	}
 
-	public function setRouteParams (array $routeParams): self
+	public function setRouteParams(array $routeParams): self
 	{
 		if ([] !== array_diff($routeParams, $this->routeParams)) {
 			$this->routeParams = $routeParams;
@@ -78,14 +84,14 @@ trait ConfigureTrait
 		return $this;
 	}
 
-	public function addLocaleAlternate (string $locale, string $url): self
+	public function addLocaleAlternate(string $locale, string $url): self
 	{
 		$this->localeAlternate[$locale] = $url;
 
 		return $this;
 	}
 
-	public function removeLocaleAlternate (string $locale): self
+	public function removeLocaleAlternate(string $locale): self
 	{
 		if (isset($this->localeAlternate[$locale])) {
 			unset($this->localeAlternate[$locale]);

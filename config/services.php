@@ -23,6 +23,7 @@ use Idm\Bundle\Seo\Cache\Warmer\InvalidateSeoCache;
 use Idm\Bundle\Seo\Controller\SitemapController;
 use Idm\Bundle\Seo\EventSubscriber\SeoConfigureSubscriber;
 use Idm\Bundle\Seo\Form\Type\OpenGraph\SeoLocaleType;
+use Idm\Bundle\Seo\Service\BreadcrumbBuilder;
 use Idm\Bundle\Seo\Service\RouterGenerateSeoUrl;
 use Idm\Bundle\Seo\Service\SeoPage;
 use Idm\Bundle\Seo\Service\SeoPageInterface;
@@ -34,38 +35,44 @@ use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 return function (ContainerConfigurator $container) {
 	// @formatter:off
 	$container->services()
+		// Services
+		->set('idm_seo.service.router_generator_seo_url', RouterGenerateSeoUrl::class)
+			->private()
+			->arg('$router', service('router.default'))
+			->arg('$cache', service('idm_seo.cache'))
+			->arg('$denormalizer', service('serializer'))
 		->set('idm_seo.service.cache_adapter', FilesystemAdapter::class)
 			->private()
 			->args(['', '0', '%kernel.cache_dir%/pools/seo', service('cache.default_marshaller')])
-
 		->set('idm_seo.service.sitemap_generator', SitemapGenerator::class)
 			->private()
 			->args([
 				'$router' => service('idm_seo.service.router_generator_seo_url'),
 				'$entityManager' => service('doctrine.orm.entity_manager'),
 			])
+		->set('imd_seo.service.breadcrumb_builder', BreadcrumbBuilder::class)
+			->private()
+			->args([
+				'$router' => service('router.default'),
+				'$requestStack' => service('request_stack'),
+				'$translator' => service('translator')->nullOnInvalid(),
+			])
+		->set('idm_seo.service.seo_page', SeoPage::class)
+			->private()
+			->arg('$router', service('idm_seo.service.router_generator_seo_url'))
+			->alias(SeoPageInterface::class, 'idm_seo.service.seo_page')->public()
 
 		->set(InvalidateSeoCache::class)
 			->private()
 			->arg('$cache', service('idm_seo.cache'))
 			->tag('kernel.cache_warmer')
 
+		// Controllers
 		->set(SitemapController::class)
 			->private()
 			->arg('$generator', service('idm_seo.service.sitemap_generator'))
 			->call('setContainer', [service_locator([])])
 			->tag('controller.service_arguments')
-
-		->set('idm_seo.service.seo_page', SeoPage::class)
-			->private()
-			->arg('$router', service('idm_seo.service.router_generator_seo_url'))
-			->alias(SeoPageInterface::class, 'idm_seo.service.seo_page')->public()
-
-		->set('idm_seo.service.router_generator_seo_url', RouterGenerateSeoUrl::class)
-			->private()
-			->arg('$router', service('router.default'))
-			->arg('$cache', service('idm_seo.cache'))
-			->arg('$denormalizer', service('serializer'))
 
 		// Events Subscriber
 		->set(SeoConfigureSubscriber::class)
@@ -84,7 +91,6 @@ return function (ContainerConfigurator $container) {
 		->set('idm_seo.twig.extension.seo', SeoExtension::class)
 			->private()
 			->tag('twig.extension')
-
 		->set('idm_seo.twig.extension.seo.runtime', SeoRuntime::class)
 			->private()
 			->args([

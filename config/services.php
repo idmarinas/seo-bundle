@@ -50,7 +50,7 @@ return function (ContainerConfigurator $container) {
 				'$router' => service('idm_seo.service.router_generator_seo_url'),
 				'$entityManager' => service('doctrine.orm.entity_manager'),
 			])
-		->set('imd_seo.service.breadcrumb_builder', BreadcrumbBuilder::class)
+		->set('idm_seo.service.breadcrumb_builder', BreadcrumbBuilder::class)
 			->private()
 			->args([
 				'$router' => service('router.default'),

@@ -56,6 +56,7 @@ return function (ContainerConfigurator $container) {
 				'$router' => service('router.default'),
 				'$requestStack' => service('request_stack'),
 				'$translator' => service('translator')->nullOnInvalid(),
+				'$seo' => service('idm_seo.service.seo_page'),
 			])
 		->set('idm_seo.service.seo_page', SeoPage::class)
 			->private()

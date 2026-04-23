@@ -45,6 +45,7 @@ final readonly class BreadcrumbBuilder
 		private RouterInterface     $router,
 		private RequestStack        $requestStack,
 		private TranslatorInterface $translator,
+		private SeoPageInterface    $seo,
 		private array               $itemHome,
 	) {}
 
@@ -151,12 +152,18 @@ final readonly class BreadcrumbBuilder
 		array                        $params
 	): string {
 		// Translation
-		$text = $label instanceof TranslatableInterface
+		$text = $label instanceof TranslatableInterface && $this->translator instanceof TranslatorInterface
 			? $label->trans($this->translator)
-			: $label;
+			: (string)$label;
+
+		$seo = $this->seo;
 
 		// Substitution of {param} tokens with the actual route value
-		return preg_replace_callback('#{(\w+)}#', static function ($m) use ($params) {
+		return preg_replace_callback('#{(\w+)}#', static function ($m) use ($params, $seo) {
+			if ('seoTitle' == $m[1]) {
+				return $seo->getTitle();
+			}
+
 			return $params[$m[1]] ?? $m[0];
 		}, $text);
 	}

@@ -39,11 +39,13 @@ use Symfony\Contracts\Translation\TranslatableInterface;
 final readonly class Breadcrumb
 {
 	/**
-	 * @param string|TranslatableInterface $label  Visible label. In strings, accepts {param} tokens
-	 *                                             that are resolved with the current route parameters.
+	 * @param string|TranslatableInterface $label  Visible label. In strings, accepts {param} tokens that are resolved
+	 *                                             with the current route parameters.
+	 *                                             Predefined tokens:
+	 *                                             - {seoTitle} This resolves to the current page's SEO title.'
 	 * @param string|null                  $icon   Name of the icon to use with UX Icons
 	 * @param string|null                  $parent Parent route name.
-	 *                                             null = root node (Home is added automatically).
+	 *                                             - null = root node (Home is added automatically).
 	 * @param bool                         $link   true  → linkable when not the active node.
 	 *                                             false → only text, no link (leaf pages).
 	 */

@@ -23,14 +23,14 @@ use function Symfony\Component\String\u;
 
 trait SanitizerTrait
 {
-	protected function sanitize (string $string, int|false $truncate = false): string
+	protected function sanitize(string $string, int|false $truncate = false): string
 	{
 		$string = u(strip_tags($string))
 			->collapseWhitespace()
 		;
 
 		if (false !== $truncate) {
-			$string->truncate($truncate, '...');
+			return $string->truncate($truncate, '...')->toString();
 		}
 
 		return $string->toString();

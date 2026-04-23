@@ -24,35 +24,37 @@ use function Symfony\Component\String\u;
 
 final readonly class SeoMeta
 {
-	public Meta          $meta;
-	public OpenGraphMeta $og;
-	public TwitterMeta   $twitter;
+	public Meta $meta;
 
-	public function __construct (array $config)
+	public OpenGraphMeta $og;
+
+	public TwitterMeta $twitter;
+
+	public function __construct(array $config)
 	{
 		$this->meta = new Meta($config);
 		$this->og = new OpenGraphMeta($config['open_graph']);
 		$this->twitter = new TwitterMeta($config['twitter']);
 	}
 
-	public function getTitleTemplate (string $type): string
+	public function getTitleTemplate(string $type): string
 	{
 		return $this->meta->title->getTemplate($type);
 	}
 
-	public function getFormatedTitle (string $type, string $title): string
+	public function getFormatedTitle(string $type, string $title, ?string $prefix = null, ?string $suffix = null): string
 	{
 		return u($this->getTitleTemplate($type))
 			->replace('{title}', $title)
 			->replace('{separator}', $this->meta->title->separator)
-			->replace('{prefix}', $this->meta->title->prefix)
-			->replace('{suffix}', $this->meta->title->suffix)
+			->replace('{prefix}', $prefix ?: $this->meta->title->prefix)
+			->replace('{suffix}', $suffix ?: $this->meta->title->suffix)
 			->trim()->trim($this->meta->title->separator)->trim()
 			->toString()
 		;
 	}
 
-	public function setEntity (?Seo $entity): self
+	public function setEntity(?Seo $entity): self
 	{
 		$this->meta->setEntity($entity?->getMeta());
 		$this->og->setEntity($entity?->getOg());

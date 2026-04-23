@@ -37,6 +37,24 @@ trait ConfigureTrait
 
 	private ?Sitemap $sitemap = null;
 
+	private ?string $prefix = null;
+
+	private ?string $suffix = null;
+
+	public function setPrefix(string $prefix): self
+	{
+		$this->prefix = $prefix;
+
+		return $this;
+	}
+
+	public function setSuffix(string $suffix): self
+	{
+		$this->suffix = $suffix;
+
+		return $this;
+	}
+
 	public function setSitemap(Sitemap $sitemap): self
 	{
 		$this->sitemap = $sitemap;

@@ -34,10 +34,12 @@ final class SeoPage implements SeoPageInterface
 	use SanitizerTrait;
 
 	private readonly SeoMeta $seo;
-	private array            $localeAlternate;
-	private bool             $enabled = true;
 
-	public function __construct (array $config, private readonly RouterGenerateSeoUrl $router)
+	private array $localeAlternate;
+
+	private bool $enabled = true;
+
+	public function __construct(array $config, private readonly RouterGenerateSeoUrl $router)
 	{
 		$this->seo = new SeoMeta($config);
 		$this->localeAlternate = array_fill_keys(
@@ -46,15 +48,15 @@ final class SeoPage implements SeoPageInterface
 		);
 	}
 
-	public function getFormatedTitle (string $type): string
+	public function getFormatedTitle(string $type): string
 	{
-		return $this->seo->getFormatedTitle($type, $this->getTitle());
+		return $this->seo->getFormatedTitle($type, $this->getTitle(), $this->prefix, $this->suffix);
 	}
 
 	/**
 	 * @throws ReflectionException
 	 */
-	public function getMetaTags (): array
+	public function getMetaTags(): array
 	{
 		$tags = $this->seo->meta->toArray();
 		array_walk($tags, function (&$value, $key): void {
@@ -73,7 +75,7 @@ final class SeoPage implements SeoPageInterface
 	/**
 	 * @throws ReflectionException
 	 */
-	public function getOpenGraphTags (): array
+	public function getOpenGraphTags(): array
 	{
 		$tags = $this->seo->og->toArray();
 		array_walk($tags, function (&$value, $key): void {
@@ -95,42 +97,42 @@ final class SeoPage implements SeoPageInterface
 	/**
 	 * @throws ReflectionException
 	 */
-	public function getTwitterTags (): array
+	public function getTwitterTags(): array
 	{
 		return $this->seo->twitter->toArray();
 	}
 
-	public function getTitle (): string
+	public function getTitle(): string
 	{
 		return (string)$this->title ?: $this->seo->meta->title->default;
 	}
 
-	public function getDescription (): string
+	public function getDescription(): string
 	{
 		return (string)$this->description ?: $this->seo->meta->description;
 	}
 
-	public function getCanonical (): string
+	public function getCanonical(): string
 	{
 		return (string)$this->canonical;
 	}
 
-	public function getLocaleAlternate (): array
+	public function getLocaleAlternate(): array
 	{
 		return $this->localeAlternate;
 	}
 
-	public function disableSeo (): void
+	public function disableSeo(): void
 	{
 		$this->enabled = false;
 	}
 
-	public function isEnabled (): bool
+	public function isEnabled(): bool
 	{
 		return $this->enabled;
 	}
 
-	public function enableSeo (): void
+	public function enableSeo(): void
 	{
 		$this->enabled = true;
 	}

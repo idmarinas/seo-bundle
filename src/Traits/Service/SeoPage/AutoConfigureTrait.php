@@ -19,6 +19,7 @@
 
 namespace Idm\Bundle\Seo\Traits\Service\SeoPage;
 
+use Exception;
 use Idm\Bundle\Seo\Entity\SeoEntityInterface;
 use Idm\Bundle\Seo\Service\RouterGenerateSeoUrl;
 
@@ -32,7 +33,11 @@ trait AutoConfigureTrait
 		$this->seo->setEntity($entity?->getSeo());
 		$this->configureTitle();
 		$this->configureDescription();
-		$this->configureCanonical();
+		try {
+			$this->configureCanonical();
+		} catch (Exception) {
+			// Ignore exceptions during canonical URL generation
+		}
 
 		return $this;
 	}

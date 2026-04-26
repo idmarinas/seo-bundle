@@ -114,6 +114,11 @@ final class SeoPage implements SeoPageInterface
 
 	public function getCanonical(): string
 	{
+		// Generate canonical if not set
+		if (empty($this->canonical)) {
+			$this->configureCanonical();
+		}
+
 		return (string)$this->canonical;
 	}
 

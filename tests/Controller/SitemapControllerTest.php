@@ -19,11 +19,12 @@ declare(strict_types=1);
  *
  * @since   1.0.0
  */
+
 namespace Idm\Bundle\Seo\Tests\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use Override;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -33,7 +34,7 @@ final class SitemapControllerTest extends WebTestCase
 	 * @inheritDoc
 	 */
 	#[Override]
-	protected static function createKernel (array $options = []): KernelInterface
+	protected static function createKernel(array $options = []): KernelInterface
 	{
 		return parent::createKernel(array_merge($options, ['environment' => 'sitemap']));
 	}
@@ -41,20 +42,20 @@ final class SitemapControllerTest extends WebTestCase
 	/**
 	 * Prueba que la ruta del índice del sitemap funciona
 	 */
-	public function testSitemapIndex (): void
+	public function testSitemapIndex(): void
 	{
 		$client = static::createClient();
 		$client->request(Request::METHOD_GET, '/sitemap.xml');
 
 		$this->assertResponseStatusCodeSame(Response::HTTP_OK);
 		$this->assertResponseHeaderSame('Content-Type', 'text/xml; charset=UTF-8');
-		$this->assertStringContainsString('<sitemapindex', (string) $client->getResponse()->getContent());
+		$this->assertStringContainsString('<sitemapindex', (string)$client->getResponse()->getContent());
 	}
 
 	/**
 	 * Prueba que la ruta de un sitemap específico funciona
 	 */
-	public function testNotFoundSitemapFile (): void
+	public function testNotFoundSitemapFile(): void
 	{
 		$client = static::createClient();
 		$client->request(Request::METHOD_GET, '/sitemap/pages.xml');
@@ -68,7 +69,7 @@ final class SitemapControllerTest extends WebTestCase
 	/**
 	 * Prueba que la ruta de una página específica de un sitemap funciona
 	 */
-	public function testNotFoundSitemapFilePage (): void
+	public function testNotFoundSitemapFilePage(): void
 	{
 		$client = static::createClient();
 		$client->request(Request::METHOD_GET, '/sitemap/pages.1.xml');
@@ -82,7 +83,7 @@ final class SitemapControllerTest extends WebTestCase
 	/**
 	 * Prueba que se manejan correctamente los formatos incorrectos
 	 */
-	public function testInvalidFormat (): void
+	public function testInvalidFormat(): void
 	{
 		$client = static::createClient();
 		$client->request(Request::METHOD_GET, '/sitemap.html');
@@ -94,7 +95,7 @@ final class SitemapControllerTest extends WebTestCase
 	/**
 	 * Prueba que se manejan correctamente los nombres de sitemap inválidos
 	 */
-	public function testInvalidSitemapName (): void
+	public function testInvalidSitemapName(): void
 	{
 		$client = static::createClient();
 		$client->request(Request::METHOD_GET, '/sitemap/123.xml');

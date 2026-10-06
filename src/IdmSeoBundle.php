@@ -44,6 +44,10 @@ final class IdmSeoBundle extends AbstractBundle
 			->get('idm_seo.service.router_generator_seo_url')
 			->arg('$excludedRoutes', $config['sitemap']['excluded_routes'])
 		;
+
+		if ($builder->hasExtension('easyadmin')) {
+			$container->import(__DIR__.'/services/easyadmin.php');
+		}
 	}
 
 	public function prependExtension(ContainerConfigurator $container, ContainerBuilder $builder): void

@@ -101,6 +101,4 @@ return function (ContainerConfigurator $container) {
 			->tag('twig.runtime')
 	;
 	// @formatter::on
-
-	$container->import(__DIR__.'/services/easyadmin.php');
 };

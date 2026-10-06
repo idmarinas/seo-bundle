@@ -10,6 +10,9 @@
          cacheDirectory=".phpunit.cache"
 >
 	<php>
+		<env name="SYMFONY_DEPRECATIONS_HELPER"
+		     value='max[total]=9999999&amp;max[self]=999&amp;max[indirect]=999999&amp;verbose=1'
+		/>
 		<ini name="display_errors" value="1" />
 		<ini name="error_reporting" value="-1" />
 		<ini name="intl.default_locale" value="en" />
@@ -26,7 +29,7 @@
 
 	<coverage>
 		<report>
-			<clover outputFile="./build/reports/clover.xml" />
+			<clover outputFile="./build/reports/phpunit.coverage.xml" />
 			<!-- <cobertura outputFile="./build/reports/cobertura.xml" /> -->
 			<!-- <crap4j outputFile="./build/reports/crap4j.xml" threshold="50" /> -->
 			<!-- <html outputDirectory="./build/reports/html-coverage" lowUpperBound="50" highLowerBound="90" /> -->
@@ -35,6 +38,10 @@
 			<!-- <xml outputDirectory="./build/reports/xml-coverage" /> -->
 		</report>
 	</coverage>
+
+	<logging>
+		<junit outputFile="./build/reports/phpunit.xml" />
+	</logging>
 
 	<source ignoreSuppressionOfDeprecations="true"
 	        ignoreIndirectDeprecations="true"

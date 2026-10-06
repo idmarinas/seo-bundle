@@ -19,6 +19,7 @@ declare(strict_types=1);
  *
  * @since   1.0.0
  */
+
 namespace Idm\Bundle\Seo\Tests\Sitemap;
 
 use DateMalformedStringException;
@@ -33,11 +34,31 @@ use PHPUnit\Framework\TestCase;
 
 final class SitemapFileTest extends TestCase
 {
+	public static function initializationDataProvider(): iterable
+	{
+		yield 'test force index' => ['test', 'sitemapindex', true, true, true];
+		yield 'test index change to false' => ['test.index', 'urlset', false, true, true];
+		yield 'page number 0 force to index' => ['test.0', 'sitemapindex', true, true, true];
+		yield 'page number 23 force to index' => ['test.23', 'sitemapindex', true, true, true];
+		yield 'index sitemap change to false' => ['index', 'urlset', false, true, true];
+		yield 'page index sitemap change to false' => ['page.index', 'urlset', false, true, true];
+	}
+
+	public static function initializationAutodetectIndexDataProvider(): iterable
+	{
+		yield 'test page urlset' => ['test', 'urlset', false, true, true];
+		yield 'test index sitemap' => ['test.index', 'sitemapindex', true, true, true];
+		yield 'page number 0' => ['test.0', 'urlset', false, true, true];
+		yield 'page number 23' => ['test.23', 'urlset', false, true, true];
+		yield 'index sitemap' => ['index', 'sitemapindex', true, true, true];
+		yield 'page index sitemap' => ['page.index', 'sitemapindex', true, true, true];
+	}
+
 	/**
 	 * @throws DOMException
 	 */
 	#[DataProvider('initializationAutodetectIndexDataProvider')]
-	public function testSitemapAutodetectIndexInitialization (
+	public function testSitemapAutodetectIndexInitialization(
 		string $name,
 		string $node,
 		bool   $index,
@@ -62,21 +83,11 @@ final class SitemapFileTest extends TestCase
 		);
 	}
 
-	public function initializationAutodetectIndexDataProvider (): iterable
-	{
-		yield 'test page urlset' => ['test', 'urlset', false, true, true];
-		yield 'test index sitemap' => ['test.index', 'sitemapindex', true, true, true];
-		yield 'page number 0' => ['test.0', 'urlset', false, true, true];
-		yield 'page number 23' => ['test.23', 'urlset', false, true, true];
-		yield 'index sitemap' => ['index', 'sitemapindex', true, true, true];
-		yield 'page index sitemap' => ['page.index', 'sitemapindex', true, true, true];
-	}
-
 	/**
 	 * @throws DateMalformedStringException
 	 * @throws Exception
 	 */
-	public function testSitemapIndex (): void
+	public function testSitemapIndex(): void
 	{
 		$sitemap = new SitemapFile('index');
 
@@ -107,7 +118,7 @@ final class SitemapFileTest extends TestCase
 	 * @throws DateMalformedStringException
 	 * @throws Exception
 	 */
-	public function testSitemapFile (): void
+	public function testSitemapFile(): void
 	{
 		$sitemap = new SitemapFile('news');
 
@@ -138,7 +149,7 @@ final class SitemapFileTest extends TestCase
 	 * @throws DOMException
 	 */
 	#[DataProvider('initializationDataProvider')]
-	public function testSitemapInitialization (
+	public function testSitemapInitialization(
 		string $name,
 		string $node,
 		bool   $index,
@@ -161,15 +172,5 @@ final class SitemapFileTest extends TestCase
 			sprintf('<%s xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"/>', $node),
 			$xml
 		);
-	}
-
-	public function initializationDataProvider (): iterable
-	{
-		yield 'test force index' => ['test', 'sitemapindex', true, true, true];
-		yield 'test index change to false' => ['test.index', 'urlset', false, true, true];
-		yield 'page number 0 force to index' => ['test.0', 'sitemapindex', true, true, true];
-		yield 'page number 23 force to index' => ['test.23', 'sitemapindex', true, true, true];
-		yield 'index sitemap change to false' => ['index', 'urlset', false, true, true];
-		yield 'page index sitemap change to false' => ['page.index', 'urlset', false, true, true];
 	}
 }

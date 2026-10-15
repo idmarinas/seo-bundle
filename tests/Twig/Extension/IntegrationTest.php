@@ -19,15 +19,15 @@ declare(strict_types=1);
  *
  * @since   1.0.0
  */
+
 namespace Idm\Bundle\Seo\Tests\Twig\Extension;
 
 use App\Kernel;
 use Idm\Bundle\Seo\Service\SeoPage;
+use Idm\Bundle\Seo\Service\SeoPageInterface;
 use Idm\Bundle\Seo\Twig\Extension\SeoExtension;
 use Idm\Bundle\Seo\Twig\Runtime\SeoRuntime;
 use Override;
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\Group;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Twig\RuntimeLoader\FactoryRuntimeLoader;
 use Twig\Test\IntegrationTestCase;
@@ -37,13 +37,13 @@ use Twig\Test\IntegrationTestCase;
  */
 final class IntegrationTest extends IntegrationTestCase
 {
-	public static function getFixturesDirectory (): string
+	public static function getFixturesDirectory(): string
 	{
-		return __DIR__ . '/Fixtures/';
+		return __DIR__.'/Fixtures/';
 	}
 
 	#[Override]
-    public function getExtensions (): array
+	public function getExtensions(): array
 	{
 		return [
 			new SeoExtension(),
@@ -51,43 +51,19 @@ final class IntegrationTest extends IntegrationTestCase
 	}
 
 	#[Override]
-    protected function getRuntimeLoaders (): iterable
+	protected function getRuntimeLoaders(): iterable
 	{
-		$container = $this->getContainer();
+		$container = $this->getContainer()->get('test.service_container');
 		/** @var SeoPage $seoPage */
-		$seoPage = $container->get(SeoPage::class);
+		$seoPage = $container->get(SeoPageInterface::class);
+		$breadcrumb = $container->get('idm_seo.service.breadcrumb_builder');
 
 		yield new FactoryRuntimeLoader([
-			SeoRuntime::class => fn(): SeoRuntime => new SeoRuntime($seoPage),
+			SeoRuntime::class => fn(): SeoRuntime => new SeoRuntime($seoPage, $breadcrumb),
 		]);
 	}
 
-	#[DataProvider('getTests')]
-	#[Override]
-	public function testIntegration ($file, $message, $condition, $templates, $exception, $outputs, $deprecation = '')
-	{
-		parent::testIntegration($file, $message, $condition, $templates, $exception, $outputs, $deprecation);
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	#[Override]
-	#[DataProvider('getLegacyTests')]
-	#[Group('legacy')]
-	public function testLegacyIntegration (
-		$file,
-		$message,
-		$condition,
-		$templates,
-		$exception,
-		$outputs,
-		$deprecation = ''
-	) {
-		parent::testLegacyIntegration($file, $message, $condition, $templates, $exception, $outputs, $deprecation);
-	}
-
-	protected function getContainer (): ContainerInterface
+	protected function getContainer(): ContainerInterface
 	{
 		$kernel = new Kernel('test', true);
 //		$kernel->addExtraConfig(dirname(__DIR__, 2) . '/config/idm_advertising.php');

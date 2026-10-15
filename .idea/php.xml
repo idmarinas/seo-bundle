@@ -7,6 +7,11 @@
       </laravel_pint_by_interpreter>
     </laravel_pint_settings>
   </component>
+  <component name="MessDetector">
+    <phpmd_settings>
+      <phpmd_by_interpreter asDefaultInterpreter="true" interpreter_id="ad9dcb71-d154-4f50-a97a-ae4c0b99147b" timeout="30000" />
+    </phpmd_settings>
+  </component>
   <component name="MessDetectorOptionsConfiguration">
     <option name="transferred" value="true" />
   </component>
@@ -21,6 +26,11 @@
     <phpcsfixer_settings>
       <phpcs_fixer_by_interpreter asDefaultInterpreter="true" interpreter_id="6ee29e12-f5fd-4bff-bd0a-eba63ea7b33d" timeout="30000" />
     </phpcsfixer_settings>
+  </component>
+  <component name="PhpCodeSniffer">
+    <phpcs_settings>
+      <phpcs_by_interpreter asDefaultInterpreter="true" interpreter_id="ad9dcb71-d154-4f50-a97a-ae4c0b99147b" timeout="30000" />
+    </phpcs_settings>
   </component>
   <component name="PhpIncludePathManager">
     <exclude_path>
@@ -159,6 +169,8 @@
       <path value="$PROJECT_DIR$/vendor/twig/twig" />
       <path value="$PROJECT_DIR$/vendor/zenstruck/assert" />
       <path value="$PROJECT_DIR$/vendor/zenstruck/foundry" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-deepclone" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php86" />
     </include_path>
   </component>
   <component name="PhpInterpreters">
@@ -177,14 +189,14 @@
   <component name="PhpInterpretersPhpInfoCache">
     <phpInfoCache>
       <interpreter name="php">
-        <phpinfo binary_type="PHP" php_cli="/usr/local/bin/php" path_separator=":" version="8.3.30">
+        <phpinfo binary_type="PHP" php_cli="/usr/local/bin/php" path_separator=":" version="8.3.35">
           <additional_php_ini>/usr/local/etc/php/conf.d/00_disable_functions.ini, /usr/local/etc/php/conf.d/00_opcache.ini, /usr/local/etc/php/conf.d/01_opcache.ini, /usr/local/etc/php/conf.d/01_php.ini, /usr/local/etc/php/conf.d/docker-fpm.ini, /usr/local/etc/php/conf.d/docker-php-ext-bcmath.ini, /usr/local/etc/php/conf.d/docker-php-ext-exif.ini, /usr/local/etc/php/conf.d/docker-php-ext-gd.ini, /usr/local/etc/php/conf.d/docker-php-ext-intl.ini, /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini, /usr/local/etc/php/conf.d/docker-php-ext-pdo_mysql.ini, /usr/local/etc/php/conf.d/docker-php-ext-sodium.ini, /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini, /usr/local/etc/php/conf.d/docker-php-ext-xsl.ini, /usr/local/etc/php/conf.d/docker-php-ext-zip.ini</additional_php_ini>
           <configuration_file>/usr/local/etc/php/php.ini</configuration_file>
           <configuration_options>
             <configuration_option name="include_path" value=".:/usr/local/lib/php" />
           </configuration_options>
           <debuggers>
-            <debugger_info debugger="xdebug" debugger_version="3.5.0">
+            <debugger_info debugger="xdebug" debugger_version="3.5.3">
               <debug_extensions />
             </debugger_info>
           </debuggers>

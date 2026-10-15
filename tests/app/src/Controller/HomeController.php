@@ -22,6 +22,7 @@ namespace App\Controller;
 use App\Entity\Item;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Order;
+use Idm\Bundle\Seo\Attribute\Breadcrumb;
 use Idm\Bundle\Seo\Attribute\Seo;
 use Idm\Bundle\Seo\Attribute\Sitemap;
 use Idm\Bundle\Seo\Attribute\Sitemap\Prop;
@@ -33,6 +34,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class HomeController extends AbstractController
 {
 	#[Sitemap, Seo]
+	#[Breadcrumb(label: 'Home', icon: null)]
 	#[Route('/', name: 'app_home')]
 	public function home(): Response
 	{
@@ -72,6 +74,7 @@ final class HomeController extends AbstractController
 	}
 
 	#[Sitemap, Seo]
+	#[Breadcrumb(label: 'SEO', parent: 'app_home')]
 	#[Route('/seo', name: 'app_seo')]
 	public function seo(): Response
 	{

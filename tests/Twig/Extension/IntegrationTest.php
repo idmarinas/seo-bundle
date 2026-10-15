@@ -29,6 +29,7 @@ use Idm\Bundle\Seo\Twig\Extension\SeoExtension;
 use Idm\Bundle\Seo\Twig\Runtime\SeoRuntime;
 use Override;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Twig\RuntimeLoader\FactoryRuntimeLoader;
 use Twig\Test\IntegrationTestCase;
 
@@ -57,6 +58,11 @@ final class IntegrationTest extends IntegrationTestCase
 		/** @var SeoPage $seoPage */
 		$seoPage = $container->get(SeoPageInterface::class);
 		$breadcrumb = $container->get('idm_seo.service.breadcrumb_builder');
+
+		$request = Request::create('/seo');
+		$request->attributes->set('_route', 'app_seo');
+		$request->attributes->set('_route_params', []);
+		$container->get('request_stack')->push($request);
 
 		yield new FactoryRuntimeLoader([
 			SeoRuntime::class => fn(): SeoRuntime => new SeoRuntime($seoPage, $breadcrumb),

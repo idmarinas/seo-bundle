@@ -1,0 +1,24 @@
+--TEST--
+idm_seo_breadcrumb_items function
+
+--TEMPLATE--
+{%- set items = idm_seo_breadcrumb_items() -%}
+
+{%- if items is not empty -%}
+<nav aria-label="breadcrumb"><ol>
+{%- for item in items -%}
+<li{{ item.current ? ' aria-current="page"' : '' }}>
+{%- if item.icon is not empty -%}<i class="{{ item.icon }}" aria-hidden="true"></i>{%- endif -%}
+{%- if item.current -%}{{ item.label }}
+{%- elseif item.url -%}<a href="{{ item.url }}">{{ item.label }}</a>
+{%- else -%}<span>{{ item.label }}</span>
+{%- endif -%}
+</li>
+{%- endfor -%}
+</ol></nav>
+{%- endif -%}
+--DATA--
+return []
+
+--EXPECT--
+<nav aria-label="breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">SEO</li></ol></nav>
